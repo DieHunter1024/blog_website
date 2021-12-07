@@ -3,13 +3,13 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: DieHunter的博客
+title: Hexo
 subtitle: ''
-description: '那些怀着信心去追求卓越的人，灵魂将在奋进中获得洗涤'
-keywords: 'JavaScript'
-author: zby
-language: zh-CN
-timezone: 'Asia/Shanghai'
+description: ''
+keywords:
+author: John Doe
+language: en
+timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
@@ -97,7 +97,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: fluid  
+theme: landscape
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
