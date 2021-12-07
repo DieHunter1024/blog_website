@@ -1,15 +1,15 @@
 {
-  "name": "hexo-site",
+  "name": "blog-website",
   "version": "0.0.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
-    "server": "hexo server"
+    "start": "hexo server -p 10243 -l"
   },
   "hexo": {
-    "version": ""
+    "version": "5.4.0"
   },
   "dependencies": {
     "hexo": "^5.0.0",
