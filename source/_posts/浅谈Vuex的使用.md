@@ -1,6 +1,8 @@
 ---
 title:  浅谈Vuex的使用 
 date:  2021-03-25 10:21:48 
+tags:  [vue,javascript] 
+category:  [Vue] 
 ---
 **正如Redux一样，当你不知道是否需要[Vuex](https://vuex.vuejs.org/zh/guide/)那就是不需要。不要因为想用Vuex而使用它。  
 用过Vue的人都知道，Vuex是Vue的一个全局状态管理模块，它的作用是多个组件共享状态及数据，当某个组件将全局状态修改时，在绑定了该状态的另一个组件也将响应。实际上可以将Vue理解为一个function，在Vue的作用域中有一个数据代理，在每个Vue的实例中都能对其读和写**

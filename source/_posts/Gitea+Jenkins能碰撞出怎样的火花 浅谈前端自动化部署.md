@@ -1,6 +1,8 @@
 ---
 title:  Gitea+Jenkins能碰撞出怎样的火花？浅谈前端自动化部署 
 date:  2021-11-28 02:16:07 
+tags:  [jenkins,git,nginx,js] 
+category:  [自动化工具,操作方式,JavaScript] 
 ---
 **目录**
 

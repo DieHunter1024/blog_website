@@ -1,6 +1,8 @@
 ---
 title:  Node(十)之Mongoose配合Node路由实现邮箱注册登录（Post版） 
 date:  2018-12-02 15:36:22 
+tags:  [] 
+category:  [Node.js,MongoDB,JavaScript] 
 ---
 ## 首先新建一个HTML：（引入jq）
 

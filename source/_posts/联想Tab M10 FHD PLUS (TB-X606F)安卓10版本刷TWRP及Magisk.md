@@ -1,6 +1,8 @@
 ---
 title:  联想Tab M10 FHD PLUS (TB-X606F)安卓10版本刷TWRP及Magisk 
 date:  2021-11-04 16:53:34 
+tags:  [刷机,root,android] 
+category:  [操作方式] 
 ---
 **感谢博友提供的参考文章：[unofficial twrp 3.5.0 Root Lenovo TB-X606F X606FA - twrp unofficial](https://unofficialtwrp.com/twrp-3-5-0-root-lenovo-tb-x606f-x606fa/)  
 接上篇文章：[联想Tab M10 FHD PLUS (TB-X606F)解锁BL，获取root权限（无需第三方recovery），刷xp框架（太极-阳）适用大部分联发科CPU（国际版rom底包）\_DieHunter1024的博客-CSDN博客](https://blog.csdn.net/time_____/article/details/109294693)**

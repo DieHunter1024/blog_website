@@ -1,6 +1,8 @@
 ---
 title:  Echarts案例：使用象形柱状图（PictorialBar）实现电池效果柱状图 
 date:  2020-03-21 18:49:25 
+tags:  [javascript] 
+category:  [Echarts,JavaScript] 
 ---
 分享一个公司项目案例
 

@@ -1,6 +1,8 @@
 ---
 title:  JS案例：继承和深复制 
 date:  2018-12-30 16:54:26 
+tags:  [] 
+category:  [JavaScript] 
 ---
 ## 继承：
 

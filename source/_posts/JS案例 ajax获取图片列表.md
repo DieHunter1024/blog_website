@@ -1,6 +1,8 @@
 ---
 title:  JS案例：ajax获取图片列表 
 date:  2021-03-04 15:55:17 
+tags:  [javascript,ajax,node.js] 
+category:  [JavaScript,Node.js] 
 ---
 **AJAX是个啥？有什么作用？如何实现AJAX？如何使用AJAX？这几个问题我在前端JS的面试题中，遇见了不少，对于前后端分离，单页面渲染流行的今日，ajax似乎变得很重要。**
 

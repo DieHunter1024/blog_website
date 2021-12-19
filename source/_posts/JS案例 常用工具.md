@@ -1,6 +1,8 @@
 ---
 title:  JS案例：常用工具 
 date:  2019-03-30 09:23:57 
+tags:  [] 
+category:  [JavaScript] 
 ---
 ### 对以前用过的方法做个整合
 

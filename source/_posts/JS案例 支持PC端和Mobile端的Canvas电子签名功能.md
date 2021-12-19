@@ -1,6 +1,8 @@
 ---
 title:  JS案例：支持PC端和Mobile端的Canvas电子签名功能 
 date:  2021-05-13 18:33:03 
+tags:  [javascript] 
+category:  [JavaScript] 
 ---
 **前言：  
 这段时间项目迭代时遇到了一个新需求，基于react实现一个Pc版电子签名功能，并生成图片上传。于是我想到了[signature\_pad](https://github.com/szimek/signature_pad/)，并且在项目使用了这个插件  

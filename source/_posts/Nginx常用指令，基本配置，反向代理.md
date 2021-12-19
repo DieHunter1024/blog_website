@@ -1,6 +1,8 @@
 ---
 title:  Nginx常用指令，基本配置，反向代理 
 date:  2021-03-16 12:19:09 
+tags:  [nginx] 
+category:  [操作方式] 
 ---
 **前言：近期公司整改项目，前端的项目和接口全部采用Nginx重新部署，这里就最近用到的Nginx服务器做一个知识点整理，推荐一个[Nginx中文文档](https://www.nginx.cn/doc/)网站**
 

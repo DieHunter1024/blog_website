@@ -1,6 +1,8 @@
 ---
 title:  JS基础篇（前端面试题整合）（一） 
 date:  2020-11-03 16:02:27 
+tags:  [javascript] 
+category:  [面试文档,JavaScript] 
 ---
 **typeof返回的数据类型**
 

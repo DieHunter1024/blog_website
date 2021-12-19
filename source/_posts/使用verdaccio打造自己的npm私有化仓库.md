@@ -1,6 +1,8 @@
 ---
 title:  使用verdaccio打造自己的npm私有化仓库 
 date:  2021-12-16 19:39:14 
+tags:  [npm,前端,node.js] 
+category:  [操作方式,Node.js,JavaScript] 
 ---
 ### 前言
 

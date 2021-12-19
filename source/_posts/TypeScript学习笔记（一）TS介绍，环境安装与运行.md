@@ -1,6 +1,8 @@
 ---
 title:  TypeScript学习笔记（一）TS介绍，环境安装与运行 
 date:  2021-02-25 15:33:51 
+tags:  [typescript,javascript] 
+category:  [TypeScript,操作方式] 
 ---
 ### **介绍：**
 

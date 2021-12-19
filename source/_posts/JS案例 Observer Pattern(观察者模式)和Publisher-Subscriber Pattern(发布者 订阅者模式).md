@@ -1,6 +1,8 @@
 ---
 title:  JS案例：Observer Pattern(观察者模式)和Publisher-Subscriber Pattern(发布者/订阅者模式) 
 date:  2021-02-11 15:02:15 
+tags:  [js,设计模式] 
+category:  [JavaScript,面试文档] 
 ---
 ### **发布/订阅模式和观察者模式一样吗？**
 

@@ -1,6 +1,8 @@
 ---
 title:  JS案例：小球拖动，记录轨迹，并原路返回 
 date:  2018-12-02 16:56:44 
+tags:  [] 
+category:  [JavaScript] 
 ---
 ## 附上代码：
 

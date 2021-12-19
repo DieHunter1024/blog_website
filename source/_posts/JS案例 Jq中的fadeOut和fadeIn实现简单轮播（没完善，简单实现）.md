@@ -1,6 +1,8 @@
 ---
 title:  JS案例：Jq中的fadeOut和fadeIn实现简单轮播（没完善，简单实现） 
 date:  2018-12-02 19:32:35 
+tags:  [] 
+category:  [JavaScript] 
 ---
 代码：
 

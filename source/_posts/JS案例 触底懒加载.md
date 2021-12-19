@@ -1,6 +1,8 @@
 ---
 title:  JS案例：触底懒加载 
 date:  2021-03-09 19:13:10 
+tags:  [javascript,node.js] 
+category:  [JavaScript,Node.js] 
 ---
 **接着上篇文章：[ajax获取图片列表](https://blog.csdn.net/time_____/article/details/114311580)，我们来实现一下JS的经典案例，懒加载**
 

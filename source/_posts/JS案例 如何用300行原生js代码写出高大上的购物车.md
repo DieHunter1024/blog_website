@@ -1,6 +1,8 @@
 ---
 title:  JS案例：如何用300行原生js代码写出高大上的购物车 
 date:  2020-02-24 09:08:19 
+tags:  [javascript,前端] 
+category:  [JavaScript] 
 ---
 **目录**
 

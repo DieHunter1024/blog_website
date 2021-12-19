@@ -1,6 +1,8 @@
 ---
 title:  原生Node实现静态目录 
 date:  2021-03-02 14:19:44 
+tags:  [node.js] 
+category:  [Node.js] 
 ---
 **一个朋友让我实现静态资源托管，之前写的都是直接通过Express或Koa框架实现的，一行代码就可以解决**
 

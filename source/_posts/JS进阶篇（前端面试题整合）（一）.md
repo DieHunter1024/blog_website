@@ -1,6 +1,8 @@
 ---
 title:  JS进阶篇（前端面试题整合）（一） 
 date:  2020-11-06 09:21:24 
+tags:  [javascript] 
+category:  [JavaScript,面试文档] 
 ---
 **js的垃圾回收机制是什么原理**
 

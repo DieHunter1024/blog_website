@@ -1,6 +1,8 @@
 ---
 title:  JS案例：Socket聊天室（两种方式） 
 date:  2019-02-02 14:56:11 
+tags:  [] 
+category:  [JavaScript,Node.js] 
 ---
 ## 一.socket轮询（每隔一段时间向后端请求一次，增加服务器压力）:
 

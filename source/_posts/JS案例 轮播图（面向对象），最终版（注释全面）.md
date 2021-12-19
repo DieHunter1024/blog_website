@@ -1,6 +1,8 @@
 ---
 title:  JS案例：轮播图（面向对象），最终版（注释全面） 
 date:  2018-12-08 21:45:50 
+tags:  [] 
+category:  [JavaScript] 
 ---
 ## Html：
 

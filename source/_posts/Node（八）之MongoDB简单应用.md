@@ -1,6 +1,8 @@
 ---
 title:  Node（八）之MongoDB简单应用 
 date:  2018-11-30 20:38:02 
+tags:  [] 
+category:  [Node.js,MongoDB] 
 ---
 ## 初始：
 

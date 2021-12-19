@@ -1,6 +1,8 @@
 ---
 title:  Node（七）之express框架，简单的邮箱注册小案例（Get方式） 
 date:  2018-11-29 17:12:54 
+tags:  [Node] 
+category:  [Node.js] 
 ---
 附上代码：
 

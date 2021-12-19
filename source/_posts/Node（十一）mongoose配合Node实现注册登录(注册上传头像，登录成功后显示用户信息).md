@@ -1,6 +1,8 @@
 ---
 title:  Node（十一）mongoose配合Node实现注册登录(注册上传头像，登录成功后显示用户信息) 
 date:  2018-12-03 17:34:53 
+tags:  [] 
+category:  [Node.js,MongoDB] 
 ---
 ### 需要引入的模块和框架：JQ，monogoDB，mongoose模块，express模块，nodemailer模块，cors模块，multer模块，body-parser模块。
 

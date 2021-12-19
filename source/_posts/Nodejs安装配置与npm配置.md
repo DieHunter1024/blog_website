@@ -1,6 +1,8 @@
 ---
 title:  Nodejs安装配置与npm配置 
 date:  2021-02-24 20:38:26 
+tags:  [nodejs,npm] 
+category:  [Node.js,操作方式] 
 ---
 ### 前言：
 

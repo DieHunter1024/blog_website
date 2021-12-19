@@ -1,6 +1,8 @@
 ---
 title:  JS案例：拖拽音量调节效果 
 date:  2020-02-22 16:05:49 
+tags:  [javascript] 
+category:  [JavaScript] 
 ---
 用原生js做了一个拖拽调节音量
 

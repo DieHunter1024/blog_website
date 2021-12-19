@@ -1,6 +1,8 @@
 ---
 title:  VueJs（前端面试题整合） 
 date:  2020-12-10 09:24:24 
+tags:  [vue.js,javascript] 
+category:  [面试文档,Vue] 
 ---
 **vue和react的区别**
 

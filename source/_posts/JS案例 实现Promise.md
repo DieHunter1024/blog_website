@@ -1,6 +1,8 @@
 ---
 title:  JS案例：实现Promise 
 date:  2020-11-17 17:02:05 
+tags:  [javascript] 
+category:  [JavaScript] 
 ---
 **说到ES6的Promise，大家并不陌生，它是JS中解决异步的方法之一  
 其优点：避免回调地狱，链式调用，函数思路清晰，逻辑相对回调函数和事件发布/订阅更强  

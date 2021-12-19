@@ -1,6 +1,8 @@
 ---
 title:  React（前端面试题整合） 
 date:  2020-12-16 09:03:26 
+tags:  [react,javascript] 
+category:  [面试文档,React] 
 ---
 **谈谈对react的理解**
 

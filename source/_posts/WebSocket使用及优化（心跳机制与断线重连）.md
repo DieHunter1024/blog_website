@@ -1,6 +1,8 @@
 ---
 title:  WebSocket使用及优化（心跳机制与断线重连） 
 date:  2021-03-13 20:40:15 
+tags:  [node.js,javascript,websocket] 
+category:  [Node.js,JavaScript] 
 ---
 **WebSocket在2008年被提出，其通信协议于2011被制定为标准  
 与http不同，websocket支持全双工通信（即：在客户端和服务之间双向通信）在websocket问世之前，客户端与服务器通常采用http轮询和Comet等方式保持长链接  

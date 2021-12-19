@@ -1,6 +1,8 @@
 ---
 title:  Echarts案例：使用极坐标加柱状图实现类似Apple Watch上的运动环形效果 
 date:  2020-03-21 10:10:20 
+tags:  [javascript] 
+category:  [Echarts,JavaScript] 
 ---
 分享自己公司项目类似的一个案例，用Echarts中的Polar（极坐标或称为平面直角坐标系）和Bar（柱状图）实现的
 

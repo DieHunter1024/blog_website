@@ -1,6 +1,8 @@
 ---
 title:  Node(九)之Node配合MongoDB实现简单的注册登录 
 date:  2018-12-01 16:47:12 
+tags:  [] 
+category:  [Node.js,MongoDB] 
 ---
 附上代码：（较之前的用txt实现的没有什么区别，只是后端用数据库实现了接口功能）
 

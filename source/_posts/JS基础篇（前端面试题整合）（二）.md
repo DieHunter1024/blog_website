@@ -1,6 +1,8 @@
 ---
 title:  JS基础篇（前端面试题整合）（二） 
 date:  2020-11-04 16:01:05 
+tags:  [javascript] 
+category:  [面试文档,JavaScript] 
 ---
 **如何创建函数**
 

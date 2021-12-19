@@ -1,6 +1,8 @@
 ---
 title:  JS案例：将前端页面导出为PDF 
 date:  2021-04-28 11:16:15 
+tags:  [canvas,javascript] 
+category:  [JavaScript] 
 ---
 **前言：  
 记录一下最近的一个需求，产品需要打印表单凭证，需要实现将选中页面的元素或者是组件导出为PDF，方便打印  

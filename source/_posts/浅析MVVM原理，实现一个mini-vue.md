@@ -1,6 +1,8 @@
 ---
 title:  浅析MVVM原理，实现一个mini-vue 
 date:  2021-08-08 23:07:42 
+tags:  [javascript,vue] 
+category:  [Vue,JavaScript] 
 ---
 **目录**
 

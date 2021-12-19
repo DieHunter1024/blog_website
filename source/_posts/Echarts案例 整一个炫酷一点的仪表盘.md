@@ -1,6 +1,8 @@
 ---
 title:  Echarts案例：整一个炫酷一点的仪表盘 
 date:  2020-03-23 14:08:26 
+tags:  [javascript] 
+category:  [Echarts,JavaScript] 
 ---
 **故事发生在几天前**
 

@@ -1,6 +1,8 @@
 ---
 title:  JS案例：Ajax实现简单局域网聊天室 
 date:  2018-11-30 10:58:34 
+tags:  [] 
+category:  [Node.js,JavaScript] 
 ---
 利用Ajax将数据提交到后台，再由后台发送到前端，渲染内容
 

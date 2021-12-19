@@ -1,6 +1,8 @@
 ---
 title:  Node（四）内置模块之File System 
 date:  2018-11-28 09:06:00 
+tags:  [] 
+category:  [Node.js] 
 ---
 # **文件和文件夹的操作（fs模块）**
 

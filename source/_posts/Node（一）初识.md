@@ -1,6 +1,8 @@
 ---
 title:  Node（一）初识 
 date:  2018-11-27 14:44:48 
+tags:  [Node.js] 
+category:  [Node.js] 
 ---
 Node是一个JavaScript的运行环境（平台）；不是一个框架或语言。  
 配置环境：可以先下载一个NVM（Node版本管理工具），GitHub上有下，附上地址（[https://github.com/coreybutler/nvm-windows/releases](https://github.com/coreybutler/nvm-windows/releases)）。  

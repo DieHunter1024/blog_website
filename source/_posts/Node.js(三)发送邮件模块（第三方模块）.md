@@ -1,6 +1,8 @@
 ---
 title:  Node.js(三)发送邮件模块（第三方模块） 
 date:  2018-11-27 16:14:57 
+tags:  [Node.js] 
+category:  [Node.js] 
 ---
 模块文件：首先用Npm下载一个由Andris Reinman大佬的第三方模块nodemailer
 

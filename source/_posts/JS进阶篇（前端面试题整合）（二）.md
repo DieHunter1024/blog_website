@@ -1,6 +1,8 @@
 ---
 title:  JS进阶篇（前端面试题整合）（二） 
 date:  2020-11-07 18:41:11 
+tags:  [javascript] 
+category:  [面试文档,JavaScript] 
 ---
 **Ajax 是什么? 如何创建一个Ajax？**
 
