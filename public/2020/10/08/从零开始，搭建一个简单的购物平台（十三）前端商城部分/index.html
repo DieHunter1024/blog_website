@@ -1,0 +1,501 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/null">
+  <link rel="icon" href="/null">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="本人擅长Ai、Fw、Fl、Br、Ae、Pr、Id、Ps等软件的安装与卸载，精通CSS、JavaScript、PHP、ASP、C、C＋＋、C#、Java、Ruby、Perl、Lisp、python、Objective-C、ActionScript、Pascal、spss、sas等单词的拼写，熟悉Windows、Linux、Mac、Android、IOS、WP等系统的开关机">
+  <meta name="author" content="Hunter">
+  <meta name="keywords" content="">
+  <meta name="description" content="从零开始，搭建一个简单的购物平台（十二）前端商城部分****：https:&#x2F;&#x2F;blog.csdn.net&#x2F;time_____&#x2F;article&#x2F;details&#x2F;108471436项目源码（持续更新）：https:&#x2F;&#x2F;gitee.com&#x2F;DieHunter&#x2F;myCode&#x2F;tree&#x2F;master&#x2F;shopping 这篇文章我们来实现一下前端商城的工具类，其他配置和全局状态 工具类： 工具类我们统一放在u">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零开始，搭建一个简单的购物平台（十三）前端商城部分">
+<meta property="og:url" content="http://example.com/2020/10/08/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%EF%BC%8C%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%B4%AD%E7%89%A9%E5%B9%B3%E5%8F%B0%EF%BC%88%E5%8D%81%E4%B8%89%EF%BC%89%E5%89%8D%E7%AB%AF%E5%95%86%E5%9F%8E%E9%83%A8%E5%88%86/index.html">
+<meta property="og:site_name" content="DieHunter">
+<meta property="og:description" content="从零开始，搭建一个简单的购物平台（十二）前端商城部分****：https:&#x2F;&#x2F;blog.csdn.net&#x2F;time_____&#x2F;article&#x2F;details&#x2F;108471436项目源码（持续更新）：https:&#x2F;&#x2F;gitee.com&#x2F;DieHunter&#x2F;myCode&#x2F;tree&#x2F;master&#x2F;shopping 这篇文章我们来实现一下前端商城的工具类，其他配置和全局状态 工具类： 工具类我们统一放在u">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200911114237326.png">
+<meta property="article:published_time" content="2020-10-08T03:37:14.000Z">
+<meta property="article:modified_time" content="2021-12-19T03:52:16.119Z">
+<meta property="article:author" content="Hunter">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200911114237326.png">
+  
+  <title>从零开始，搭建一个简单的购物平台（十三）前端商城部分 - DieHunter</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>DieHunter</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="从零开始，搭建一个简单的购物平台（十三）前端商城部分">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-10-08 11:37" pubdate>
+        2020年10月8日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7.8k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      24 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">从零开始，搭建一个简单的购物平台（十三）前端商城部分</h1>
+            
+            <div class="markdown-body">
+              <p><strong>从零开始，搭建一个简单的购物平台（十二）前端商城部分****：</strong><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/time_____/article/details/108471436">https://blog.csdn.net/time_____/article/details/108471436</a><br><strong>项目源码（持续更新）：<a target="_blank" rel="noopener" href="https://gitee.com/DieHunter/myCode/tree/master/shopping">https://gitee.com/DieHunter/myCode/tree/master/shopping</a></strong></p>
+<p><strong>这篇文章我们来实现一下前端商城的工具类，其他配置和全局状态</strong></p>
+<h3 id="工具类："><a href="#工具类：" class="headerlink" title="工具类："></a><strong>工具类：</strong></h3><ul>
+<li><p><strong>工具类我们统一放在utils文件夹下，并部署在Vue原型上（与Axios的一样）</strong></p>
+</li>
+<li><p><strong>首先我们要实现两个对象深复制的方法，<a target="_blank" rel="noopener" href="https://blog.csdn.net/time_____/article/details/85392699">之前博客</a>也有介绍到，后续对全局静态变量做操作时，只能将其定义为只读，也就是不能改变他的值，所以深复制是很有必要的，对于简单的数据用json方式即可，遇上含有function，set，get等属性时需要用到递归版。</strong>  </p>
+</li>
+<li><p><em>JSON：</em>*</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Clone</span> </span>&#123;<br>  <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">shallowClone</span>(<span class="hljs-params">org</span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-built_in">JSON</span>.stringify(org));<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p> <strong>递归：</strong></p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Clone</span> </span>&#123;<br>  <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">deepClone</span>(<span class="hljs-params">org, tag</span>)</span> &#123;<br>    <span class="hljs-keyword">var</span> tag = tag || &#123;&#125;;<br>    <span class="hljs-keyword">var</span> name = <span class="hljs-built_in">Object</span>.getOwnPropertyNames(org);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; name.length; i++) &#123;<br>      <span class="hljs-keyword">var</span> desc = <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(org, name[i]);<br>      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> desc.value === <span class="hljs-string">&quot;object&quot;</span> &amp;&amp; desc.value !== <span class="hljs-literal">null</span>) &#123;<br>        <span class="hljs-keyword">var</span> obj = desc.value.toString() === <span class="hljs-string">&quot;[object Object]&quot;</span> ? &#123;&#125; : [];<br>        <span class="hljs-built_in">Object</span>.defineProperty(tag, name[i], &#123;<br>          <span class="hljs-attr">configurable</span>: desc.configurable,<br>          <span class="hljs-attr">enumerable</span>: desc.enumerable,<br>          <span class="hljs-attr">writable</span>: desc.writable,<br>          <span class="hljs-attr">value</span>: obj<br>        &#125;);<br>        Clone.deepClone(desc.value, obj);<br>      &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-built_in">Object</span>.defineProperty(tag, name[i], desc);<br>      &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> tag;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>  <strong>本地缓存的封装</strong></p>
+</li>
+</ul>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;vue&quot;</span>;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Storage</span> </span>&#123;<br>  <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">saveStorage</span>(<span class="hljs-params">key, val</span>)</span> &#123;<br>    <span class="hljs-built_in">localStorage</span>.setItem(key, <span class="hljs-built_in">JSON</span>.stringify(val));<br>  &#125;<br>  <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">getStorage</span>(<span class="hljs-params">key</span>)</span> &#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-built_in">localStorage</span>.getItem(key)) || [];<br>    &#125; <span class="hljs-keyword">catch</span> (error) &#123;&#125;<br>  &#125;<br>  <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">clearStorage</span>(<span class="hljs-params">key</span>)</span> &#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>      <span class="hljs-built_in">localStorage</span>.removeItem(key);<br>    &#125; <span class="hljs-keyword">catch</span> (error) &#123;&#125;<br>  &#125;<br>&#125;<br>Vue.prototype.$storage = Storage;<br></code></pre></td></tr></table></figure>
+
+<h3 id="其他配置："><a href="#其他配置：" class="headerlink" title="其他配置："></a>其他配置：</h3><ul>
+<li><p><strong>Events：对全局事件做一个封装，这里针对每一个组件和每一个自定义事件用了一个简单的工厂模式，****降低代码的耦合性，解决事件封闭，但是缺点是在每一个组件销毁时需要作事件取消监听（销毁），否则会导致之前的监听事件执行两次，虽然每个子工厂生产出来的都是独特的产品，但是会导致性能降低，所以要做事件销毁处理</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;vue&quot;</span>;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Events</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Vue</span> </span>&#123;<span class="hljs-comment">//继承Vue的自定义事件，使其直接调用</span><br>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-built_in">super</span>();<br>  &#125;<br>  <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">getInstance</span>(<span class="hljs-params"></span>)</span> &#123;<span class="hljs-comment">//返回当前实例的单例</span><br>    <span class="hljs-keyword">if</span> (!Events._instance) &#123;<br>      <span class="hljs-built_in">Object</span>.defineProperty(Events, <span class="hljs-string">&quot;_instance&quot;</span>, &#123;<br>        <span class="hljs-attr">value</span>: <span class="hljs-keyword">new</span> Events()<br>      &#125;);<br>    &#125;<br>    <span class="hljs-keyword">return</span> Events._instance;<br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">onEvent</span>(<span class="hljs-params">_event, _fn</span>)</span> &#123;<br>    <span class="hljs-built_in">this</span>.$on(_event, _fn);<br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">onceEvent</span>(<span class="hljs-params">_event, _fn</span>)</span> &#123;<br>    <span class="hljs-built_in">this</span>.$once(_event, _fn);<br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">emitEvent</span>(<span class="hljs-params">_event, _data</span>)</span> &#123;<br>    <span class="hljs-built_in">this</span>.$emit(_event, _data);<br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">offEvent</span>(<span class="hljs-params">_event, _fn</span>)</span> &#123;<br>    <span class="hljs-built_in">this</span>.$off(_event, _fn)<br>  &#125;<br>&#125;<br>Vue.prototype.$events = Events.getInstance()<br></code></pre></td></tr></table></figure></li>
+<li><p><strong>全国省市县的JSON文件</strong><br><a target="_blank" rel="noopener" href="https://gitee.com/DieHunter/myCode/blob/master/shopping/client/shopclient/src/config/city.js">https://gitee.com/DieHunter/myCode/blob/master/shopping/client/shopclient/src/config/city.js</a></p>
+</li>
+<li><p><strong>静态Config文件</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Config</span> </span>&#123;<br>  <span class="hljs-keyword">static</span> Agreement = <span class="hljs-string">&quot;http://&quot;</span>; <span class="hljs-comment">//协议</span><br>  <span class="hljs-keyword">static</span> BaseUrl = <span class="hljs-string">&quot;127.0.0.1&quot;</span>; <span class="hljs-comment">//请求ip或域名</span><br>  <span class="hljs-keyword">static</span> ServerUrl = <span class="hljs-string">&quot;&quot;</span>; <span class="hljs-comment">//多级路径名</span><br>  <span class="hljs-keyword">static</span> ServerPort = <span class="hljs-string">&quot;:1024&quot;</span>; <span class="hljs-comment">//端口</span><br>  <span class="hljs-keyword">static</span> Path = <span class="hljs-string">&quot;/&quot;</span>; <span class="hljs-comment">//静态文件目录</span><br>  <span class="hljs-keyword">static</span> CryptoKey = <span class="hljs-string">&quot;tokenkey&quot;</span>; <span class="hljs-comment">//加密信息关键字</span><br>  <span class="hljs-keyword">static</span> RequestPath =<br>    Config.Agreement + Config.BaseUrl + Config.ServerPort + Config.Path; <span class="hljs-comment">//服务端静态目录</span><br>  <span class="hljs-keyword">static</span> RequestTimeOut = <span class="hljs-number">10</span> * <span class="hljs-number">1000</span>; <span class="hljs-comment">//请求超时时间</span><br>  <span class="hljs-keyword">static</span> GetCodeTime = <span class="hljs-number">60</span> * <span class="hljs-number">1000</span>; <span class="hljs-comment">//邮箱验证码重发时间</span><br>  <span class="hljs-keyword">static</span> ShopMaxCount = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]; <span class="hljs-comment">//每件商品可购买数量（选择器配置）</span><br>  <span class="hljs-keyword">static</span> ServerApi = &#123;<br>    <span class="hljs-comment">//接口名</span><br>    <span class="hljs-attr">token</span>: <span class="hljs-string">&quot;user/checkToken&quot;</span>, <span class="hljs-comment">//验证token</span><br>    <span class="hljs-attr">user</span>: &#123;<br>      <span class="hljs-attr">userLogin</span>: <span class="hljs-string">&quot;user/userLogin&quot;</span>, <span class="hljs-comment">//用户登录</span><br>      <span class="hljs-attr">getMailCode</span>: <span class="hljs-string">&quot;user/getMailCode&quot;</span>, <span class="hljs-comment">//获取验证码</span><br>      <span class="hljs-attr">updateUser</span>: <span class="hljs-string">&quot;user/updateUser&quot;</span>, <span class="hljs-comment">//更新用户</span><br>      <span class="hljs-attr">userReg</span>: <span class="hljs-string">&quot;user/userReg&quot;</span> <span class="hljs-comment">//注册（移动端）</span><br>    &#125;,<br>    <span class="hljs-attr">shop</span>: &#123;<br>      <span class="hljs-attr">shopList</span>: <span class="hljs-string">&quot;shop/shopList&quot;</span> <span class="hljs-comment">//获取商品列表</span><br>    &#125;,<br>    <span class="hljs-attr">order</span>: &#123;<br>      <span class="hljs-attr">orderList</span>: <span class="hljs-string">&quot;order/orderList&quot;</span>, <span class="hljs-comment">//获取订单列表</span><br>      <span class="hljs-attr">addOrder</span>: <span class="hljs-string">&quot;order/addOrder&quot;</span>, <span class="hljs-comment">//新增订单</span><br>      <span class="hljs-attr">delOrder</span>: <span class="hljs-string">&quot;order/delOrder&quot;</span>, <span class="hljs-comment">//删除订单</span><br>      <span class="hljs-attr">updateOrder</span>: <span class="hljs-string">&quot;order/updateOrder&quot;</span> <span class="hljs-comment">//更新订单状态</span><br>    &#125;<br>  &#125;;<br>  <span class="hljs-keyword">static</span> UploadName = &#123;<br>    <span class="hljs-attr">headPic</span>: <span class="hljs-string">&quot;upload/headPic&quot;</span> <span class="hljs-comment">//图片路径</span><br>  &#125;;<br>  <span class="hljs-keyword">static</span> UploadKey = &#123;<br>    <span class="hljs-attr">headKey</span>: <span class="hljs-string">&quot;headPic&quot;</span> <span class="hljs-comment">//头像上传关键字</span><br>  &#125;;<br>  <span class="hljs-keyword">static</span> StorageName = &#123;<br>    <span class="hljs-comment">//本地缓存</span><br>    <span class="hljs-attr">Token</span>: <span class="hljs-string">&quot;token&quot;</span>,<br>    <span class="hljs-attr">ShopCar</span>: <span class="hljs-string">&quot;shopCar&quot;</span>, <span class="hljs-comment">//购物车列表</span><br>    <span class="hljs-attr">UserInfo</span>: <span class="hljs-string">&quot;userInfo&quot;</span> <span class="hljs-comment">//用户信息</span><br>  &#125;;<br>  <span class="hljs-keyword">static</span> EventName = &#123;<br>    <span class="hljs-comment">//自定义事件</span><br>    <span class="hljs-attr">SelectKind</span>: <span class="hljs-string">&quot;selectKind&quot;</span>, <span class="hljs-comment">//分类选择</span><br>    <span class="hljs-attr">ChangeCount</span>: <span class="hljs-string">&quot;changeCount&quot;</span>, <span class="hljs-comment">//修改商品数量</span><br>    <span class="hljs-attr">ShowPicker</span>: <span class="hljs-string">&quot;showPicker&quot;</span>, <span class="hljs-comment">//显示，隐藏Picker</span><br>    <span class="hljs-attr">CountShop</span>: <span class="hljs-string">&quot;countShop&quot;</span>, <span class="hljs-comment">//购物车商品总价</span><br>    <span class="hljs-attr">SelectAllChild</span>: <span class="hljs-string">&quot;selectAllChild&quot;</span>, <span class="hljs-comment">//全选子选项</span><br>    <span class="hljs-attr">SelectParent</span>: <span class="hljs-string">&quot;selectParent&quot;</span>, <span class="hljs-comment">//全选父选项</span><br>    <span class="hljs-attr">IsLogin</span>: <span class="hljs-string">&quot;isLogin&quot;</span>, <span class="hljs-comment">//登录成功</span><br>    <span class="hljs-attr">UploadPic</span>: <span class="hljs-string">&quot;uploadPic&quot;</span> <span class="hljs-comment">//上传图片</span><br>  &#125;;<br>  <span class="hljs-keyword">static</span> DefaultPageConfig = &#123;<br>    <span class="hljs-comment">//默认分页配置</span><br>    <span class="hljs-attr">shopType</span>: <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-attr">picType</span>: <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-attr">keyWord</span>: <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-attr">page</span>: <span class="hljs-number">1</span>,<br>    <span class="hljs-attr">isactive</span>: <span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">pageSize</span>: <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-attr">totalPage</span>: <span class="hljs-number">1</span>,<br>    <span class="hljs-attr">orderId</span>: <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-attr">sort</span>: <span class="hljs-string">&quot;1&quot;</span>,<br>    <span class="hljs-attr">orderState</span>: <span class="hljs-string">&quot;&quot;</span><br>  &#125;;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p><strong>邮箱类型选择配置</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Mail</span> </span>&#123;<br>  <span class="hljs-keyword">static</span> address = [<br>    <span class="hljs-string">&quot;@qq.com&quot;</span>,<br>    <span class="hljs-string">&quot;@gmail.com&quot;</span>,<br>    <span class="hljs-string">&quot;@yahoo.com&quot;</span>,<br>    <span class="hljs-string">&quot;@msn.com&quot;</span>,<br>    <span class="hljs-string">&quot;@hotmail.com&quot;</span>,<br>    <span class="hljs-string">&quot;@aol.com&quot;</span>,<br>    <span class="hljs-string">&quot;@ask.com&quot;</span>,<br>    <span class="hljs-string">&quot;@live.com&quot;</span>,<br>    <span class="hljs-string">&quot;@0355.net&quot;</span>,<br>    <span class="hljs-string">&quot;@163.com&quot;</span>,<br>    <span class="hljs-string">&quot;@163.net&quot;</span>,<br>    <span class="hljs-string">&quot;@263.net&quot;</span>,<br>    <span class="hljs-string">&quot;@3721.net&quot;</span>,<br>    <span class="hljs-string">&quot;@yeah.net&quot;</span>,<br>    <span class="hljs-string">&quot;@googlemail.com&quot;</span>,<br>    <span class="hljs-string">&quot;@mail.com&quot;</span><br>  ];<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p><strong>商品类型</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShopType</span> </span>&#123;<br>  <span class="hljs-comment">//商品类型，图片类型，订单状态</span><br>  <span class="hljs-keyword">static</span> shopType = [<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;炒货&quot;</span>, <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;0&quot;</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;果味&quot;</span>, <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;1&quot;</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;蔬菜&quot;</span>, <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;2&quot;</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;点心&quot;</span>, <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;3&quot;</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;粗茶&quot;</span>, <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;4&quot;</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;淡饭&quot;</span>, <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;5&quot;</span> &#125;<br>    <span class="hljs-comment">// &#123; name: &quot;其他&quot;, val: &quot;6&quot; &#125;,</span><br>  ];<br>  <span class="hljs-keyword">static</span> picType = [<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;单个商品&quot;</span>, <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;0&quot;</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;轮播图&quot;</span>, <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;1&quot;</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;分类&quot;</span>, <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;2&quot;</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;主题&quot;</span>, <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;3&quot;</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;其他&quot;</span>, <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;4&quot;</span> &#125;<br>  ];<br>  <span class="hljs-keyword">static</span> orderState = [<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;未付款&quot;</span>, <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;0&quot;</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;已付款&quot;</span>, <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;1&quot;</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;未发货&quot;</span>, <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;2&quot;</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;已发货&quot;</span>, <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;3&quot;</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;已完成&quot;</span>, <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;4&quot;</span> &#125;,<br>    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;已退款&quot;</span>, <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;5&quot;</span> &#125;<br>  ];<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="全局Store"><a href="#全局Store" class="headerlink" title="全局Store"></a>全局Store</h3><ul>
+<li><p><strong>全局store没有用Vuex,而是用本地缓存做了一个数据存储，在src下新建store文件夹，并新建store.js文件将所有的状态值汇总并暴露，这里我们简单搭建一下购物车，在shopCar中新建数据model层state和命令控制controller层action</strong><br><img src="https://img-blog.csdnimg.cn/20200911114237326.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p><strong>store.js</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br><span class="hljs-keyword">import</span> ShopCar <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./shopCar/action&quot;</span><br>Vue.prototype.$store = &#123;<br>  ShopCar<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p><strong>state.js</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;vue&quot;</span><br><span class="hljs-keyword">import</span> Config <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;../../config/config&quot;</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">State</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Vue</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-built_in">super</span>()<br>  &#125;<br>  <span class="hljs-keyword">set</span> <span class="hljs-title">shopCar</span>(<span class="hljs-params">val</span>) &#123;<span class="hljs-comment">//写数据</span><br>    <span class="hljs-built_in">this</span>.$storage.saveStorage(Config.StorageName.ShopCar, val)<br>  &#125;<br>  <span class="hljs-keyword">get</span> <span class="hljs-title">shopCar</span>() &#123;<span class="hljs-comment">//读数据</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.$storage.getStorage(Config.StorageName.ShopCar) || []<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p><strong>action.js</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> State <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./state&quot;</span><br><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;vue&quot;</span><br><span class="hljs-keyword">import</span> Config <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;../../config/config&quot;</span><br><span class="hljs-keyword">const</span> &#123;<br>  EventName<br>&#125; = Config;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Action</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Vue</span> </span>&#123;<br>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-built_in">super</span>()<br>    <span class="hljs-built_in">this</span>._state = <span class="hljs-keyword">new</span> State()<br>  &#125;<br>  <span class="hljs-keyword">set</span> <span class="hljs-title">state</span>(<span class="hljs-params">val</span>) &#123;<br>    <span class="hljs-built_in">this</span>._state.shopCar = val<br>  &#125;<br>  <span class="hljs-keyword">get</span> <span class="hljs-title">state</span>() &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>._state.shopCar<br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">countShopItem</span>(<span class="hljs-params"></span>)</span> &#123;<span class="hljs-comment">//修改商品数量</span><br>    <br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">delShopItem</span>(<span class="hljs-params"></span>)</span> &#123;<span class="hljs-comment">//删除商品</span><br>    <br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">selAllChild</span>(<span class="hljs-params"></span>)</span> &#123;<span class="hljs-comment">//全选</span><br>    <br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">filterSelect</span>(<span class="hljs-params"></span>)</span> &#123;<span class="hljs-comment">//刷新商品列表</span><br>    <br>  &#125;<br>  <span class="hljs-function"><span class="hljs-title">delSelShop</span>(<span class="hljs-params"></span>)</span> &#123;<span class="hljs-comment">//删除选择商品</span><br>    <br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="引入所有包"><a href="#引入所有包" class="headerlink" title="引入所有包"></a>引入所有包</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br><span class="hljs-keyword">import</span> App <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./App&#x27;</span><br><span class="hljs-keyword">import</span> router <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./router&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;./style/main.less&quot;</span><br><span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;mint-ui/lib/style.css&#x27;</span><br><span class="hljs-keyword">import</span> MintUI <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;mint-ui&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;./utils/axios&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;./utils/cryptoTool&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;./utils/storage&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;./event/event&quot;</span><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;./store/store&quot;</span><br>Vue.use(MintUI);<br>Vue.config.productionTip = <span class="hljs-literal">false</span><br><br><span class="hljs-comment">/* eslint-disable no-new */</span><br><span class="hljs-keyword">new</span> Vue(&#123;<br>  <span class="hljs-attr">el</span>: <span class="hljs-string">&#x27;#app&#x27;</span>,<br>  router,<br>  <span class="hljs-attr">components</span>: &#123;<br>    App<br>  &#125;,<br>  <span class="hljs-attr">template</span>: <span class="hljs-string">&#x27;&lt;App/&gt;&#x27;</span><br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p><strong>到此为止，前端商城准备工作全部完成，下一篇文章正式开始进入开发</strong></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/10/08/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%EF%BC%8C%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%B4%AD%E7%89%A9%E5%B9%B3%E5%8F%B0%EF%BC%88%E5%8D%81%E5%9B%9B%EF%BC%89%E5%89%8D%E7%AB%AF%E5%95%86%E5%9F%8E%E9%83%A8%E5%88%86/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">从零开始，搭建一个简单的购物平台（十四）前端商城部分</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/10/08/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%EF%BC%8C%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%B4%AD%E7%89%A9%E5%B9%B3%E5%8F%B0%EF%BC%88%E5%8D%81%E4%BA%8C%EF%BC%89%E5%89%8D%E7%AB%AF%E5%95%86%E5%9F%8E%E9%83%A8%E5%88%86/">
+                        <span class="hidden-mobile">从零开始，搭建一个简单的购物平台（十二）前端商城部分</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

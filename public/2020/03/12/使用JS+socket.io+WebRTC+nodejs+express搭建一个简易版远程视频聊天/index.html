@@ -1,0 +1,569 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/null">
+  <link rel="icon" href="/null">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="本人擅长Ai、Fw、Fl、Br、Ae、Pr、Id、Ps等软件的安装与卸载，精通CSS、JavaScript、PHP、ASP、C、C＋＋、C#、Java、Ruby、Perl、Lisp、python、Objective-C、ActionScript、Pascal、spss、sas等单词的拼写，熟悉Windows、Linux、Mac、Android、IOS、WP等系统的开关机">
+  <meta name="author" content="Hunter">
+  <meta name="keywords" content="">
+  <meta name="description" content="目录 WebRTC 代码原理及流程 源码：git@gitee.com:DieHunter&#x2F;myCode.git仓库：myCode&#x2F;videoSteam 前端 先附上HTML和CSS 完整的socket.js 完整的userList.js（创建用户在线列表，添加邀请事件，初始化聊天室） 遇到的问题 优化后完整的video.js 服务端 完整的server.js 实现效果 注意：  WebRTC网页即">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用JS+socket.io+WebRTC+nodejs+express搭建一个简易版远程视频聊天">
+<meta property="og:url" content="http://example.com/2020/03/12/%E4%BD%BF%E7%94%A8JS+socket.io+WebRTC+nodejs+express%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%AE%80%E6%98%93%E7%89%88%E8%BF%9C%E7%A8%8B%E8%A7%86%E9%A2%91%E8%81%8A%E5%A4%A9/index.html">
+<meta property="og:site_name" content="DieHunter">
+<meta property="og:description" content="目录 WebRTC 代码原理及流程 源码：git@gitee.com:DieHunter&#x2F;myCode.git仓库：myCode&#x2F;videoSteam 前端 先附上HTML和CSS 完整的socket.js 完整的userList.js（创建用户在线列表，添加邀请事件，初始化聊天室） 遇到的问题 优化后完整的video.js 服务端 完整的server.js 实现效果 注意：  WebRTC网页即">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200311214302905.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200311200304249.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200311220142550.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200311220245995.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200311220259218.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200312095925878.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200312095925915.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020031210313496.gif">
+<meta property="article:published_time" content="2020-03-12T04:37:11.000Z">
+<meta property="article:modified_time" content="2021-12-19T03:52:16.119Z">
+<meta property="article:author" content="Hunter">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200311214302905.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70">
+  
+  <title>使用JS+socket.io+WebRTC+nodejs+express搭建一个简易版远程视频聊天 - DieHunter</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>DieHunter</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="使用JS+socket.io+WebRTC+nodejs+express搭建一个简易版远程视频聊天">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-03-12 12:37" pubdate>
+        2020年3月12日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      20k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      63 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">使用JS+socket.io+WebRTC+nodejs+express搭建一个简易版远程视频聊天</h1>
+            
+            <div class="markdown-body">
+              <p><strong>目录</strong></p>
+<p><a href="#WebRTC">WebRTC</a></p>
+<p><a href="#%E4%BB%A3%E7%A0%81%E5%8E%9F%E7%90%86%E5%8F%8A%E6%B5%81%E7%A8%8B">代码原理及流程</a></p>
+<p><a href="#%E6%BA%90%E7%A0%81%EF%BC%9Agit@gitee.com:DieHunter/myCode.git%E4%BB%93%E5%BA%93%EF%BC%9AmyCode/videoSteam">源码：git@gitee.com:DieHunter/myCode.git仓库：myCode/videoSteam</a></p>
+<p><a href="#%E5%89%8D%E7%AB%AF">前端</a></p>
+<p><a href="#%E5%85%88%E9%99%84%E4%B8%8AHTML%E5%92%8CCSS">先附上HTML和CSS</a></p>
+<p><a href="#%E5%AE%8C%E6%95%B4%E7%9A%84socket.js">完整的socket.js</a></p>
+<p><a href="#%E5%AE%8C%E6%95%B4%E7%9A%84userList.js%EF%BC%88%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E5%9C%A8%E7%BA%BF%E5%88%97%E8%A1%A8%EF%BC%8C%E6%B7%BB%E5%8A%A0%E9%82%80%E8%AF%B7%E4%BA%8B%E4%BB%B6%EF%BC%8C%E5%88%9D%E5%A7%8B%E5%8C%96%E8%81%8A%E5%A4%A9%E5%AE%A4%EF%BC%89">完整的userList.js（创建用户在线列表，添加邀请事件，初始化聊天室）</a></p>
+<p><a href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98">遇到的问题</a></p>
+<p><a href="#%E4%BC%98%E5%8C%96%E5%90%8E%E5%AE%8C%E6%95%B4%E7%9A%84video.js">优化后完整的video.js</a></p>
+<p><a href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF">服务端</a></p>
+<p><a href="#%E5%AE%8C%E6%95%B4%E7%9A%84server.js">完整的server.js</a></p>
+<p><a href="#%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C">实现效果</a></p>
+<p><a href="#%E6%B3%A8%E6%84%8F%EF%BC%9A">注意：</a></p>
+<hr>
+<h2 id="WebRTC"><a href="#WebRTC" class="headerlink" title="WebRTC"></a><strong>WebRTC</strong></h2><p><strong>网页即时通信，</strong>是<strong>Web Real-Time Communication</strong>的缩写，它支持<strong>peer-to-peer（浏览器与浏览器之间）</strong>进行视频，音频传输，并保证传输质量，将其发送至本地<strong>audio</strong>标签，<strong>video</strong>标签或发送到另一个浏览器中，本文使用到<strong>navigator.mediaDevices</strong>，<strong>RTCPeerConnection</strong>对象配合<strong>socket+node</strong>构建远程实时视频聊天功能，文章有一个不足之处，后面会讲到。</p>
+<p><strong>相关文档：</strong><br><strong><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/MediaDevices">MediaDevices</a><br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/WebRTC_API">WebRTC API</a></strong></p>
+<p><strong>参考文章：</strong><br><a target="_blank" rel="noopener" href="https://rtcdeveloper.com/t/topic/13777"><strong>https://rtcdeveloper.com/t/topic/13777</strong></a></p>
+<h2 id="代码原理及流程"><a href="#代码原理及流程" class="headerlink" title="代码原理及流程"></a>代码原理及流程</h2><p><img src="https://img-blog.csdnimg.cn/20200311214302905.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload></p>
+<h3 id="源码：https-gitee-com-DieHunter-myCode-tree-master-videoSteam"><a href="#源码：https-gitee-com-DieHunter-myCode-tree-master-videoSteam" class="headerlink" title="源码：https://gitee.com/DieHunter/myCode/tree/master/videoSteam"></a>源码：<a target="_blank" rel="noopener" href="https://gitee.com/DieHunter/myCode/tree/master/videoSteam">https://gitee.com/DieHunter/myCode/tree/master/videoSteam</a></h3><h2 id="前端"><a href="#前端" class="headerlink" title="前端"></a><strong>前端</strong></h2><p>要实现点对点就需要用到socket长链接从服务端进行寻呼<br>这是我以前的一篇关于socket简单使用的小案例：**<a target="_blank" rel="noopener" href="https://blog.csdn.net/time_____/article/details/86748679">https://blog.csdn.net/time_____/article/details/86748679</a>**<br>首先引入**<a target="_blank" rel="noopener" href="https://cdn.bootcss.com/socket.io/2.3.0/socket.io.js">socket.io</a>**，这里我将前端js分成三部分，分别是socket.js（socket相关操作），userList.js（页面操作）,video.js（视频聊天）</p>
+<p><img src="https://img-blog.csdnimg.cn/20200311200304249.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="先附上HTML和CSS"><a href="#先附上HTML和CSS" class="headerlink" title="先附上HTML和CSS"></a>先附上HTML和CSS</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;ie=edge&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Document<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;./style/main.css&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./js/socket.io.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./js/socket.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./js/userList.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./js/video.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;login&quot;</span> <span class="hljs-attr">hidden</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;loginBox&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;userName&quot;</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">&quot;false&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;userName&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;请输入英文用户名&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;submit&quot;</span>&gt;</span>提交<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;chatBox&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;chatBox&quot;</span> <span class="hljs-attr">hidden</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;myName&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;myName&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;userList&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;userList&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;videoChat&quot;</span> <span class="hljs-attr">hidden</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;videoChat&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;back&quot;</span> <span class="hljs-attr">hidden</span>&gt;</span>结束<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">video</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;myVideo&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;myVideo&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">video</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">video</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;otherVideo&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;otherVideo&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">video</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"></span><br><span class="javascript">        checkToken()</span><br><span class="javascript"></span><br><span class="javascript">        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">checkToken</span>(<span class="hljs-params"></span>) </span>&#123; <span class="hljs-comment">//判断用户是否已有用户名</span></span><br><span class="javascript">            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">localStorage</span>.token) &#123;</span><br><span class="javascript">                login.hidden = <span class="hljs-literal">true</span></span><br><span class="javascript">                chatBox.hidden = <span class="hljs-literal">false</span></span><br><span class="javascript">                initSocket(<span class="hljs-built_in">localStorage</span>.token) <span class="hljs-comment">//初始化socket连接</span></span><br><span class="javascript">            &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="javascript">                login.hidden = <span class="hljs-literal">false</span></span><br><span class="javascript">                chatBox.hidden = <span class="hljs-literal">true</span></span><br><span class="javascript">                submit.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>&#123;</span><br><span class="javascript">                    initSocket(userName.value) <span class="hljs-comment">//初始化socket连接</span></span><br><span class="javascript">                &#125;)</span><br><span class="javascript">            &#125;</span><br><span class="javascript">        &#125;</span><br><span class="javascript">    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><code class="hljs css">* &#123;<br>    <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;<br>    <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-selector-class">.loginBox</span> &#123;<br>    <span class="hljs-attribute">width</span>: <span class="hljs-number">300px</span>;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">200px</span>;<br>    <span class="hljs-attribute">margin</span>: <span class="hljs-number">50px</span> auto <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-selector-class">.userName</span>,<br><span class="hljs-selector-class">.loginBox</span> <span class="hljs-selector-tag">button</span> &#123;<br>    <span class="hljs-attribute">width</span>: <span class="hljs-number">300px</span>;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">60px</span>;<br>    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">10px</span>;<br>    <span class="hljs-attribute">outline</span>: none;<br>    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">26px</span>;<br>&#125;<br><br><span class="hljs-selector-class">.userName</span> &#123;<br>    <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid lightcoral;<br>    <span class="hljs-attribute">text-align</span>: center;<br>&#125;<br><br><span class="hljs-selector-class">.loginBox</span> <span class="hljs-selector-tag">button</span> &#123;<br>    <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">30px</span>;<br>    <span class="hljs-attribute">display</span>: block;<br>&#125;<br><br><span class="hljs-selector-tag">input</span><span class="hljs-selector-pseudo">::placeholder</span> &#123;<br>    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">26px</span>;<br>    <span class="hljs-attribute">text-align</span>: center;<br>&#125;<br><br><span class="hljs-selector-class">.chatBox</span> &#123;<br>    <span class="hljs-attribute">width</span>: <span class="hljs-number">200px</span>;<br>    <span class="hljs-attribute">margin</span>: <span class="hljs-number">50px</span> auto <span class="hljs-number">0</span>;<br>    <span class="hljs-attribute">position</span>: relative;<br>&#125;<br><br><span class="hljs-selector-class">.myName</span> &#123;<br>    <span class="hljs-attribute">position</span>: absolute;<br>    <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;<br>    <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;<br>    <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">50px</span>;<br>    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">40px</span>;<br>    <span class="hljs-attribute">text-align</span>: center;<br>    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">50px</span>;<br>    <span class="hljs-attribute">background</span>: lightcoral;<br>&#125;<br><br><span class="hljs-selector-class">.userList</span> &#123;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">500px</span>;<br>    <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;<br>    <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">50px</span>;<br>    <span class="hljs-attribute">overflow-y</span>: scroll;<br>    <span class="hljs-attribute">list-style</span>: none;<br>&#125;<br><br><span class="hljs-selector-class">.userList</span>&gt;<span class="hljs-selector-tag">li</span> &#123;<br>    <span class="hljs-attribute">background</span>: lightblue;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">50px</span>;<br>    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">20px</span>;<br>    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">50px</span>;<br>    <span class="hljs-attribute">text-align</span>: center;<br>&#125;<br><br><span class="hljs-selector-class">.videoChat</span> &#123;<br>    <span class="hljs-attribute">background</span>: lightgreen;<br>    <span class="hljs-attribute">width</span>: <span class="hljs-number">500px</span>;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">400px</span>;<br>    <span class="hljs-attribute">margin</span>: <span class="hljs-number">50px</span> auto <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-selector-class">.videoChat</span> <span class="hljs-selector-tag">button</span> &#123;<br>    <span class="hljs-attribute">width</span>: <span class="hljs-number">500px</span>;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">60px</span>;<br>    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">10px</span>;<br>    <span class="hljs-attribute">outline</span>: none;<br>    <span class="hljs-attribute">float</span>: left;<br>    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">26px</span>;<br>&#125;<br><br><span class="hljs-selector-class">.myVideo</span>,<span class="hljs-selector-class">.otherVideo</span>&#123;<br>    <span class="hljs-attribute">width</span>: <span class="hljs-number">250px</span>;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">250px</span>;<br>    <span class="hljs-attribute">float</span>: left;<br>    <span class="hljs-attribute">overflow</span>: hidden;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>大致效果</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20200311220142550.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload><img src="https://img-blog.csdnimg.cn/20200311220245995.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload><img src="https://img-blog.csdnimg.cn/20200311220259218.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>socket.js</strong><br>首先建立socket连接，添加连接和断开的事件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> socket <span class="hljs-comment">//供其他页面调用</span><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">initSocket</span>(<span class="hljs-params">token</span>) </span>&#123;<span class="hljs-comment">//获取到用户输入的id并传到服务端</span><br>    socket = io(<span class="hljs-string">&#x27;http://127.0.0.1:1024?token=&#x27;</span> + token, &#123;<br>        <span class="hljs-attr">autoConnect</span>: <span class="hljs-literal">false</span><br>    &#125;);<br>    socket.open();<br>    socket.on(<span class="hljs-string">&#x27;open&#x27;</span>, socketOpen); <span class="hljs-comment">//连接登录</span><br>    socket.on(<span class="hljs-string">&#x27;disconnect&#x27;</span>, socketClose); <span class="hljs-comment">//连接断开</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">socketClose</span>(<span class="hljs-params">reason</span>) </span>&#123; <span class="hljs-comment">//主动或被动关闭socket</span><br>    <span class="hljs-built_in">console</span>.log(reason)<br>    <span class="hljs-built_in">localStorage</span>.removeItem(<span class="hljs-string">&quot;token&quot;</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">socketOpen</span>(<span class="hljs-params">data</span>) </span>&#123; <span class="hljs-comment">//socket开启</span><br>    <span class="hljs-keyword">if</span> (!data.result) &#123; <span class="hljs-comment">//当服务端找到相同id时跳出连接</span><br>        <span class="hljs-built_in">console</span>.log(data.msg)<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>createChatList(data) <span class="hljs-comment">//创建用户列表</span><br>    <span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">&#x27;token&#x27;</span>, data.token)<br>    login.hidden = <span class="hljs-literal">true</span><br>    chatBox.hidden = <span class="hljs-literal">false</span><br>    videoChat.hidden = <span class="hljs-literal">true</span><br>    myName.textContent = <span class="hljs-built_in">localStorage</span>.token<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>之后在socket中添加几个事件监听</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript">socket.on(<span class="hljs-string">&#x27;dataChange&#x27;</span>, createChatList); <span class="hljs-comment">//新增人员</span><br>socket.on(<span class="hljs-string">&#x27;inviteVideoHandler&#x27;</span>, inviteVideoHandler); <span class="hljs-comment">//被邀请视频</span><br>socket.on(<span class="hljs-string">&#x27;askVideoHandler&#x27;</span>, askVideoHandler); <span class="hljs-comment">//视频邀请结果</span><br>socket.on(<span class="hljs-string">&#x27;ice&#x27;</span>, getIce); <span class="hljs-comment">//从服务端接收ice</span><br>socket.on(<span class="hljs-string">&#x27;offer&#x27;</span>, getOffer); <span class="hljs-comment">//从服务端接收offer</span><br>socket.on(<span class="hljs-string">&#x27;answer&#x27;</span>, getAnswer); <span class="hljs-comment">//从服务端接收answer</span><br>socket.on(<span class="hljs-string">&#x27;break&#x27;</span>, stopVideoStream) <span class="hljs-comment">//挂断视频通话</span><br></code></pre></td></tr></table></figure>
+
+<p>若用户接到对方邀请时，弹出确认框，并将结果返回给对方</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">inviteVideoHandler</span>(<span class="hljs-params">data</span>) </span>&#123; <span class="hljs-comment">//当用户被邀请时执行</span><br>    <span class="hljs-keyword">let</span> allow = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">if</span> (isCalling) &#123;<br>        allow = -<span class="hljs-number">1</span> <span class="hljs-comment">//正在通话</span><br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">let</span> res = confirm(data.msg);<br>        <span class="hljs-keyword">if</span> (res) &#123;<br>            allow = <span class="hljs-number">1</span><br>            startVideoChat(data.token) <span class="hljs-comment">//用户点击同意后开始初始化视频聊天</span><br>            <span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">&#x27;roomNo&#x27;</span>, data.roomNo) <span class="hljs-comment">//将房间号保存</span><br>        &#125;<br>    &#125;<br>    socket.emit(<span class="hljs-string">&#x27;askVideo&#x27;</span>, &#123;<br>        <span class="hljs-attr">myId</span>: <span class="hljs-built_in">localStorage</span>.token,<br>        <span class="hljs-attr">otherId</span>: data.token,<br>        <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;askVideo&#x27;</span>,<br>        allow<br>    &#125;);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>当收到返回邀请结果时，后端创建视频聊天房间后，开始初始化聊天室</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">askVideoHandler</span>(<span class="hljs-params">data</span>) </span>&#123; <span class="hljs-comment">//获取被邀请用户的回复</span><br>    <span class="hljs-built_in">console</span>.log(data.msg)<br>    <span class="hljs-keyword">if</span> (data.allow == -<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-comment">//通话中</span><br>    <span class="hljs-keyword">if</span> (data.allow) &#123;<br>        <span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">&#x27;roomNo&#x27;</span>, data.roomNo) <span class="hljs-comment">//将房间号保存</span><br>        startVideoChat(data.token)<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>当用户挂断时</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">breakVideoConnect</span>(<span class="hljs-params">e</span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">&#x27;roomNo&#x27;</span>))<br>    socket.emit(<span class="hljs-string">&#x27;_break&#x27;</span>, &#123;<br>        <span class="hljs-attr">roomNo</span>: <span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">&#x27;roomNo&#x27;</span>)<br>    &#125;);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><h3 id="完整的socket-js"><a href="#完整的socket-js" class="headerlink" title="完整的socket.js"></a>完整的socket.js</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> socket <span class="hljs-comment">//供其他页面调用</span><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">initSocket</span>(<span class="hljs-params">token</span>) </span>&#123;<span class="hljs-comment">//获取到用户输入的id并传到服务端</span><br>    socket = io(<span class="hljs-string">&#x27;http://127.0.0.1:1024?token=&#x27;</span> + token, &#123;<br>        <span class="hljs-attr">autoConnect</span>: <span class="hljs-literal">false</span><br>    &#125;);<br>    socket.open();<br>    socket.on(<span class="hljs-string">&#x27;open&#x27;</span>, socketOpen); <span class="hljs-comment">//连接登录</span><br>    socket.on(<span class="hljs-string">&#x27;disconnect&#x27;</span>, socketClose); <span class="hljs-comment">//连接断开</span><br>    socket.on(<span class="hljs-string">&#x27;dataChange&#x27;</span>, createChatList); <span class="hljs-comment">//新增人员</span><br>    socket.on(<span class="hljs-string">&#x27;inviteVideoHandler&#x27;</span>, inviteVideoHandler); <span class="hljs-comment">//被邀请视频</span><br>    socket.on(<span class="hljs-string">&#x27;askVideoHandler&#x27;</span>, askVideoHandler); <span class="hljs-comment">//视频邀请结果</span><br>    socket.on(<span class="hljs-string">&#x27;ice&#x27;</span>, getIce); <span class="hljs-comment">//从服务端接收ice</span><br>    socket.on(<span class="hljs-string">&#x27;offer&#x27;</span>, getOffer); <span class="hljs-comment">//从服务端接收offer</span><br>    socket.on(<span class="hljs-string">&#x27;answer&#x27;</span>, getAnswer); <span class="hljs-comment">//从服务端接收answer</span><br>    socket.on(<span class="hljs-string">&#x27;break&#x27;</span>, stopVideoStream) <span class="hljs-comment">//挂断视频通话</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">socketClose</span>(<span class="hljs-params">reason</span>) </span>&#123; <span class="hljs-comment">//主动或被动关闭socket</span><br>    <span class="hljs-built_in">console</span>.log(reason)<br>    <span class="hljs-built_in">localStorage</span>.removeItem(<span class="hljs-string">&quot;token&quot;</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">socketOpen</span>(<span class="hljs-params">data</span>) </span>&#123; <span class="hljs-comment">//socket开启</span><br>    <span class="hljs-keyword">if</span> (!data.result) &#123; <span class="hljs-comment">//当服务端找到相同id时跳出连接</span><br>        <span class="hljs-built_in">console</span>.log(data.msg)<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>    createChatList(data) <span class="hljs-comment">//创建用户列表</span><br>    <span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">&#x27;token&#x27;</span>, data.token)<br>    login.hidden = <span class="hljs-literal">true</span><br>    chatBox.hidden = <span class="hljs-literal">false</span><br>    videoChat.hidden = <span class="hljs-literal">true</span><br>    myName.textContent = <span class="hljs-built_in">localStorage</span>.token<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">inviteVideoHandler</span>(<span class="hljs-params">data</span>) </span>&#123; <span class="hljs-comment">//当用户被邀请时执行</span><br>    <span class="hljs-keyword">let</span> allow = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">if</span> (isCalling) &#123;<br>        allow = -<span class="hljs-number">1</span> <span class="hljs-comment">//正在通话</span><br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">let</span> res = confirm(data.msg);<br>        <span class="hljs-keyword">if</span> (res) &#123;<br>            allow = <span class="hljs-number">1</span><br>            startVideoChat(data.token) <span class="hljs-comment">//用户点击同意后开始初始化视频聊天</span><br>            <span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">&#x27;roomNo&#x27;</span>, data.roomNo) <span class="hljs-comment">//将房间号保存</span><br>        &#125;<br>    &#125;<br>    socket.emit(<span class="hljs-string">&#x27;askVideo&#x27;</span>, &#123;<br>        <span class="hljs-attr">myId</span>: <span class="hljs-built_in">localStorage</span>.token,<br>        <span class="hljs-attr">otherId</span>: data.token,<br>        <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;askVideo&#x27;</span>,<br>        allow<br>    &#125;);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">askVideoHandler</span>(<span class="hljs-params">data</span>) </span>&#123; <span class="hljs-comment">//获取被邀请用户的回复</span><br>    <span class="hljs-built_in">console</span>.log(data.msg)<br>    <span class="hljs-keyword">if</span> (data.allow == -<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-comment">//通话中</span><br>    <span class="hljs-keyword">if</span> (data.allow) &#123;<br>        <span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">&#x27;roomNo&#x27;</span>, data.roomNo) <span class="hljs-comment">//将房间号保存</span><br>        startVideoChat(data.token)<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">breakVideoConnect</span>(<span class="hljs-params">e</span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">&#x27;roomNo&#x27;</span>))<br>    socket.emit(<span class="hljs-string">&#x27;_break&#x27;</span>, &#123;<br>        <span class="hljs-attr">roomNo</span>: <span class="hljs-built_in">localStorage</span>.getItem(<span class="hljs-string">&#x27;roomNo&#x27;</span>)<br>    &#125;);<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><h3 id="完整的userList-js（创建用户在线列表，添加邀请事件，初始化聊天室）"><a href="#完整的userList-js（创建用户在线列表，添加邀请事件，初始化聊天室）" class="headerlink" title="完整的userList.js（创建用户在线列表，添加邀请事件，初始化聊天室）"></a>完整的userList.js（创建用户在线列表，添加邀请事件，初始化聊天室）</h3></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createChatList</span>(<span class="hljs-params">data</span>) </span>&#123; <span class="hljs-comment">//新建用户列表</span><br>    <span class="hljs-built_in">console</span>.log(data.msg)<br>    <span class="hljs-keyword">let</span> userData = data.userIds<br>    <span class="hljs-keyword">let</span> userList = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;#userList&#x27;</span>)<br>    <span class="hljs-keyword">if</span> (userList) &#123;<br>        userList.remove()<br>        userList = <span class="hljs-literal">null</span><br>    &#125;<br>    userList = createEle(<span class="hljs-string">&#x27;ul&#x27;</span>, &#123;&#125;, &#123;<br>        <span class="hljs-attr">id</span>: <span class="hljs-string">&#x27;userList&#x27;</span>,<br>        <span class="hljs-attr">className</span>: <span class="hljs-string">&#x27;userList&#x27;</span><br>    &#125;)<br>    chatBox.appendChild(userList)<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> userData) &#123;<br>        <span class="hljs-keyword">if</span> (userData[key] != <span class="hljs-built_in">localStorage</span>.token) &#123;<br>            <span class="hljs-keyword">var</span> li = createEle(<span class="hljs-string">&#x27;li&#x27;</span>, &#123;&#125;, &#123;<br>                <span class="hljs-attr">textContent</span>: userData[key]<br>            &#125;)<br>            li.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, videoStart)<br>            userList.appendChild(li)<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createEle</span>(<span class="hljs-params">ele, style, attribute</span>) </span>&#123; <span class="hljs-comment">//新增标签，设置属性及样式</span><br>    <span class="hljs-keyword">let</span> element = <span class="hljs-built_in">document</span>.createElement(ele)<br>    <span class="hljs-keyword">if</span> (style) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> style) &#123;<br>            element.style[key] = style[key];<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (attribute) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> attribute) &#123;<br>            element[key] = attribute[key];<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> element<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">videoStart</span>(<span class="hljs-params">e</span>) </span>&#123; <span class="hljs-comment">//用户点击列表某个用户时发送邀请至服务端</span><br>    socket.emit(<span class="hljs-string">&#x27;inviteVideo&#x27;</span>, &#123;<br>        <span class="hljs-attr">myId</span>: <span class="hljs-built_in">localStorage</span>.token,<br>        <span class="hljs-attr">otherId</span>: <span class="hljs-built_in">this</span>.textContent,<br>        <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;inviteVideo&#x27;</span><br>    &#125;);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">startVideoChat</span>(<span class="hljs-params">otherId</span>) </span>&#123; <span class="hljs-comment">//初始化视频聊天</span><br>    videoChat.hidden = <span class="hljs-literal">false</span><br>    login.hidden = <span class="hljs-literal">true</span><br>    chatBox.hidden = <span class="hljs-literal">true</span><br>    <span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">&#x27;otherId&#x27;</span>, otherId) <span class="hljs-comment">//将对方的id保存</span><br>    startVideoStream()<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>video.js</strong></p>
+<p>初始化媒体对象，并将Stream存到全局，这里由于navigator.mediaDevices.getUserMedia是异步方法，需要同步执行，先获取stream，然后进行后续操作</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createMedia</span>(<span class="hljs-params"></span>) </span>&#123; <span class="hljs-comment">//同步创建本地媒体流</span><br>    <span class="hljs-keyword">if</span> (!stream) &#123;<br>        stream = <span class="hljs-keyword">await</span> navigator.mediaDevices.getUserMedia(&#123;<br>            <span class="hljs-attr">audio</span>: <span class="hljs-literal">true</span>,<br>            <span class="hljs-attr">video</span>: <span class="hljs-literal">true</span><br>        &#125;)<br>    &#125;<br>    <span class="hljs-built_in">console</span>.log(stream)<br>    <span class="hljs-keyword">let</span> video = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;#myVideo&#x27;</span>);<br>    video.srcObject = stream; <span class="hljs-comment">//将媒体流输出到本地video以显示自己</span><br>    video.onloadedmetadata = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>&#123;<br>        video.play();<br>    &#125;;<br>    createPeerConnection()<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>创建stream后，初始化RTCPeerConnection，用于建立视频连接，同样需要同步获取，并且在peer获取之后发送offer给对方</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createPeerConnection</span>(<span class="hljs-params"></span>) </span>&#123; <span class="hljs-comment">//同步初始化描述文件并添加事件</span><br>    <span class="hljs-keyword">if</span> (!peer) &#123;<br>        peer = <span class="hljs-keyword">new</span> RTCPeerConnection()<br>    &#125;<br>    <span class="hljs-keyword">await</span> stream.getTracks().forEach(<span class="hljs-keyword">async</span> track =&gt; &#123;<br>        <span class="hljs-keyword">await</span> peer.addTrack(track, stream); <span class="hljs-comment">//将本地流附属至peer中</span><br>    &#125;);<br>    <span class="hljs-comment">// await peer.addStream(stream); //旧方法（将本地流附属至peer中）</span><br>    peer.addEventListener(<span class="hljs-string">&#x27;addstream&#x27;</span>, setVideo) <span class="hljs-comment">//当peer收到其他流时显示另一个video以显示对方</span><br>    peer.addEventListener(<span class="hljs-string">&#x27;icecandidate&#x27;</span>, sendIce) <span class="hljs-comment">//获取到candidate时，将其发送至服务端，传至对方</span><br>    peer.addEventListener(<span class="hljs-string">&#x27;negotiationneeded&#x27;</span>, sendOffer) <span class="hljs-comment">//双方约定的协商被完成时才触发该方法</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>当收到对方发送过来的stream时，即触发addstream事件时，通过setVideo将对方的视频流放到本地video中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setVideo</span>(<span class="hljs-params">data</span>) </span>&#123; <span class="hljs-comment">//播放对方的视频流</span><br>    <span class="hljs-built_in">console</span>.log(data.stream)<br>    <span class="hljs-keyword">let</span> back = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;back&#x27;</span>)<br>    back.hidden = <span class="hljs-literal">false</span> <span class="hljs-comment">//显示挂断按钮</span><br>    back.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, breakVideoConnect) <span class="hljs-comment">//挂断事件</span><br>    isCalling = <span class="hljs-literal">true</span> <span class="hljs-comment">//正在通话</span><br>    <span class="hljs-keyword">let</span> video = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;#otherVideo&#x27;</span>);<br>    video.srcObject = data.stream;<br>    video.onloadedmetadata = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>&#123;<br>        video.play();<br>    &#125;;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>创建offer，保存本地offer，并发送offer给对方</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sendOffer</span>(<span class="hljs-params"></span>) </span>&#123; <span class="hljs-comment">//同步发送offer到服务端，发送给对方</span><br>    <span class="hljs-keyword">let</span> offer = <span class="hljs-keyword">await</span> peer.createOffer();<br>    <span class="hljs-keyword">await</span> peer.setLocalDescription(offer); <span class="hljs-comment">//peer本地附属offer</span><br>    socket.emit(<span class="hljs-string">&#x27;_offer&#x27;</span>, &#123;<br>        <span class="hljs-attr">streamData</span>: offer<br>    &#125;);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>收到对方的offer后，保存远程offer，但是这里有一个小问题，如果peer还没有创建好，也就是如果对方先创建，就会马上发offer过来，这时我们这边的peer可能还没有创建成功，如果直接调用setRemoteDescription的话会报错，所以可以用try catch来调用，或使用if(!peer) return的方式运行</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getOffer</span>(<span class="hljs-params">data</span>) </span>&#123; <span class="hljs-comment">//接收到offer后，返回answer给对方</span><br>    <span class="hljs-keyword">await</span> peer.setRemoteDescription(data.streamData); <span class="hljs-comment">//peer远程附属offer</span><br>    sendAnswer()<br>&#125;<br><br><br><span class="hljs-comment">//优化后</span><br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getOffer</span>(<span class="hljs-params">data</span>) </span>&#123; <span class="hljs-comment">//接收到offer后，返回answer给对方</span><br>    <span class="hljs-keyword">if</span> (!peer) <span class="hljs-keyword">return</span> <span class="hljs-comment">//等待对方响应，也可以用try catch</span><br>    <span class="hljs-keyword">await</span> peer.setRemoteDescription(data.streamData); <span class="hljs-comment">//peer远程附属offer</span><br>    sendAnswer()<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>创建answer，保存本地answer，发送answer给对方</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sendAnswer</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">let</span> answer = <span class="hljs-keyword">await</span> peer.createAnswer();<br>    <span class="hljs-keyword">await</span> peer.setLocalDescription(answer); <span class="hljs-comment">//peer附属本地answer</span><br>    socket.emit(<span class="hljs-string">&#x27;_answer&#x27;</span>, &#123;<br>        <span class="hljs-attr">streamData</span>: answer<br>    &#125;);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>接收到answer时，保存本地answer</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getAnswer</span>(<span class="hljs-params">data</span>) </span>&#123; <span class="hljs-comment">//接收到answer后，peer远程附属answer</span><br>    <span class="hljs-keyword">await</span> peer.setRemoteDescription(data.streamData);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>peer触发icecandidate事件时，即本地触发过setLocalDescription时，也就是将本地offer和本地answer保存时，触发方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sendIce</span>(<span class="hljs-params">e</span>) </span>&#123; <span class="hljs-comment">//setLocalDescription触发时，发送ICE给对方</span><br>    <span class="hljs-keyword">if</span> (e.candidate) &#123;<br>        socket.emit(<span class="hljs-string">&#x27;_ice&#x27;</span>, &#123;<br>            <span class="hljs-attr">streamData</span>: e.candidate<br>        &#125;);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>接收对方的ICE，但是这里有一个和上面一样的小问题如果在ICE事件中，peer还没有创建好，也就是如果对方先创建，就会马上发offer过来，这时我们这边的peer可能还没有创建成功，如果直接调用addIceCandidate的话会报错，所以可以用try catch来调用，或使用if(!peer) return的方式运行</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getIce</span>(<span class="hljs-params">data</span>) </span>&#123; <span class="hljs-comment">//获取对方的ICE</span><br>    <span class="hljs-keyword">var</span> candidate = <span class="hljs-keyword">new</span> RTCIceCandidate(data.streamData)<br>    <span class="hljs-keyword">await</span> peer.addIceCandidate(candidate)<br>&#125;<br><br><span class="hljs-comment">//优化后</span><br><br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getIce</span>(<span class="hljs-params">data</span>) </span>&#123; <span class="hljs-comment">//获取对方的ICE</span><br>    <span class="hljs-keyword">if</span> (!peer) <span class="hljs-keyword">return</span> <span class="hljs-comment">//等待对方响应，也可以用try catch</span><br>    <span class="hljs-keyword">var</span> candidate = <span class="hljs-keyword">new</span> RTCIceCandidate(data.streamData)<br>    <span class="hljs-keyword">await</span> peer.addIceCandidate(candidate)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><p>最后是挂断的方法，这里有个小问题，<strong>当挂断时，原来的stream无法删除，导致摄像头虽然没有调用，但是导航栏仍然会有摄像头图标（没有真正关闭），下一次打开时会传输前面的流（叠加），网上没有解决方式，如果有知道的同学，希望能补充优化，感谢</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stopVideoStream</span>(<span class="hljs-params">data</span>) </span>&#123; <span class="hljs-comment">//停止传输视频流</span><br>    <span class="hljs-built_in">console</span>.log(data.msg)<br>    stream.getTracks().forEach(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">track</span>) </span>&#123; <span class="hljs-comment">//这里得到视频或音频对象</span><br>        <span class="hljs-keyword">await</span> track.stop();<br>        <span class="hljs-keyword">await</span> stream.removeTrack(track)<br>        stream = <span class="hljs-literal">null</span><br>    &#125;)<br>    peer.close();<br>    peer = <span class="hljs-literal">null</span>;<br>    isCalling = <span class="hljs-literal">false</span><br>    videoChat.hidden = <span class="hljs-literal">true</span><br>    login.hidden = <span class="hljs-literal">true</span><br>    chatBox.hidden = <span class="hljs-literal">false</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><h3 id="优化后完整的video-js"><a href="#优化后完整的video-js" class="headerlink" title="优化后完整的video.js"></a>优化后完整的video.js</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> stream, peer, isCalling = <span class="hljs-literal">false</span> <span class="hljs-comment">//初始化要发送的流,和描述文件,通话状态</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">startVideoStream</span>(<span class="hljs-params">e</span>) </span>&#123; <span class="hljs-comment">//开始传输视频流</span><br>    createMedia()<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stopVideoStream</span>(<span class="hljs-params">data</span>) </span>&#123; <span class="hljs-comment">//停止传输视频流</span><br>    <span class="hljs-built_in">console</span>.log(data.msg)<br>    stream.getTracks().forEach(<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">track</span>) </span>&#123; <span class="hljs-comment">//这里得到视频或音频对象</span><br>        <span class="hljs-keyword">await</span> track.stop();<br>        <span class="hljs-keyword">await</span> stream.removeTrack(track)<br>        stream = <span class="hljs-literal">null</span><br>    &#125;)<br>    peer.close();<br>    peer = <span class="hljs-literal">null</span>;<br>    isCalling = <span class="hljs-literal">false</span><br>    videoChat.hidden = <span class="hljs-literal">true</span><br>    login.hidden = <span class="hljs-literal">true</span><br>    chatBox.hidden = <span class="hljs-literal">false</span><br>&#125;<br><br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createMedia</span>(<span class="hljs-params"></span>) </span>&#123; <span class="hljs-comment">//同步创建本地媒体流</span><br>    <span class="hljs-keyword">if</span> (!stream) &#123;<br>        stream = <span class="hljs-keyword">await</span> navigator.mediaDevices.getUserMedia(&#123;<br>            <span class="hljs-attr">audio</span>: <span class="hljs-literal">true</span>,<br>            <span class="hljs-attr">video</span>: <span class="hljs-literal">true</span><br>        &#125;)<br>    &#125;<br>    <span class="hljs-built_in">console</span>.log(stream)<br>    <span class="hljs-keyword">let</span> video = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;#myVideo&#x27;</span>);<br>    video.srcObject = stream; <span class="hljs-comment">//将媒体流输出到本地video以显示自己</span><br>    video.onloadedmetadata = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>&#123;<br>        video.play();<br>    &#125;;<br>    createPeerConnection()<br>&#125;<br><br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createPeerConnection</span>(<span class="hljs-params"></span>) </span>&#123; <span class="hljs-comment">//同步初始化描述文件并添加事件</span><br>    <span class="hljs-keyword">if</span> (!peer) &#123;<br>        peer = <span class="hljs-keyword">new</span> RTCPeerConnection()<br>    &#125;<br>    <span class="hljs-keyword">await</span> stream.getTracks().forEach(<span class="hljs-keyword">async</span> track =&gt; &#123;<br>        <span class="hljs-keyword">await</span> peer.addTrack(track, stream); <span class="hljs-comment">//将本地流附属至peer中</span><br>    &#125;);<br>    <span class="hljs-comment">// await peer.addStream(stream); //旧方法（将本地流附属至peer中）</span><br>    peer.addEventListener(<span class="hljs-string">&#x27;addstream&#x27;</span>, setVideo) <span class="hljs-comment">//当peer收到其他流时显示另一个video以显示对方</span><br>    peer.addEventListener(<span class="hljs-string">&#x27;icecandidate&#x27;</span>, sendIce) <span class="hljs-comment">//获取到candidate时，将其发送至服务端，传至对方</span><br>    peer.addEventListener(<span class="hljs-string">&#x27;negotiationneeded&#x27;</span>, sendOffer) <span class="hljs-comment">//双方约定的协商被完成时才触发该方法</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setVideo</span>(<span class="hljs-params">data</span>) </span>&#123; <span class="hljs-comment">//播放对方的视频流</span><br>    <span class="hljs-built_in">console</span>.log(data.stream)<br>    <span class="hljs-keyword">let</span> back = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;back&#x27;</span>)<br>    back.hidden = <span class="hljs-literal">false</span> <span class="hljs-comment">//显示挂断按钮</span><br>    back.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, breakVideoConnect) <span class="hljs-comment">//挂断事件</span><br>    isCalling = <span class="hljs-literal">true</span> <span class="hljs-comment">//正在通话</span><br>    <span class="hljs-keyword">let</span> video = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;#otherVideo&#x27;</span>);<br>    video.srcObject = data.stream;<br>    video.onloadedmetadata = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>&#123;<br>        video.play();<br>    &#125;;<br>&#125;<br><br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sendOffer</span>(<span class="hljs-params"></span>) </span>&#123; <span class="hljs-comment">//同步发送offer到服务端，发送给对方</span><br>    <span class="hljs-keyword">let</span> offer = <span class="hljs-keyword">await</span> peer.createOffer();<br>    <span class="hljs-keyword">await</span> peer.setLocalDescription(offer); <span class="hljs-comment">//peer本地附属offer</span><br>    socket.emit(<span class="hljs-string">&#x27;_offer&#x27;</span>, &#123;<br>        <span class="hljs-attr">streamData</span>: offer<br>    &#125;);<br>&#125;<br><br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getOffer</span>(<span class="hljs-params">data</span>) </span>&#123; <span class="hljs-comment">//接收到offer后，返回answer给对方</span><br>    <span class="hljs-keyword">if</span> (!peer) <span class="hljs-keyword">return</span> <span class="hljs-comment">//等待对方响应，也可以用try catch</span><br>    <span class="hljs-keyword">await</span> peer.setRemoteDescription(data.streamData); <span class="hljs-comment">//peer远程附属offer</span><br>    sendAnswer()<br>&#125;<br><br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sendAnswer</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">let</span> answer = <span class="hljs-keyword">await</span> peer.createAnswer();<br>    <span class="hljs-keyword">await</span> peer.setLocalDescription(answer); <span class="hljs-comment">//peer附属本地answer</span><br>    socket.emit(<span class="hljs-string">&#x27;_answer&#x27;</span>, &#123;<br>        <span class="hljs-attr">streamData</span>: answer<br>    &#125;);<br>&#125;<br><br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getAnswer</span>(<span class="hljs-params">data</span>) </span>&#123; <span class="hljs-comment">//接收到answer后，peer远程附属answer</span><br>    <span class="hljs-keyword">await</span> peer.setRemoteDescription(data.streamData);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sendIce</span>(<span class="hljs-params">e</span>) </span>&#123; <span class="hljs-comment">//setLocalDescription触发时，发送ICE给对方</span><br>    <span class="hljs-keyword">if</span> (!e || !e.candidate) <span class="hljs-keyword">return</span><br>    socket.emit(<span class="hljs-string">&#x27;_ice&#x27;</span>, &#123;<br>        <span class="hljs-attr">streamData</span>: e.candidate<br>    &#125;);<br>&#125;<br><br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getIce</span>(<span class="hljs-params">data</span>) </span>&#123; <span class="hljs-comment">//获取对方的ICE</span><br>    <span class="hljs-keyword">if</span> (!peer) <span class="hljs-keyword">return</span> <span class="hljs-comment">//等待对方响应，也可以用try catch</span><br>    <span class="hljs-keyword">var</span> candidate = <span class="hljs-keyword">new</span> RTCIceCandidate(data.streamData)<br>    <span class="hljs-keyword">await</span> peer.addIceCandidate(candidate)<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a><strong>服务端</strong></h2><p>后端部分同样使用socketio进行通信<br>首先在npm初始化后下载express，socket.io</p>
+<figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs q">npm i express --<span class="hljs-built_in">save</span>-<span class="hljs-built_in">dev</span><br>npm i socket.io --<span class="hljs-built_in">save</span>-<span class="hljs-built_in">dev</span><br></code></pre></td></tr></table></figure>
+
+<p>之后引入至server.js中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;express&#x27;</span>)<br><span class="hljs-keyword">const</span> app = express();<br><span class="hljs-keyword">const</span> server = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;http&#x27;</span>).Server(app);<br><span class="hljs-keyword">const</span> io = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;socket.io&#x27;</span>)(server);<br></code></pre></td></tr></table></figure>
+
+<p>并监听1024端口</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript">server.listen(<span class="hljs-number">1024</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Socket Open&#x27;</span>)<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p><strong>配置socket</strong><br>给socket添加一些事件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript">io.on(<span class="hljs-string">&#x27;connect&#x27;</span>, <span class="hljs-function"><span class="hljs-params">socket</span> =&gt;</span> &#123;<br>    <span class="hljs-keyword">let</span> &#123;<br>        token<br>    &#125; = socket.handshake.query<br>    socket.on(<span class="hljs-string">&#x27;disconnect&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">exit</span>) =&gt;</span> &#123; <span class="hljs-comment">//socket断开</span><br>        delFormList(token) <span class="hljs-comment">//清除用户</span><br>        broadCast(socket, token, <span class="hljs-string">&#x27;leave&#x27;</span>) <span class="hljs-comment">//广播给其他用户</span><br>    &#125;)<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>这样，我们最简单的一个socket就搭好了</p>
+<h3 id="完整的server-js"><a href="#完整的server-js" class="headerlink" title="完整的server.js"></a>完整的server.js</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;express&#x27;</span>)<br><span class="hljs-keyword">const</span> app = express();<br><span class="hljs-keyword">const</span> server = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;http&#x27;</span>).Server(app);<br><span class="hljs-keyword">const</span> io = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;socket.io&#x27;</span>)(server);<br><span class="hljs-keyword">let</span> userList = &#123;&#125; <span class="hljs-comment">//用户列表，所有连接的用户</span><br><span class="hljs-keyword">let</span> userIds = &#123;&#125; <span class="hljs-comment">//用户id列表，显示到前端</span><br><span class="hljs-keyword">let</span> roomList = &#123;&#125; <span class="hljs-comment">//房间列表，视频聊天</span><br>io.on(<span class="hljs-string">&#x27;connect&#x27;</span>, <span class="hljs-function"><span class="hljs-params">socket</span> =&gt;</span> &#123;<br>    <span class="hljs-keyword">let</span> &#123;<br>        token<br>    &#125; = socket.handshake.query<br>    socket.on(<span class="hljs-string">&#x27;disconnect&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">exit</span>) =&gt;</span> &#123; <span class="hljs-comment">//socket断开</span><br>        delFormList(token) <span class="hljs-comment">//清除用户</span><br>        broadCast(socket, token, <span class="hljs-string">&#x27;leave&#x27;</span>) <span class="hljs-comment">//广播给其他用户</span><br>    &#125;)<br>    socket.on(<span class="hljs-string">&#x27;inviteVideo&#x27;</span>, inviteVideoHandler) <span class="hljs-comment">//邀请用户</span><br>    socket.on(<span class="hljs-string">&#x27;askVideo&#x27;</span>, inviteVideoHandler); <span class="hljs-comment">//回应用户是否邀请成功</span><br>    <span class="hljs-keyword">if</span> (userList[token]) &#123; <span class="hljs-comment">//找到相同用户名就跳出函数</span><br>        socket.emit(<span class="hljs-string">&#x27;open&#x27;</span>, &#123;<br>            <span class="hljs-attr">result</span>: <span class="hljs-number">0</span>,<br>            <span class="hljs-attr">msg</span>: token + <span class="hljs-string">&#x27;已存在&#x27;</span><br>        &#125;);<br>        socket.disconnect()<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>    addToList(token, socket) <span class="hljs-comment">//用户连接时，添加到userList</span><br>    broadCast(socket, token, <span class="hljs-string">&#x27;enter&#x27;</span>) <span class="hljs-comment">//广告其他用户，有人加入</span><br>&#125;);<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addToList</span>(<span class="hljs-params">key, item</span>) </span>&#123; <span class="hljs-comment">//添加到userList</span><br>    item.emit(<span class="hljs-string">&#x27;open&#x27;</span>, &#123;<br>        <span class="hljs-attr">result</span>: <span class="hljs-number">1</span>,<br>        <span class="hljs-attr">msg</span>: <span class="hljs-string">&#x27;你已加入聊天&#x27;</span>,<br>        userIds,<br>        <span class="hljs-attr">token</span>: key<br>    &#125;);<br>    userList[key] = item<br>    userIds[key] = key<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">delFormList</span>(<span class="hljs-params">key</span>) </span>&#123; <span class="hljs-comment">//断开时，删除用户</span><br>    <span class="hljs-keyword">delete</span> userList[key];<br>    <span class="hljs-keyword">delete</span> userIds[key]<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">broadCast</span>(<span class="hljs-params">target, token, type</span>) </span>&#123; <span class="hljs-comment">//广播功能</span><br>    <span class="hljs-keyword">let</span> msg = <span class="hljs-string">&#x27;加入聊天&#x27;</span><br>    <span class="hljs-keyword">if</span> (type !== <span class="hljs-string">&#x27;enter&#x27;</span>) &#123;<br>        msg = <span class="hljs-string">&#x27;离开聊天&#x27;</span><br>    &#125;<br>    target.broadcast.emit(<span class="hljs-string">&#x27;dataChange&#x27;</span>, &#123;<br>        <span class="hljs-attr">result</span>: <span class="hljs-number">1</span>,<br>        <span class="hljs-attr">msg</span>: token + msg,<br>        userIds<br>    &#125;);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">inviteVideoHandler</span>(<span class="hljs-params">data</span>) </span>&#123; <span class="hljs-comment">//邀请方法</span><br>    <span class="hljs-keyword">let</span> &#123;<br>        myId,<br>        otherId,<br>        type,<br>        allow<br>    &#125; = data, msg = <span class="hljs-string">&#x27;邀请你进入聊天室&#x27;</span>, event = <span class="hljs-string">&#x27;inviteVideoHandler&#x27;</span>, roomNo = otherId <span class="hljs-comment">//默认房间号为邀请方id</span><br>    <span class="hljs-keyword">if</span> (type == <span class="hljs-string">&#x27;askVideo&#x27;</span>) &#123;<br>        event = <span class="hljs-string">&#x27;askVideoHandler&#x27;</span><br>        <span class="hljs-keyword">if</span> (allow == <span class="hljs-number">1</span>) &#123;<br>            addRoom(myId, otherId)<br>            roomNo = myId <span class="hljs-comment">//保存房间号</span><br>            msg = <span class="hljs-string">&#x27;接受了你的邀请&#x27;</span><br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (allow == -<span class="hljs-number">1</span>) &#123;<br>            msg = <span class="hljs-string">&#x27;正在通话&#x27;</span><br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            msg = <span class="hljs-string">&#x27;拒绝了你的邀请&#x27;</span><br>        &#125;<br>    &#125;<br>    userList[otherId].emit(event, &#123;<br>        <span class="hljs-attr">msg</span>: myId + msg,<br>        <span class="hljs-attr">token</span>: myId,<br>        allow,<br>        roomNo<br>    &#125;);<br>&#125;<br><br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addRoom</span>(<span class="hljs-params">myId, otherId</span>) </span>&#123; <span class="hljs-comment">//用户同意后添加到视频聊天室，只做1对1聊天功能</span><br>    roomList[myId] = [userList[myId], userList[otherId]]<br>    startVideoChat(roomList[myId])<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">startVideoChat</span>(<span class="hljs-params">roomItem</span>) </span>&#123; <span class="hljs-comment">//视频聊天初始化</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; roomItem.length; i++) &#123;<br>        roomItem[i].room = roomItem<br>        roomItem[i].id = i<br>        roomItem[i].on(<span class="hljs-string">&#x27;_ice&#x27;</span>, _iceHandler)<br>        roomItem[i].on(<span class="hljs-string">&#x27;_offer&#x27;</span>, _offerHandler)<br>        roomItem[i].on(<span class="hljs-string">&#x27;_answer&#x27;</span>, _answerHandler)<br>        roomItem[i].on(<span class="hljs-string">&#x27;_break&#x27;</span>, _breakRoom)<br><br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_iceHandler</span>(<span class="hljs-params">data</span>) </span>&#123; <span class="hljs-comment">//用户发送ice到服务端，服务端转发给另一个用户</span><br>    <span class="hljs-keyword">let</span> id = <span class="hljs-built_in">this</span>.id == <span class="hljs-number">0</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span> <span class="hljs-comment">//判断用户二者其一</span><br>    <span class="hljs-built_in">this</span>.room[id].emit(<span class="hljs-string">&#x27;ice&#x27;</span>, data);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_offerHandler</span>(<span class="hljs-params">data</span>) </span>&#123; <span class="hljs-comment">//用户发送offer到服务端，服务端转发给另一个用户</span><br>    <span class="hljs-keyword">let</span> id = <span class="hljs-built_in">this</span>.id == <span class="hljs-number">0</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span><br>    <span class="hljs-built_in">this</span>.room[id].emit(<span class="hljs-string">&#x27;offer&#x27;</span>, data);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_answerHandler</span>(<span class="hljs-params">data</span>) </span>&#123; <span class="hljs-comment">//用户发送answer到服务端，服务端转发给另一个用户</span><br>    <span class="hljs-keyword">let</span> id = <span class="hljs-built_in">this</span>.id == <span class="hljs-number">0</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span><br>    <span class="hljs-built_in">this</span>.room[id].emit(<span class="hljs-string">&#x27;answer&#x27;</span>, data);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_breakRoom</span>(<span class="hljs-params">data</span>) </span>&#123; <span class="hljs-comment">//挂断聊天</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; roomList[data.roomNo].length || <span class="hljs-number">0</span>; i++) &#123;<br>        roomList[data.roomNo][i].emit(<span class="hljs-string">&#x27;break&#x27;</span>, &#123;<br>            <span class="hljs-attr">msg</span>: <span class="hljs-string">&#x27;聊天挂断&#x27;</span><br>        &#125;);<br>    &#125;<br>&#125;<br>server.listen(<span class="hljs-number">1024</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Socket Open&#x27;</span>)<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h3 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h3><p>分别在我方发送stream之前打印stream，收到对方stream后打印stream，我们会发现，双方的stream互换了位置，也就是说整个媒体对象进行了交换</p>
+<p><img src="https://img-blog.csdnimg.cn/20200312095925878.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload><img src="https://img-blog.csdnimg.cn/20200312095925915.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload></p>
+<p>和同事在两台电脑上测试效果</p>
+<p><img src="https://img-blog.csdnimg.cn/2020031210313496.gif" srcset="/img/loading.gif" lazyload></p>
+<h3 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h3><p>前端项目必须运行在本地或者https服务下，因为navigator.mediaDevices.getUserMedia需要运行在安全模式下，用户第一次使用需要授权摄像头或音频权限，所以双方电脑需要有相关功能</p>
+<p>看到这里，希望留下你宝贵的建议</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/03/21/Echarts%E6%A1%88%E4%BE%8B%20%E4%BD%BF%E7%94%A8%E6%9E%81%E5%9D%90%E6%A0%87%E5%8A%A0%E6%9F%B1%E7%8A%B6%E5%9B%BE%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BCApple%20Watch%E4%B8%8A%E7%9A%84%E8%BF%90%E5%8A%A8%E7%8E%AF%E5%BD%A2%E6%95%88%E6%9E%9C/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Echarts案例：使用极坐标加柱状图实现类似Apple Watch上的运动环形效果</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/03/08/%E5%88%86%E4%BA%AB%E4%BA%9B%E8%87%AA%E5%B7%B1%E6%94%B6%E8%97%8F%E7%9A%84%E4%B9%A6%E7%AD%BE%EF%BC%8C%E5%9F%BA%E7%A1%80%E5%8D%A0%E5%A4%9A%EF%BC%8C%E5%A4%A7%E7%89%9B%E5%8B%BF%E5%85%A5/">
+                        <span class="hidden-mobile">分享些自己收藏的书签，基础占多，大牛勿入</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

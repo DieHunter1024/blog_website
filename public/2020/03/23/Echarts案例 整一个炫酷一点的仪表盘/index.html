@@ -1,0 +1,501 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/null">
+  <link rel="icon" href="/null">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="本人擅长Ai、Fw、Fl、Br、Ae、Pr、Id、Ps等软件的安装与卸载，精通CSS、JavaScript、PHP、ASP、C、C＋＋、C#、Java、Ruby、Perl、Lisp、python、Objective-C、ActionScript、Pascal、spss、sas等单词的拼写，熟悉Windows、Linux、Mac、Android、IOS、WP等系统的开关机">
+  <meta name="author" content="Hunter">
+  <meta name="keywords" content="">
+  <meta name="description" content="故事发生在几天前 公司要求做个仪表盘，大致UI是这样的这不是为难我胖虎嘛，于是找遍整个全网也没找到相似的，只能自己手写一个。 然而，最开始是准备用极坐标写的  折腾了一上午发现极坐标做出的效果两头是360度的圆环，这使UI给的标注无法实现，于是我又开始研究仪表盘，官方给的实例倒是挺炫酷  当我感觉快找到希望时，却无法实现两端圆角  以及将刻度显示在数字外，在网上找资料发现也有同学遇到相同的问题，但">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Echarts案例：整一个炫酷一点的仪表盘">
+<meta property="og:url" content="http://example.com/2020/03/23/Echarts%E6%A1%88%E4%BE%8B%20%E6%95%B4%E4%B8%80%E4%B8%AA%E7%82%AB%E9%85%B7%E4%B8%80%E7%82%B9%E7%9A%84%E4%BB%AA%E8%A1%A8%E7%9B%98/index.html">
+<meta property="og:site_name" content="DieHunter">
+<meta property="og:description" content="故事发生在几天前 公司要求做个仪表盘，大致UI是这样的这不是为难我胖虎嘛，于是找遍整个全网也没找到相似的，只能自己手写一个。 然而，最开始是准备用极坐标写的  折腾了一上午发现极坐标做出的效果两头是360度的圆环，这使UI给的标注无法实现，于是我又开始研究仪表盘，官方给的实例倒是挺炫酷  当我感觉快找到希望时，却无法实现两端圆角  以及将刻度显示在数字外，在网上找资料发现也有同学遇到相同的问题，但">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200321215215727.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200321215537496.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200321215916833.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200321215930971.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200321220419973.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200321220632334.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200321222011866.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200321222204510.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020032122250556.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200321222704919.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200321223133368.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200321223442868.gif">
+<meta property="article:published_time" content="2020-03-23T06:08:26.000Z">
+<meta property="article:modified_time" content="2021-12-19T03:52:16.119Z">
+<meta property="article:author" content="Hunter">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200321215215727.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70">
+  
+  <title>Echarts案例：整一个炫酷一点的仪表盘 - DieHunter</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>DieHunter</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Echarts案例：整一个炫酷一点的仪表盘">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-03-23 14:08" pubdate>
+        2020年3月23日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.9k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      15 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Echarts案例：整一个炫酷一点的仪表盘</h1>
+            
+            <div class="markdown-body">
+              <p><strong>故事发生在几天前</strong></p>
+<p>公司要求做个仪表盘，大致UI是这样的<br><img src="https://img-blog.csdnimg.cn/20200321215215727.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload><br>这不是为难我胖虎嘛，于是找遍整个全网也没找到相似的，只能自己手写一个。</p>
+<p>然而，最开始是准备用极坐标写的</p>
+<p><img src="https://img-blog.csdnimg.cn/20200321215537496.png" srcset="/img/loading.gif" lazyload></p>
+<p>折腾了一上午发现极坐标做出的效果两头是360度的圆环，这使UI给的标注无法实现，于是我又开始研究仪表盘，官方给的实例倒是挺炫酷</p>
+<p><img src="https://img-blog.csdnimg.cn/20200321215916833.png" srcset="/img/loading.gif" lazyload><img src="https://img-blog.csdnimg.cn/20200321215930971.png" srcset="/img/loading.gif" lazyload></p>
+<p>当我感觉快找到希望时，却无法实现两端圆角</p>
+<p><img src="https://img-blog.csdnimg.cn/20200321220419973.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload></p>
+<p>以及将刻度显示在数字外，在网上找资料发现也有同学遇到相同的问题，但是没找到解决方法</p>
+<p><img src="https://img-blog.csdnimg.cn/20200321220632334.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload></p>
+<p>然而急中生智却被我想到了一个方法，将这二者合并一下</p>
+<p>先简单画个仪表盘</p>
+<p><img src="https://img-blog.csdnimg.cn/20200321222011866.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload></p>
+<p>设置一下他的属性，去掉指针，去掉表盘颜色，得到只有刻度和数字的表盘</p>
+<p><img src="https://img-blog.csdnimg.cn/20200321222204510.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload></p>
+<p>之后将除了圆环以外的所有属性配置一下实现这样的效果</p>
+<p><img src="https://img-blog.csdnimg.cn/2020032122250556.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload></p>
+<p>突然有内味了，这时我们加上极坐标环状图</p>
+<p><img src="https://img-blog.csdnimg.cn/20200321222704919.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload></p>
+<p>然而二者最大角度不同，我们需要做一个换算，设计图中仪表盘的角度相当于极坐标的-30度到210度，二者偏移值是240度除360度</p>
+<p>也就是极坐标得乘以2分之3（240分之360）才是真实仪表盘的值</p>
+<p>经过换算后，实现以下效果</p>
+<p><img src="https://img-blog.csdnimg.cn/20200321223133368.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload><img src="https://img-blog.csdnimg.cn/20200321223442868.gif" srcset="/img/loading.gif" lazyload></p>
+<p><strong>源码：</strong><a target="_blank" rel="noopener" href="https://gitee.com/DieHunter/myCode/tree/master/Echart/PolarGauge">https://gitee.com/DieHunter/myCode/tree/master/Echart/PolarGauge</a></p>
+<p>同样需要引入Echarts<br><strong>HTML：</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Document<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css"></span><br><span class="css">        * &#123;</span><br><span class="css">            <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;</span><br><span class="css">            <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;</span><br><span class="css">        &#125;</span><br><span class="css"></span><br><span class="css">        <span class="hljs-selector-class">.PolarGauge</span> &#123;</span><br><span class="css">            <span class="hljs-attribute">margin</span>: <span class="hljs-number">100px</span> auto;</span><br><span class="css">            <span class="hljs-attribute">background</span>: <span class="hljs-number">#000</span>;</span><br><span class="css">            <span class="hljs-attribute">width</span>: <span class="hljs-number">400px</span>;</span><br><span class="css">            <span class="hljs-attribute">height</span>: <span class="hljs-number">400px</span>;</span><br><span class="css">        &#125;</span><br><span class="css">    </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./echarts.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./chart.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;PolarGauge&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;PolarGauge&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>chart.js</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> chart, option, data, timeTickId, timer, max;<br><span class="hljs-built_in">window</span>.onload = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">init</span>(<span class="hljs-params"></span>) </span>&#123;<br>    chart = echarts.init(PolarGauge); <span class="hljs-comment">//初始化chart容器</span><br>    data = &#123; <span class="hljs-comment">//显示的数据</span><br>        <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&#x27;馆藏量&#x27;</span>,<br>        <span class="hljs-string">&quot;num&quot;</span>: <span class="hljs-number">1000</span><br>    &#125;<br>    timer = <span class="hljs-number">1.5</span> <span class="hljs-comment">//刷新频率</span><br>    max = <span class="hljs-number">1000</span> <span class="hljs-comment">//最大馆藏量</span><br>    createPolarGauge() <span class="hljs-comment">//配置chart</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createPolarGauge</span>(<span class="hljs-params"></span>) </span>&#123;<br>    option = &#123;<br>        <span class="hljs-attr">angleAxis</span>: &#123;<br>            <span class="hljs-attr">show</span>: <span class="hljs-literal">false</span>,<br>            <span class="hljs-attr">max</span>: max * <span class="hljs-number">3</span> / <span class="hljs-number">2</span>, <span class="hljs-comment">//这里将极坐标最大值转换成仪表盘的最大值，(360度除以240度)</span><br>            <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;value&#x27;</span>,<br>            <span class="hljs-attr">startAngle</span>: <span class="hljs-number">210</span>, <span class="hljs-comment">//极坐标初始角度，从第一象限算起，大约在7-8点钟角度之间</span><br>            <span class="hljs-attr">splitLine</span>: &#123;<br>                <span class="hljs-attr">show</span>: <span class="hljs-literal">false</span> <span class="hljs-comment">//隐藏坐标</span><br>            &#125;<br>        &#125;,<br>        <span class="hljs-attr">barMaxWidth</span>: <span class="hljs-number">18</span>, <span class="hljs-comment">//圆环宽度</span><br>        <span class="hljs-attr">radiusAxis</span>: &#123; <span class="hljs-comment">//隐藏坐标</span><br>            <span class="hljs-attr">show</span>: <span class="hljs-literal">false</span>,<br>            <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;category&#x27;</span>,<br>        &#125;,<br>        <span class="hljs-attr">polar</span>: &#123; <span class="hljs-comment">//设置圆环位置和大小</span><br>            <span class="hljs-attr">center</span>: [<span class="hljs-string">&#x27;50%&#x27;</span>, <span class="hljs-string">&#x27;50%&#x27;</span>],<br>            <span class="hljs-attr">radius</span>: <span class="hljs-string">&#x27;296&#x27;</span><br>        &#125;,<br>        <span class="hljs-attr">series</span>: [&#123;<br>                <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;bar&#x27;</span>,<br>                <span class="hljs-attr">data</span>: [&#123; <span class="hljs-comment">//上层圆环，用于显示真实数据</span><br>                    <span class="hljs-attr">value</span>: data.num,<br>                    <span class="hljs-attr">itemStyle</span>: &#123;<br>                        <span class="hljs-attr">color</span>: &#123; <span class="hljs-comment">//图形渐变颜色方法，四个数字分别代表，右，下，左，上，offset表示0%到100%</span><br>                            <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;linear&#x27;</span>,<br>                            <span class="hljs-attr">x</span>: <span class="hljs-number">0</span>,<br>                            <span class="hljs-attr">y</span>: <span class="hljs-number">0</span>,<br>                            <span class="hljs-attr">x2</span>: <span class="hljs-number">1</span>, <span class="hljs-comment">//从左到右 0-1</span><br>                            <span class="hljs-attr">y2</span>: <span class="hljs-number">0</span>,<br>                            <span class="hljs-attr">colorStops</span>: [&#123;<br>                                <span class="hljs-attr">offset</span>: <span class="hljs-number">0</span>,<br>                                <span class="hljs-attr">color</span>: <span class="hljs-string">&#x27;#CD48AE&#x27;</span> <span class="hljs-comment">// 0% 处的颜色</span><br>                            &#125;, &#123;<br>                                <span class="hljs-attr">offset</span>: <span class="hljs-number">1</span>,<br>                                <span class="hljs-attr">color</span>: <span class="hljs-string">&#x27;#2CABFC&#x27;</span> <span class="hljs-comment">// 100% 处的颜色</span><br>                            &#125;],<br>                            <span class="hljs-attr">globalCoord</span>: <span class="hljs-literal">false</span> <span class="hljs-comment">// 缺省为 false</span><br>                        &#125;,<br>                        <span class="hljs-attr">shadowColor</span>: <span class="hljs-string">&#x27;rgba(255, 255, 255, 0.2)&#x27;</span>, <span class="hljs-comment">//加白色阴影产生高亮效果</span><br>                        <span class="hljs-attr">shadowBlur</span>: <span class="hljs-number">10</span><br>                    &#125;<br>                &#125;],<br>                <span class="hljs-attr">barGap</span>: <span class="hljs-string">&#x27;-100%&#x27;</span>, <span class="hljs-comment">//柱间距离,用来将上下两层圆环重合</span><br>                <span class="hljs-attr">coordinateSystem</span>: <span class="hljs-string">&#x27;polar&#x27;</span>, <span class="hljs-comment">//类型，极坐标</span><br>                <span class="hljs-attr">roundCap</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">//顶端圆角</span><br>                <span class="hljs-attr">z</span>: <span class="hljs-number">2</span> <span class="hljs-comment">//圆环层级，和zindex相似</span><br>            &#125;, &#123; <span class="hljs-comment">//下层圆环，用于显示最大值</span><br>                <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;bar&#x27;</span>,<br>                <span class="hljs-attr">data</span>: [&#123;<br>                    <span class="hljs-attr">value</span>: max,<br>                    <span class="hljs-attr">itemStyle</span>: &#123;<br>                        <span class="hljs-attr">color</span>: <span class="hljs-string">&#x27;#265195&#x27;</span>,<br>                        <span class="hljs-attr">shadowColor</span>: <span class="hljs-string">&#x27;rgba(0, 0, 0, 0.2)&#x27;</span>, <span class="hljs-comment">//加白色阴影产生高亮效果</span><br>                        <span class="hljs-attr">shadowBlur</span>: <span class="hljs-number">5</span>,<br>                        <span class="hljs-attr">shadowOffsetY</span>: <span class="hljs-number">2</span><br>                    &#125;<br>                &#125;],<br>                <span class="hljs-attr">barGap</span>: <span class="hljs-string">&#x27;-100%&#x27;</span>, <span class="hljs-comment">//柱间距离,用来将上下两层圆环重合</span><br>                <span class="hljs-attr">coordinateSystem</span>: <span class="hljs-string">&#x27;polar&#x27;</span>, <span class="hljs-comment">//类型，极坐标</span><br>                <span class="hljs-attr">roundCap</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">//顶端圆角</span><br>                <span class="hljs-attr">z</span>: <span class="hljs-number">1</span> <span class="hljs-comment">//圆环层级，和zindex相似</span><br>            &#125;,<br>            &#123; <span class="hljs-comment">//仪表盘</span><br>                <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;gauge&#x27;</span>,<br>                <span class="hljs-attr">radius</span>: <span class="hljs-string">&#x27;95%&#x27;</span>,<br>                <span class="hljs-attr">startAngle</span>: <span class="hljs-number">210</span>, <span class="hljs-comment">//起始角度，同极坐标</span><br>                <span class="hljs-attr">endAngle</span>: -<span class="hljs-number">30</span>, <span class="hljs-comment">//终止角度，同极坐标</span><br>                <span class="hljs-attr">max</span>: max,<br>                <span class="hljs-attr">splitNumber</span>: <span class="hljs-number">5</span>, <span class="hljs-comment">//分割线个数（除原点外）</span><br>                <span class="hljs-attr">axisLine</span>: &#123; <span class="hljs-comment">// 坐标轴线</span><br>                    <span class="hljs-attr">show</span>: <span class="hljs-literal">false</span><br>                &#125;,<br>                <span class="hljs-attr">pointer</span>: &#123;<br>                    <span class="hljs-attr">show</span>: <span class="hljs-literal">false</span><br>                &#125;,<br>                <span class="hljs-attr">axisLabel</span>: &#123;<br>                    <span class="hljs-comment">// 坐标轴数字</span><br>                    <span class="hljs-attr">textStyle</span>: &#123;<br>                        <span class="hljs-attr">fontSize</span>: <span class="hljs-number">8</span>,<br>                        <span class="hljs-attr">color</span>: <span class="hljs-string">&quot;#13B5FC&quot;</span><br>                    &#125;,<br><br>                &#125;,<br>                <span class="hljs-attr">axisTick</span>: &#123; <span class="hljs-comment">// 坐标轴标记</span><br>                    <span class="hljs-attr">length</span>: <span class="hljs-number">10</span>,<br>                    <span class="hljs-attr">lineStyle</span>: &#123;<br>                        <span class="hljs-attr">color</span>: <span class="hljs-string">&quot;#13B5FC&quot;</span><br>                    &#125;<br>                &#125;,<br>                <span class="hljs-attr">splitLine</span>: &#123; <span class="hljs-comment">// 分隔线</span><br>                    <span class="hljs-attr">length</span>: <span class="hljs-number">5</span>,<br>                    <span class="hljs-attr">lineStyle</span>: &#123;<br>                        <span class="hljs-attr">width</span>: <span class="hljs-number">1</span>,<br>                    &#125;<br>                &#125;,<br>                <span class="hljs-attr">title</span>: &#123; <span class="hljs-comment">//标题，显示&#x27;馆藏量&#x27;</span><br>                    <span class="hljs-attr">textStyle</span>: &#123;<br>                        <span class="hljs-attr">color</span>: <span class="hljs-string">&#x27;#fff&#x27;</span>,<br>                        <span class="hljs-attr">shadowColor</span>: <span class="hljs-string">&#x27;#fff&#x27;</span>,<br>                        <span class="hljs-attr">fontSize</span>: <span class="hljs-number">30</span><br>                    &#125;,<br>                    <span class="hljs-attr">offsetCenter</span>: [<span class="hljs-string">&quot;0&quot;</span>, <span class="hljs-string">&#x27;-35%&#x27;</span>] <span class="hljs-comment">//位置偏移</span><br>                &#125;,<br>                <span class="hljs-attr">detail</span>: &#123; <span class="hljs-comment">//仪表盘数值</span><br>                    <span class="hljs-attr">formatter</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">params</span>) </span>&#123;<br>                        <span class="hljs-keyword">var</span> name = data.num.toString()<br>                        <span class="hljs-keyword">var</span> list = <span class="hljs-string">&#x27;&#x27;</span><br>                        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; name.length; i++) &#123;<br>                            list += <span class="hljs-string">&#x27;&#123;value|&#x27;</span> + name[i] + <span class="hljs-string">&#x27;&#125;&#x27;</span> <span class="hljs-comment">//每个数字用border隔开</span><br>                            <span class="hljs-keyword">if</span> (i !== name.length - <span class="hljs-number">1</span>) &#123;<br>                                list += <span class="hljs-string">&#x27;&#123;margin|&#125;&#x27;</span> <span class="hljs-comment">//添加margin值</span><br>                            &#125;<br>                        &#125;<br>                        <span class="hljs-keyword">return</span> [list]<br>                    &#125;,<br>                    <span class="hljs-attr">offsetCenter</span>: [<span class="hljs-string">&quot;0&quot;</span>, <span class="hljs-string">&#x27;5%&#x27;</span>],<br>                    <span class="hljs-attr">rich</span>: &#123; <span class="hljs-comment">//编辑富文本样式</span><br>                        <span class="hljs-attr">value</span>: &#123;<br>                            <span class="hljs-attr">width</span>: <span class="hljs-number">34</span>,<br>                            <span class="hljs-attr">height</span>: <span class="hljs-number">42</span>,<br>                            <span class="hljs-attr">borderColor</span>: <span class="hljs-string">&#x27;#02A0F0&#x27;</span>,<br>                            <span class="hljs-attr">borderWidth</span>: <span class="hljs-number">2</span>,<br>                            <span class="hljs-attr">borderRadius</span>: <span class="hljs-number">5</span>,<br>                            <span class="hljs-attr">lineHeight</span>: <span class="hljs-number">1000</span>,<br>                            <span class="hljs-attr">fontSize</span>: <span class="hljs-number">36</span>,<br>                            <span class="hljs-attr">padding</span>: [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">4</span>, <span class="hljs-number">0</span>],<br>                            <span class="hljs-attr">color</span>: <span class="hljs-string">&#x27;#fff&#x27;</span>,<br>                            <span class="hljs-attr">shadowColor</span>: <span class="hljs-string">&#x27;rgb(2,157,239)&#x27;</span>,<br>                            <span class="hljs-attr">shadowBlur</span>: <span class="hljs-number">5</span><br>                        &#125;,<br>                        <span class="hljs-attr">margin</span>: &#123;<br>                            <span class="hljs-attr">width</span>: <span class="hljs-number">8</span>,<br>                            <span class="hljs-attr">height</span>: <span class="hljs-number">42</span>,<br>                        &#125;<br>                    &#125;<br><br>                &#125;,<br>                <span class="hljs-attr">data</span>: [&#123;<br>                    <span class="hljs-attr">value</span>: data.num,<br>                    <span class="hljs-attr">name</span>: data.name<br>                &#125;]<br>            &#125;<br>        ]<br>    &#125;<br>    timeTick()<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setOption</span>(<span class="hljs-params"></span>) </span>&#123; <span class="hljs-comment">//更新数据</span><br>    data.num = <span class="hljs-built_in">parseInt</span>(<span class="hljs-built_in">Math</span>.random() * max)<br>    option.series[<span class="hljs-number">2</span>].data[<span class="hljs-number">0</span>].value = data.num<br>    option.series[<span class="hljs-number">0</span>].data[<span class="hljs-number">0</span>].value = data.num<br>    chart.setOption(option)<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">timeTick</span>(<span class="hljs-params"></span>) </span>&#123; <span class="hljs-comment">//定时器,最好用延时加递归，如果用setInterval，容易造成堵塞</span><br>    <span class="hljs-keyword">if</span> (timeTickId) &#123;<br>        <span class="hljs-built_in">clearTimeout</span>(timeTickId)<br>        timeTickId = <span class="hljs-number">0</span><br>    &#125;<br>    setOption()<br>    timeTickId = <span class="hljs-built_in">setTimeout</span>(timeTick, <span class="hljs-number">1000</span> * timer || <span class="hljs-number">5000</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>总结：</strong>编程即生活，有时候不能死磕到底，换个角度也许会更好</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/04/09/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%EF%BC%8C%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%B4%AD%E7%89%A9%E5%B9%B3%E5%8F%B0%EF%BC%88%E4%B8%80%EF%BC%89/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">从零开始，搭建一个简单的购物平台（一）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/03/21/Echarts%E6%A1%88%E4%BE%8B%20%E4%BD%BF%E7%94%A8%E8%B1%A1%E5%BD%A2%E6%9F%B1%E7%8A%B6%E5%9B%BE%EF%BC%88PictorialBar%EF%BC%89%E5%AE%9E%E7%8E%B0%E7%94%B5%E6%B1%A0%E6%95%88%E6%9E%9C%E6%9F%B1%E7%8A%B6%E5%9B%BE/">
+                        <span class="hidden-mobile">Echarts案例：使用象形柱状图（PictorialBar）实现电池效果柱状图</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

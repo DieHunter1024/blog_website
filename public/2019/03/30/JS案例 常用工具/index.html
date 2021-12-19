@@ -1,0 +1,457 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/null">
+  <link rel="icon" href="/null">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="本人擅长Ai、Fw、Fl、Br、Ae、Pr、Id、Ps等软件的安装与卸载，精通CSS、JavaScript、PHP、ASP、C、C＋＋、C#、Java、Ruby、Perl、Lisp、python、Objective-C、ActionScript、Pascal、spss、sas等单词的拼写，熟悉Windows、Linux、Mac、Android、IOS、WP等系统的开关机">
+  <meta name="author" content="Hunter">
+  <meta name="keywords" content="">
+  <meta name="description" content="对以前用过的方法做个整合12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS案例：常用工具">
+<meta property="og:url" content="http://example.com/2019/03/30/JS%E6%A1%88%E4%BE%8B%20%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/index.html">
+<meta property="og:site_name" content="DieHunter">
+<meta property="og:description" content="对以前用过的方法做个整合12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-03-30T01:23:57.000Z">
+<meta property="article:modified_time" content="2021-12-19T03:52:16.119Z">
+<meta property="article:author" content="Hunter">
+<meta name="twitter:card" content="summary_large_image">
+  
+  <title>JS案例：常用工具 - DieHunter</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>DieHunter</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="JS案例：常用工具">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-03-30 09:23" pubdate>
+        2019年3月30日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      12k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      37 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JS案例：常用工具</h1>
+            
+            <div class="markdown-body">
+              <h3 id="对以前用过的方法做个整合"><a href="#对以前用过的方法做个整合" class="headerlink" title="对以前用过的方法做个整合"></a>对以前用过的方法做个整合</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> Methods = (<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> &#123;<br>        <span class="hljs-comment">// 随机颜色</span><br>        <span class="hljs-attr">randomColor</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>            <span class="hljs-keyword">var</span> color = <span class="hljs-string">&#x27;#&#x27;</span><br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">6</span>; i++) &#123;<br>                <span class="hljs-keyword">var</span> num = <span class="hljs-built_in">parseInt</span>(<span class="hljs-built_in">Math</span>.random().toFixed(<span class="hljs-number">2</span>) * <span class="hljs-number">16</span>);<br>                color += num.toString(<span class="hljs-number">16</span>);<br>            &#125;<br>            <span class="hljs-keyword">return</span> color<br>        &#125;,<br>        <span class="hljs-comment">//产生区间随机数</span><br>        <span class="hljs-function"><span class="hljs-title">randomNum</span>(<span class="hljs-params">min, max, bool</span>)</span> &#123; <span class="hljs-comment">//bool是表示是否可等于最大值</span><br>            <span class="hljs-keyword">return</span> (<span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.random() * (max - min + bool) + min));<br>        &#125;,<br>        <span class="hljs-comment">//数组去重</span><br>        <span class="hljs-function"><span class="hljs-title">arrayUniq</span>(<span class="hljs-params">arr</span>)</span> &#123;<br>            <span class="hljs-keyword">var</span> list = [];<br>            <span class="hljs-keyword">var</span> leng = arr.length<br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; leng; i++) &#123;<br>                <span class="hljs-keyword">if</span> (list.indexOf(arr[i]) === -<span class="hljs-number">1</span>) &#123;<br>                    list.push(arr[i]);<br>                &#125;<br>            &#125;<br>            <span class="hljs-keyword">return</span> list<br>        &#125;,<br>        <span class="hljs-comment">//数组乱序</span><br>        <span class="hljs-function"><span class="hljs-title">arrayRandom</span>(<span class="hljs-params">arr</span>)</span> &#123;<br>            arr.sort(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.random() - <span class="hljs-number">0.5</span><br>            &#125;)<br>            <span class="hljs-keyword">return</span> arr<br>        &#125;,<br>        <span class="hljs-comment">//拆分url变成对象</span><br>        <span class="hljs-function"><span class="hljs-title">urlSplit</span>(<span class="hljs-params">url</span>)</span> &#123;<br>            <span class="hljs-keyword">var</span> list = url.split(<span class="hljs-string">&#x27;?&#x27;</span>)[<span class="hljs-number">1</span>].split(<span class="hljs-string">&#x27;&amp;&#x27;</span>);<br>            <span class="hljs-keyword">var</span> leng = list.length;<br>            <span class="hljs-keyword">let</span> obj = &#123;&#125;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; leng; i++) &#123;<br>                <span class="hljs-keyword">var</span> key = list[i].split(<span class="hljs-string">&#x27;=&#x27;</span>)[<span class="hljs-number">0</span>];<br>                <span class="hljs-keyword">var</span> val = list[i].split(<span class="hljs-string">&#x27;=&#x27;</span>)[<span class="hljs-number">1</span>];<br>                obj[key] = val<br>            &#125;<br>            <span class="hljs-keyword">return</span> obj<br>        &#125;,<br>        <span class="hljs-comment">//将对象拼接到url中</span><br>        <span class="hljs-function"><span class="hljs-title">urlJoin</span>(<span class="hljs-params">url, obj</span>)</span> &#123;<br>            <span class="hljs-keyword">var</span> list = []<br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> obj) &#123;<br>                <span class="hljs-keyword">if</span> (obj.hasOwnProperty(key)) &#123;<br>                    list.push(<span class="hljs-string">`<span class="hljs-subst">$&#123;key&#125;</span>=<span class="hljs-subst">$&#123;obj[key]&#125;</span>`</span>)<br>                &#125;<br>            &#125;<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">$&#123;url&#125;</span>?<span class="hljs-subst">$&#123;list.join(<span class="hljs-string">&#x27;&amp;&#x27;</span>)&#125;</span>`</span><br>        &#125;,<br>        <span class="hljs-comment">// 设置元素CSS样式</span><br>        <span class="hljs-function"><span class="hljs-title">setStyle</span>(<span class="hljs-params">elem, style</span>)</span> &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> str <span class="hljs-keyword">in</span> style) &#123;<br>                elem.style[str] = style[str];<br>            &#125;<br>        &#125;,<br>        <span class="hljs-comment">// Ajax请求函数</span><br>        <span class="hljs-function"><span class="hljs-title">AjaxTool</span>(<span class="hljs-params">method, url, data, fn</span>)</span> &#123;<br>            <span class="hljs-keyword">var</span> xhr;<br>            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">window</span>.ActiveXObject) &#123; <span class="hljs-comment">//ie浏览器</span><br>                xhr = <span class="hljs-keyword">new</span> ActiveXObject(<span class="hljs-string">&quot;Microsoft.XMLHTTP&quot;</span>);<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-built_in">window</span>.XMLHttpRequest) &#123; <span class="hljs-comment">//其他浏览器</span><br>                xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();<br>            &#125;<br>            <span class="hljs-keyword">if</span> (method == <span class="hljs-string">&#x27;get&#x27;</span>) &#123;<br>                url = <span class="hljs-built_in">this</span>.urlJoin(url, data)<br>                data = <span class="hljs-literal">null</span><br>            &#125;<br>            xhr.open(method, url);<br>            xhr.send(data ? <span class="hljs-built_in">JSON</span>.stringify(data) : <span class="hljs-string">&#x27;&#x27;</span>)<br>            xhr.addEventListener(<span class="hljs-string">&#x27;load&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>                <span class="hljs-keyword">if</span> (xhr.readyState === <span class="hljs-number">4</span> &amp;&amp; xhr.status === <span class="hljs-number">200</span>) &#123;<br>                    fn(<span class="hljs-built_in">this</span>.response)<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    fn(<span class="hljs-string">&#x27;err&#x27;</span>)<br>                &#125;<br><br>            &#125;)<br>        &#125;,<br>        <span class="hljs-comment">//拖拽事件</span><br>        <span class="hljs-function"><span class="hljs-title">mouseMove</span>(<span class="hljs-params">ele, parent</span>)</span> &#123;<br>            ele.addEventListener(<span class="hljs-string">&#x27;mousedown&#x27;</span>, moveHandler);<br>            ele.style.position = <span class="hljs-string">&#x27;absolute&#x27;</span><br><br>            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">moveHandler</span>(<span class="hljs-params">e</span>) </span>&#123;<br>                <span class="hljs-keyword">if</span> (e.type === <span class="hljs-string">&#x27;mousedown&#x27;</span>) &#123;<br>                    parent.ele = <span class="hljs-built_in">this</span>;<br>                    parent.point = &#123;<br>                        <span class="hljs-attr">x</span>: e.offsetX,<br>                        <span class="hljs-attr">y</span>: e.offsetY<br>                    &#125;<br>                    parent.addEventListener(<span class="hljs-string">&#x27;mousemove&#x27;</span>, moveHandler);<br>                    parent.addEventListener(<span class="hljs-string">&#x27;mouseup&#x27;</span>, moveHandler);<br>                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (e.type === <span class="hljs-string">&#x27;mousemove&#x27;</span>) &#123;<br>                    <span class="hljs-built_in">this</span>.ele.style.left = e.x - <span class="hljs-built_in">this</span>.point.x + <span class="hljs-string">&quot;px&quot;</span>;<br>                    <span class="hljs-built_in">this</span>.ele.style.top = e.y - <span class="hljs-built_in">this</span>.point.y + <span class="hljs-string">&quot;px&quot;</span>;<br>                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (e.type === <span class="hljs-string">&#x27;mouseup&#x27;</span>) &#123;<br>                    parent.removeEventListener(<span class="hljs-string">&quot;mousemove&quot;</span>, moveHandler);<br>                    parent.ele = <span class="hljs-literal">null</span>;<br>                    parent.point = <span class="hljs-literal">null</span>;<br>                &#125;<br>            &#125;<br>        &#125;,<br>        <span class="hljs-comment">//继承</span><br>        <span class="hljs-function"><span class="hljs-title">inherit</span>(<span class="hljs-params">father, son</span>)</span> &#123;<br>            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">F</span>(<span class="hljs-params"></span>) </span>&#123;&#125; <span class="hljs-comment">//使用闭包产生私有函数</span><br>            (<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">father, son</span>) </span>&#123; 新建一个立即执行函数,(类似雅虎网站的继承写法)<br>                F.prototype = father.prototype; <span class="hljs-comment">//私有函数取出父类的原型</span><br>                son.prototype = <span class="hljs-keyword">new</span> F(); <span class="hljs-comment">//实例化私有函数，并将对象赋给子类的原型</span><br>                son.prototype.superClass = father; <span class="hljs-comment">//自定义子类的超类等于父类</span><br>                son.prototype.constructor = son; <span class="hljs-comment">//将子类的构造函数指向自己，否则是父类(因为原型链上的constructor是父类)</span><br>            &#125;(father, son))<br>        &#125;,<br>        <span class="hljs-comment">//深复制</span><br>        <span class="hljs-function"><span class="hljs-title">deepCopy</span>(<span class="hljs-params">org, tag</span>)</span> &#123;<br>            <span class="hljs-keyword">var</span> tag = tag || &#123;&#125;; <span class="hljs-comment">//初始化要复制的对象</span><br>            <span class="hljs-keyword">var</span> name = <span class="hljs-built_in">Object</span>.getOwnPropertyNames(org); <span class="hljs-comment">//获取该对象的属性名，以字符串数组返回</span><br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; name.length; i++) &#123; <span class="hljs-comment">//遍历对象</span><br>                <span class="hljs-keyword">var</span> desc = <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(org, name[i]); <span class="hljs-comment">//获取对象的属性描述对象，无引用关系，返回另一个对象，改变时原对象不发生变化(复制的关键)</span><br>                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> desc.value === <span class="hljs-string">&#x27;object&#x27;</span> &amp;&amp; desc.value !== <span class="hljs-literal">null</span>) &#123; <span class="hljs-comment">//若遍历的每一项非空且为对象，则为引用值，则进行下一步</span><br>                    <span class="hljs-keyword">var</span> obj = desc.value.toString() === <span class="hljs-string">&#x27;[object Object]&#x27;</span> ? &#123;&#125; : []; <span class="hljs-comment">//判断是数组还是对象</span><br>                    <span class="hljs-built_in">Object</span>.defineProperty(tag, name[i], &#123; <span class="hljs-comment">//设置对象属性值，前三个的值是返回true或false</span><br>                        <span class="hljs-attr">configurable</span>: desc.configurable, <span class="hljs-comment">//是否可删除可替换</span><br>                        <span class="hljs-attr">enumerable</span>: desc.enumerable, <span class="hljs-comment">//是否可枚举可遍历</span><br>                        <span class="hljs-attr">writable</span>: desc.writable, <span class="hljs-comment">//是否可写入</span><br>                        <span class="hljs-attr">value</span>: obj <span class="hljs-comment">//对象的值</span><br>                    &#125;);<br>                    <span class="hljs-built_in">this</span>.deepCopy(desc.value, obj); <span class="hljs-comment">//再次执行函数</span><br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    <span class="hljs-built_in">Object</span>.defineProperty(tag, name[i], desc); <span class="hljs-comment">//否则直接将该对象的属性值进行复制(原始值)</span><br>                &#125;<br>            &#125;<br>            <span class="hljs-keyword">return</span> tag;<br>        &#125;,<br>        <span class="hljs-comment">//获取伪元素</span><br>        <span class="hljs-function"><span class="hljs-title">pseudoEle</span>(<span class="hljs-params">ele, type</span>)</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">window</span>.getComputedStyle(ele, type)<br>        &#125;,<br>        <span class="hljs-comment">//获取数据类型</span><br>        <span class="hljs-function"><span class="hljs-title">getType</span>(<span class="hljs-params">data</span>)</span> &#123;<br>            <span class="hljs-keyword">var</span> type = <span class="hljs-keyword">typeof</span> data;<br>            <span class="hljs-keyword">var</span> obj = &#123;<br>                <span class="hljs-string">&#x27;[object Array]&#x27;</span>: <span class="hljs-string">&#x27;array&#x27;</span>,<br>                <span class="hljs-string">&#x27;[object Object]&#x27;</span>: <span class="hljs-string">&#x27;object&#x27;</span><br>            &#125;<br>            <span class="hljs-keyword">if</span> (data === <span class="hljs-literal">null</span>) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;null&#x27;</span><br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (type === <span class="hljs-string">&#x27;object&#x27;</span>) &#123;<br>                <span class="hljs-keyword">var</span> key = <span class="hljs-built_in">Object</span>.prototype.toString.call(data);<br>                <span class="hljs-keyword">return</span> obj[key];<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-keyword">return</span> type<br>            &#125;<br>        &#125;,<br>        <span class="hljs-comment">// 在某元素（after）之后插入元素（target）</span><br>        <span class="hljs-function"><span class="hljs-title">insertAfter</span>(<span class="hljs-params">parent, after, target</span>)</span> &#123;<br>            before = after.nextElementSibling;<br>            <span class="hljs-built_in">console</span>.log(before);<br><br>            <span class="hljs-keyword">if</span> (before == <span class="hljs-literal">null</span>) &#123;<br>                parent.appendChild(target)<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                parent.insertBefore(target, before)<br>            &#125;<br>        &#125;,<br>        <span class="hljs-comment">//浏览器事件兼容函数</span><br>        <span class="hljs-function"><span class="hljs-title">addHandler</span>(<span class="hljs-params">ele, type, handler</span>)</span> &#123;<br>            <span class="hljs-keyword">if</span> (ele.addEventListener) &#123;<br>                ele.addEventListener(type, handler, <span class="hljs-literal">false</span>)<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (ele.attachEvent) &#123;<br>                ele.attachEvent(<span class="hljs-string">&#x27;on&#x27;</span> + type, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>                    handler.call(ele)<br>                &#125;)<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                ele[<span class="hljs-string">&#x27;on&#x27;</span> + type] = handler<br>            &#125;<br>        &#125;,<br>        <span class="hljs-comment">// 取消事件冒泡</span><br>        <span class="hljs-function"><span class="hljs-title">stopBubble</span>(<span class="hljs-params">event</span>)</span> &#123;<br>            event = event || <span class="hljs-built_in">window</span>.event<br>            <span class="hljs-keyword">if</span> (event.stopPropagation) &#123;<br>                event.stopPropagation()<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                event.cancelBubble()<br>            &#125;<br>        &#125;,<br>        <span class="hljs-comment">//取消默认事件</span><br>        <span class="hljs-function"><span class="hljs-title">stopDefault</span>(<span class="hljs-params">event</span>)</span> &#123;<br>            event = event || <span class="hljs-built_in">window</span>.event<br>            <span class="hljs-keyword">if</span> (event.preventDefault) &#123;<br>                event.preventDefault();<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                event.returnValue = <span class="hljs-literal">false</span>;<br>            &#125;<br>        &#125;,<br>        <span class="hljs-comment">// 事件处理机制</span><br>        <span class="hljs-function"><span class="hljs-title">eventCtrl</span>(<span class="hljs-params">ele, type, handler, fn, data</span>)</span> &#123;<br>            <span class="hljs-keyword">switch</span> (type) &#123;<br>                <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;on&#x27;</span>:<br>                    <span class="hljs-built_in">this</span>.onEvent(ele, handler, fn, data)<br>                    <span class="hljs-keyword">break</span>;<br>                <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;remove&#x27;</span>:<br>                    <span class="hljs-built_in">this</span>.removeEvent(ele, handler, fn, data);<br>                    <span class="hljs-keyword">break</span>;<br>                <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;dispatch&#x27;</span>:<br>                    <span class="hljs-built_in">this</span>.dispatchEvent(ele, handler, fn, data);<br>                    <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;,<br>        <span class="hljs-comment">//事件处理机制（方法）</span><br>        <span class="hljs-function"><span class="hljs-title">onEvent</span>(<span class="hljs-params">ele, handler, fn, data</span>)</span> &#123;<br>            <span class="hljs-built_in">this</span>.addHandler(ele, handler, fn)<br>        &#125;,<br>        <span class="hljs-function"><span class="hljs-title">removeEvent</span>(<span class="hljs-params">ele, handler, fn, data</span>)</span> &#123;<br>            ele.removeEventListener(handler, fn)<br>        &#125;,<br>        <span class="hljs-function"><span class="hljs-title">dispatchEvent</span>(<span class="hljs-params">ele, handler, fn, data</span>)</span> &#123;<br>            <span class="hljs-keyword">var</span> evts = <span class="hljs-keyword">new</span> Event(handler);<br>            ele.dispatchEvent(evts);<br>        &#125;,<br>        <span class="hljs-comment">// cookie操作(time是小时)</span><br>        <span class="hljs-function"><span class="hljs-title">cookieUse</span>(<span class="hljs-params">type, data, name, time = <span class="hljs-number">1</span></span>)</span> &#123;<br>            <span class="hljs-keyword">switch</span> (type) &#123;<br>                <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;add&#x27;</span>:<br>                    <span class="hljs-keyword">var</span> date = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()<br>                    date.setHours(date.getHours() + time)<br>                    <span class="hljs-built_in">document</span>.cookie = name + <span class="hljs-string">&#x27;=&#x27;</span> + <span class="hljs-built_in">JSON</span>.stringify(data) + <span class="hljs-string">&quot;;expires=&quot;</span> + date.toString();<br>                    <span class="hljs-keyword">break</span>;<br>                <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;del&#x27;</span>:<br>                    <span class="hljs-built_in">document</span>.cookie = name + <span class="hljs-string">&quot;=;expires=Thu, 01 Jan 1970 00:00:00 GMT&quot;</span>;<br>                    <span class="hljs-keyword">break</span>;<br>                <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;find&#x27;</span>:<br>                    <span class="hljs-keyword">var</span> arr = <span class="hljs-built_in">document</span>.cookie.split(<span class="hljs-string">&#x27;;&#x27;</span>)<br>                    <span class="hljs-keyword">var</span> leng = arr.length;<br>                    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; leng; i++) &#123;<br>                        <span class="hljs-keyword">if</span> (arr[i].split(<span class="hljs-string">&#x27;=&#x27;</span>)[<span class="hljs-number">0</span>] === name) &#123;<br>                            <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.parse(arr[i].split(<span class="hljs-string">&#x27;=&#x27;</span>)[<span class="hljs-number">1</span>]);<br>                        &#125;<br>                    &#125;<br>                    <span class="hljs-keyword">break</span>;<br>                <span class="hljs-keyword">default</span>:<br>                    <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;,<br>        <span class="hljs-comment">// 缓存storage使用</span><br>        <span class="hljs-function"><span class="hljs-title">storageUse</span>(<span class="hljs-params">method, type, name, data</span>)</span> &#123;<br>            <span class="hljs-keyword">var</span> obj = &#123;&#125;<br>            <span class="hljs-keyword">if</span> (method === <span class="hljs-string">&#x27;session&#x27;</span>) &#123;<br>                obj = sessionStorage<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (method === <span class="hljs-string">&#x27;local&#x27;</span>) &#123;<br>                obj = <span class="hljs-built_in">localStorage</span><br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-keyword">return</span>;<br>            &#125;<br>            <span class="hljs-keyword">switch</span> (type) &#123;<br>                <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;add&#x27;</span>:<br>                    obj.setItem(name, <span class="hljs-built_in">JSON</span>.stringify(data))<br>                    <span class="hljs-keyword">break</span>;<br>                <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;del&#x27;</span>:<br>                    obj.removeItem(name);<br>                    <span class="hljs-keyword">break</span>;<br>                <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;delAll&#x27;</span>:<br>                    obj.clear();<br>                    <span class="hljs-keyword">break</span>;<br>                <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;find&#x27;</span>:<br>                    <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.parse(obj[name])<br>                <span class="hljs-attr">default</span>:<br>                    <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;,<br>        <span class="hljs-comment">// 复制文本(可复制元素内容,输入框的值,字符串)ele是触发事件对象，event是事件类型,target是被复制的对象</span><br>        <span class="hljs-function"><span class="hljs-title">copyText</span>(<span class="hljs-params">ele, event, target</span>)</span> &#123;<br>            <span class="hljs-comment">// this.addHandler(ele, event, handle)</span><br>            <span class="hljs-built_in">this</span>.addHandler(ele, event, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>&#123;<br>                <span class="hljs-keyword">var</span> input = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;input&#x27;</span>);<br>                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> target == <span class="hljs-string">&#x27;string&#x27;</span>) &#123;<br>                    input.value = target<br>                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (target.value) &#123;<br>                    input.value = target.value<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    input.value = target.textContent<br>                &#125;<br>                <span class="hljs-built_in">document</span>.body.appendChild(input)<br>                input.select();<br>                <span class="hljs-built_in">document</span>.execCommand(<span class="hljs-string">&#x27;Copy&#x27;</span>);<br>                input.style.display = <span class="hljs-string">&#x27;none&#x27;</span><br>            &#125;)<br><br>        &#125;,<br>        <span class="hljs-comment">// 获取选中文本</span><br>        <span class="hljs-function"><span class="hljs-title">selectText</span>(<span class="hljs-params">parent, event, fn</span>)</span> &#123;<br>            <span class="hljs-built_in">this</span>.addHandler(parent, event, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>&#123;<br>                <span class="hljs-keyword">var</span> str = <span class="hljs-string">&#x27;&#x27;</span><br>                <span class="hljs-keyword">if</span> (<span class="hljs-built_in">window</span>.getSelection) &#123;<br>                    <span class="hljs-comment">//Firefox、Chrome、Safari、Opera</span><br>                    str = <span class="hljs-built_in">window</span>.getSelection().toString();<br>                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-built_in">document</span>.selection &amp;&amp; <span class="hljs-built_in">document</span>.selection.createRange) &#123; <span class="hljs-comment">//IE </span><br>                    str = <span class="hljs-built_in">document</span>.selection.createRange().text;<br>                &#125;<br>                fn(str)<br>            &#125;)<br>        &#125;,<br>        <span class="hljs-comment">// checkBox全选</span><br>        <span class="hljs-function"><span class="hljs-title">checkAll</span>(<span class="hljs-params">selectAll, selectItem</span>)</span> &#123;<br>            <span class="hljs-keyword">let</span> len = selectItem.length;<br>            <span class="hljs-built_in">this</span>.addHandler(selectAll, <span class="hljs-string">&#x27;change&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>&#123;<br>                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;<br>                    selectItem[i].checked = e.target.checked<br>                &#125;<br>            &#125;);<br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>; j &lt; len; j++) &#123;<br>                <span class="hljs-built_in">this</span>.addHandler(selectItem[j], <span class="hljs-string">&#x27;change&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>&#123;<br>                    <span class="hljs-keyword">let</span> result = <span class="hljs-number">1</span>;<br>                    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> k = <span class="hljs-number">0</span>; k &lt; len; k++) &#123;<br>                        result *= selectItem[k].checked;<br>                    &#125;<br>                    selectAll.checked = result ? <span class="hljs-literal">true</span> : <span class="hljs-literal">false</span><br>                &#125;)<br>            &#125;<br>        &#125;,<br>        <span class="hljs-comment">// 数组扁平化</span><br>        <span class="hljs-function"><span class="hljs-title">demoteArr</span>(<span class="hljs-params">arr, list = []</span>)</span> &#123;<br>            <span class="hljs-keyword">let</span> len = arr.length;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;<br>                <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.getType(arr[i]) === <span class="hljs-string">&#x27;array&#x27;</span>) &#123;<br>                    <span class="hljs-built_in">this</span>.demoteArr(arr[i], list)<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    list.push(arr[i])<br>                &#125;<br>            &#125;<br>            <span class="hljs-keyword">return</span> list<br>        &#125;,<br>        <span class="hljs-comment">//数组升二维(num:每层的个数)</span><br>        <span class="hljs-function"><span class="hljs-title">updateArr</span>(<span class="hljs-params">arr, num, list = []</span>)</span> &#123;<br>            <span class="hljs-keyword">let</span> count = <span class="hljs-built_in">Math</span>.ceil(arr.length / num)<br>            <span class="hljs-keyword">let</span> value = <span class="hljs-number">0</span><br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; count; i++) &#123;<br>                <span class="hljs-keyword">let</span> initList = []<br>                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>; j &lt; num; j++) &#123;<br>                    initList.push(arr[value])<br>                    value++<br>                &#125;<br>                list.push(initList)<br>            &#125;<br>            <span class="hljs-keyword">return</span> list<br>        &#125;,<br>        <span class="hljs-comment">// 图片转base64</span><br>        <span class="hljs-function"><span class="hljs-title">changeBlob</span>(<span class="hljs-params">file, fn</span>)</span> &#123;<br>            <span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();<br>            xhr.open(<span class="hljs-string">&quot;POST&quot;</span>, file, <span class="hljs-literal">true</span>);<br>            xhr.responseType = <span class="hljs-string">&quot;blob&quot;</span>;<br>            xhr.send();<br>            xhr.onload = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>&#123;<br>                <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.status == <span class="hljs-number">200</span>) &#123;<br>                    <span class="hljs-keyword">var</span> blob = <span class="hljs-built_in">this</span>.response;<br>                    <span class="hljs-keyword">let</span> oFileReader = <span class="hljs-keyword">new</span> FileReader();<br>                    oFileReader.onloadend = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>&#123;<br>                        <span class="hljs-keyword">let</span> base64 = e.target.result;<br>                        fn(base64)<br>                    &#125;;<br>                    oFileReader.readAsDataURL(blob);<br>                    <span class="hljs-comment">// pic.src = window.URL.createObjectURL(blob);</span><br>                &#125;<br>            &#125;<br><br>        &#125;,<br>        <span class="hljs-comment">// 三级联动</span><br>        <span class="hljs-attr">moreSelect</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">url, elements</span>) </span>&#123;<br>            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">GetArea</span>(<span class="hljs-params">url</span>) </span>&#123;<br>                <span class="hljs-built_in">this</span>.url = url<br>                <span class="hljs-built_in">this</span>.init(elements)<br>            &#125;<br>            GetArea.prototype = &#123;<br>                <span class="hljs-attr">num</span>: <span class="hljs-number">0</span>,<br>                <span class="hljs-attr">selections</span>: <span class="hljs-literal">null</span>,<br>                <span class="hljs-attr">list</span>: [],<br>                <span class="hljs-function"><span class="hljs-title">createOptions</span>(<span class="hljs-params">data, parent</span>)</span> &#123;<br>                    <span class="hljs-keyword">if</span> (!parent) <span class="hljs-keyword">return</span><br>                    <span class="hljs-keyword">if</span> (parent.children) &#123;<br>                        <span class="hljs-keyword">var</span> leng = parent.children.length<br>                        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> j = <span class="hljs-number">0</span>; j &lt; leng; j++) &#123;<br>                            parent.lastElementChild.textContent = <span class="hljs-string">&#x27;&#x27;</span><br>                            parent.lastElementChild.remove()<br>                        &#125;<br>                    &#125;<br>                    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; data.length; i++) &#123;<br>                        <span class="hljs-keyword">var</span> option = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;option&#x27;</span>);<br>                        option.textContent = data[i].name || data[i]<br>                        parent.appendChild(option)<br>                    &#125;<br>                    parent.addEventListener(<span class="hljs-string">&#x27;change&#x27;</span>, <span class="hljs-built_in">this</span>.changeHandler);<br>                    parent.data = data<br>                    parent.self = <span class="hljs-built_in">this</span><br>                &#125;,<br>                <span class="hljs-function"><span class="hljs-title">init</span>(<span class="hljs-params">elements</span>)</span> &#123;<br>                    <span class="hljs-built_in">this</span>.selections = elements<br>                    <span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();<br>                    xhr.addEventListener(<span class="hljs-string">&#x27;load&#x27;</span>, <span class="hljs-built_in">this</span>.loadHandler);<br>                    xhr.open(<span class="hljs-string">&#x27;get&#x27;</span>, <span class="hljs-built_in">this</span>.url)<br>                    xhr.send(<span class="hljs-string">&#x27;&#x27;</span>)<br>                    xhr.self = <span class="hljs-built_in">this</span><br>                &#125;,<br>                <span class="hljs-function"><span class="hljs-title">loadHandler</span>(<span class="hljs-params">e</span>)</span> &#123;<br>                    <span class="hljs-built_in">this</span>.self.list = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-built_in">this</span>.response)<br>                    <span class="hljs-built_in">this</span>.self.createOptions(<span class="hljs-built_in">this</span>.self.list, <span class="hljs-built_in">this</span>.self.selections[<span class="hljs-built_in">this</span>.self.num])<br>                &#125;,<br>                <span class="hljs-function"><span class="hljs-title">changeHandler</span>(<span class="hljs-params">e</span>)</span> &#123;<br>                    <span class="hljs-keyword">var</span> list;<br>                    <span class="hljs-built_in">this</span>.data.forEach(<span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> &#123;<br>                        <span class="hljs-keyword">if</span> (item.name === <span class="hljs-built_in">this</span>.value) &#123;<br>                            list = item.city ? item.city : item<br>                        &#125;<br>                    &#125;);<br>                    <span class="hljs-built_in">this</span>.self.selections.forEach(<span class="hljs-function">(<span class="hljs-params">item, val</span>) =&gt;</span> &#123;<br>                        <span class="hljs-keyword">if</span> (item.id === <span class="hljs-built_in">this</span>.id) &#123;<br>                            <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.self.num)<br>                            <span class="hljs-built_in">this</span>.self.num = item.id.split(<span class="hljs-string">&#x27;select&#x27;</span>)[<span class="hljs-number">1</span>] - <span class="hljs-number">1</span><br>                        &#125;<br>                    &#125;)<br>                    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.self.num &gt; <span class="hljs-built_in">this</span>.self.selections.length - <span class="hljs-number">1</span>) &#123;<br>                        <span class="hljs-keyword">return</span><br>                    &#125;<br>                    <span class="hljs-built_in">this</span>.self.num++<br>                    <span class="hljs-built_in">this</span>.self.createOptions(list, <span class="hljs-built_in">this</span>.self.selections[<span class="hljs-built_in">this</span>.self.num])<br>                &#125;<br>            &#125;<br>            <span class="hljs-keyword">return</span> getArea = <span class="hljs-keyword">new</span> GetArea(url);<br>        &#125;,<br>        <span class="hljs-comment">// 函数节流</span><br>        <span class="hljs-function"><span class="hljs-title">throttle</span>(<span class="hljs-params">fn, time</span>)</span> &#123;<br>            <span class="hljs-keyword">var</span> canDo = <span class="hljs-literal">true</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>&#123;<br>                <span class="hljs-keyword">if</span> (!canDo) &#123;<br>                    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>                &#125;<br>                canDo = <span class="hljs-literal">false</span><br>                <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>                    fn.call(<span class="hljs-built_in">this</span>)<br>                    canDo = <span class="hljs-literal">true</span><br>                &#125;, time)<br>            &#125;<br>        &#125;,<br>        <span class="hljs-comment">// 函数防抖</span><br>        <span class="hljs-function"><span class="hljs-title">debounce</span>(<span class="hljs-params">fn, time</span>)</span> &#123;<br>            <span class="hljs-keyword">var</span> _timer = <span class="hljs-literal">null</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>                <span class="hljs-keyword">if</span> (_timer) &#123;<br>                    <span class="hljs-built_in">clearTimeout</span>(_timer)<br>                    _timer = <span class="hljs-literal">null</span><br>                &#125;<br>                _timer = <span class="hljs-built_in">setTimeout</span>(fn, time)<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;())<br></code></pre></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/02/22/%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E4%B8%8A%E7%BA%BF%E6%B5%81%E7%A8%8B/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">本地项目上线流程</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/03/07/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%85%A5%E5%9D%91%E8%AE%B0%20TodoList/">
+                        <span class="hidden-mobile">小程序入坑记：TodoList</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

@@ -1,0 +1,513 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/null">
+  <link rel="icon" href="/null">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="本人擅长Ai、Fw、Fl、Br、Ae、Pr、Id、Ps等软件的安装与卸载，精通CSS、JavaScript、PHP、ASP、C、C＋＋、C#、Java、Ruby、Perl、Lisp、python、Objective-C、ActionScript、Pascal、spss、sas等单词的拼写，熟悉Windows、Linux、Mac、Android、IOS、WP等系统的开关机">
+  <meta name="author" content="Hunter">
+  <meta name="keywords" content="">
+  <meta name="description" content="1Vue的意义：将开发者的精力从dom操作解脱，更加专注于数据的操作，  12345数据驱动，界面的渲染 随着数据的变化自动变化    1.将开发者的精力从dom中解除， 极少做dom操作    2.通过指令（directive）将元素和数据进行绑定      3.数据变化元素界面变化    4.开发者关注数据的变化  配置：Vue官网下载；或npm install vue js引入包后，实例化V">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue（一）初识">
+<meta property="og:url" content="http://example.com/2018/12/14/Vue%EF%BC%88%E4%B8%80%EF%BC%89%E5%88%9D%E8%AF%86/index.html">
+<meta property="og:site_name" content="DieHunter">
+<meta property="og:description" content="1Vue的意义：将开发者的精力从dom操作解脱，更加专注于数据的操作，  12345数据驱动，界面的渲染 随着数据的变化自动变化    1.将开发者的精力从dom中解除， 极少做dom操作    2.通过指令（directive）将元素和数据进行绑定      3.数据变化元素界面变化    4.开发者关注数据的变化  配置：Vue官网下载；或npm install vue js引入包后，实例化V">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-12-14T12:56:05.000Z">
+<meta property="article:modified_time" content="2021-12-19T03:52:16.120Z">
+<meta property="article:author" content="Hunter">
+<meta name="twitter:card" content="summary_large_image">
+  
+  <title>Vue（一）初识 - DieHunter</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>DieHunter</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Vue（一）初识">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-12-14 20:56" pubdate>
+        2018年12月14日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      9.7k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      30 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Vue（一）初识</h1>
+            
+            <div class="markdown-body">
+              <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">Vue的意义：将开发者的精力从dom操作解脱，更加专注于数据的操作，<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">数据驱动，界面的渲染 随着数据的变化自动变化<br>    <span class="hljs-number">1</span>.将开发者的精力从dom中解除， 极少做dom操作<br>    <span class="hljs-number">2</span>.通过指令（<span class="hljs-keyword">directive）将元素和数据进行绑定 </span> <br>    <span class="hljs-number">3</span>.数据变化元素界面变化<br>    <span class="hljs-number">4</span>.开发者关注数据的变化<br></code></pre></td></tr></table></figure>
+
+<p>配置：Vue官网下载；或npm install vue</p>
+<h3 id="js引入包后，实例化Vue对象；"><a href="#js引入包后，实例化Vue对象；" class="headerlink" title="js引入包后，实例化Vue对象；"></a>js引入包后，实例化Vue对象；</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> vm = <span class="hljs-keyword">new</span> Vue(&#123;<span class="hljs-comment">//实例化</span><br>             <span class="hljs-attr">el</span>: <span class="hljs-string">&#x27;#btn&#x27;</span>,<span class="hljs-comment">//选择标签（作用区域）</span><br>             <span class="hljs-attr">data</span>: &#123;<span class="hljs-comment">//变量（数据），关联页面的标签</span><br>                    <span class="hljs-attr">bool</span>: <span class="hljs-literal">true</span><br>                &#125;，<br>            <span class="hljs-attr">methods</span>:&#123;<span class="hljs-comment">//写方法的对象</span><br>                <span class="hljs-function"><span class="hljs-title">Fn1</span>(<span class="hljs-params"></span>)</span>&#123;<span class="hljs-comment">//方法</span><br>                        &#125;,<br>                <span class="hljs-function"><span class="hljs-title">Fn2</span>(<span class="hljs-params"></span>)</span>&#123;<br>                        &#125;<br>                &#125;<br><br>            &#125;);<br></code></pre></td></tr></table></figure>
+
+<h3 id="渲染数据："><a href="#渲染数据：" class="headerlink" title="渲染数据："></a>渲染数据：</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;div id=<span class="hljs-string">&#x27;app&#x27;</span>&gt;&#123;&#123;name&#125;&#125;&lt;<span class="hljs-regexp">/div&gt;/</span><span class="hljs-regexp">/用插值的方式&#123;&#123;&#125;&#125;来放置data的变量</span><br></code></pre></td></tr></table></figure>
+
+<p>Vue的数据是双向数据的绑定，数据相互依赖，缺点是源头很难找到，但是提升了数据的感知</p>
+<h3 id="指令："><a href="#指令：" class="headerlink" title="指令："></a>指令：</h3><p>v-if（条件渲染）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;p v-<span class="hljs-keyword">if</span>=<span class="hljs-string">&#x27;bool&#x27;</span>&gt;&lt;<span class="hljs-regexp">/p&gt;/</span><span class="hljs-regexp">/条件满足时显示元素</span><br><span class="hljs-regexp">&lt;p v-else&gt;&lt;/</span>p&gt;<span class="hljs-comment">//否则显示元素</span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">v-else-if</span>=<span class="hljs-string">&#x27;bool&#x27;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><span class="hljs-comment">//条件满足时显示元素</span><br></code></pre></td></tr></table></figure>
+
+<p>v-for（列表渲染）用for in和for of都行（注意：若遍历数组的时候有重复项，要用一个bind绑定数据否则会出错，如<li v-for='(item,index) in list' v-bind : key=index>–</li>）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs html">//数组<br><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&#x27;item in list&#x27;</span>&gt;</span>&#123;&#123;item&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>//item是每一项，list是操作的数组（根据list的长度新建li）<br><br><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&#x27;(item,index) in list&#x27;</span>&gt;</span>&#123;&#123;item&#125;&#125;--&#123;&#123;index&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>//item是每一项，index是数组索引，list是操作的数组（根据list的长度新建li）<br><br><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&#x27;item in 20&#x27;</span>&gt;</span>&#123;&#123;item&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>//直接创造20个li<br><br>//字符串<br><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&#x27;item in &quot;hello vue&quot;&#x27;</span>&gt;</span>&#123;&#123;item&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>//遍历字符串，输出9个li分别是字符每一项<br><br>//对象<br><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;(val,key,index) in obj&quot;</span>&gt;</span>&#123;&#123;key&#125;&#125;:&#123;&#123;val&#125;&#125;---&#123;&#123;index&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>//val,key,index分别是对象的每项的属性，属性名，索引<br></code></pre></td></tr></table></figure>
+
+<p>v-click（事件指令）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-on:click</span>=<span class="hljs-string">&quot;test&quot;</span>&gt;</span>点我<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>//类似于onclick，test是Vue实例化中的函数<br>//v-on:click相当于@click<br><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">v-on:click.stop</span>=<span class="hljs-string">&quot;doThis&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>//取消冒泡事件<br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-on:click.self</span>=<span class="hljs-string">&quot;doThat&quot;</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>//只有点击这个元素自身才会触发<br></code></pre></td></tr></table></figure>
+
+<p>v-bind（属性设置）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-bind:class</span>=<span class="hljs-string">&#x27;state?&quot;red&quot;:&quot;green&quot;&#x27;</span>&gt;</span>//v-bind：&#x27;属性名&#x27;=&#x27;属性值&#x27;<br>//可以写成<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-bind:class</span>=<span class="hljs-string">&#x27;state?&quot;red&quot;:&quot;green&quot;&#x27;</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="过滤器：（对数据进行处理的函数）"><a href="#过滤器：（对数据进行处理的函数）" class="headerlink" title="过滤器：（对数据进行处理的函数）"></a>过滤器：（对数据进行处理的函数）</h3><p>全局过滤器：和局部过滤的区别（局部过滤器只能在当前的组件中使用）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;ie=edge&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Document<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./vue.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;box&quot;</span>&gt;</span><br>            &#123;&#123;nowTime|getTime&#125;&#125;<br>            <span class="hljs-comment">&lt;!--  这是参数   这是过滤，中间用|隔开--&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"></span><br><span class="javascript">            <span class="hljs-comment">//全局过滤</span></span><br><span class="javascript">            Vue.filter(<span class="hljs-string">&#x27;getTime&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>&#123;</span><br><span class="javascript">                <span class="hljs-comment">//中间可以写对数据的处理</span></span><br><span class="javascript">                <span class="hljs-keyword">return</span> value;</span><br><span class="javascript">            &#125;);</span><br><span class="javascript">            <span class="hljs-keyword">var</span> vm = <span class="hljs-keyword">new</span> Vue(&#123;</span><br><span class="javascript">                <span class="hljs-attr">el</span>: <span class="hljs-string">&#x27;#box&#x27;</span>,</span><br><span class="javascript">                <span class="hljs-attr">data</span>: &#123;</span><br><span class="javascript">                    <span class="hljs-attr">nowTime</span>: <span class="hljs-built_in">Date</span>.now()</span><br><span class="javascript">                &#125;</span><br><span class="javascript">            &#125;);</span><br><span class="javascript">        </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>局部过滤：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;ie=edge&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Document<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./vue.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;box&quot;</span>&gt;</span><br>            &#123;&#123;nowTime|getTime&#125;&#125;<br>            <span class="hljs-comment">&lt;!--  这是参数   这是过滤，中间用|隔开--&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"></span><br><span class="javascript">            <span class="hljs-comment">//局部过滤</span></span><br><span class="javascript">            <span class="hljs-keyword">var</span> vm = <span class="hljs-keyword">new</span> Vue(&#123;</span><br><span class="javascript">                <span class="hljs-attr">el</span>: <span class="hljs-string">&#x27;#box&#x27;</span>,</span><br><span class="javascript">                <span class="hljs-attr">data</span>: &#123;</span><br><span class="javascript">                    <span class="hljs-attr">nowTime</span>: <span class="hljs-built_in">Date</span>.now()</span><br><span class="javascript">                &#125;,</span><br><span class="javascript">                <span class="hljs-attr">filters</span>: &#123;</span><br><span class="javascript">                    <span class="hljs-attr">getTime</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>&#123;</span><br><span class="javascript">                        <span class="hljs-comment">//中间可以写对数据的处理</span></span><br><span class="javascript">                        <span class="hljs-keyword">return</span> value;</span><br><span class="javascript">                    &#125;</span><br><span class="javascript">                &#125;</span><br><span class="javascript">            &#125;);</span><br><span class="javascript">        </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="组件：就是vue的一个拓展实例"><a href="#组件：就是vue的一个拓展实例" class="headerlink" title="组件：就是vue的一个拓展实例"></a>组件：就是vue的一个拓展实例</h3><p>全局组件：（整个页面都能使用）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;tp1&quot;</span>&gt;</span><br>            <span class="hljs-comment">&lt;!-- 组件创建 --&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> mod = &#123;<span class="hljs-comment">//组件配置</span><br>                <span class="hljs-attr">template</span>: <span class="hljs-string">&#x27;#tp1&#x27;</span>,<span class="hljs-comment">//选中组件</span><br>                <span class="hljs-function"><span class="hljs-title">data</span>(<span class="hljs-params"></span>)</span> &#123;<br>                    <span class="hljs-keyword">return</span> &#123;<br>                    <span class="hljs-comment">//写变量</span><br>                &#125;<br>                &#125;,<br>                <span class="hljs-attr">methods</span>: &#123;<br>                    <span class="hljs-comment">//写函数</span><br>                &#125;<br>            &#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">Vue.component(<span class="hljs-string">&#x27;mod&#x27;</span>, mod);<span class="hljs-comment">//注册组件</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs html">//直接在页面中输入<br><span class="hljs-tag">&lt;<span class="hljs-name">mod</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">mod</span>&gt;</span><br>//即可使用<br></code></pre></td></tr></table></figure>
+
+<p>局部组件：（只能在当前选中作用范围中使用）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> box = <span class="hljs-keyword">new</span> Vue(&#123;<br>                <span class="hljs-attr">el</span>: <span class="hljs-string">&#x27;#box&#x27;</span>,<span class="hljs-comment">//当前作用范围是id为box的标签内</span><br>                <span class="hljs-attr">data</span>: &#123;<br>                    <br>                &#125;,<br>                <span class="hljs-attr">methods</span>: &#123;<br>                   <br>                &#125;,<br>                <span class="hljs-attr">components</span>: &#123;<span class="hljs-comment">//新建局部组件</span><br>                    <span class="hljs-attr">mod</span>: (&#123;<br>                        <span class="hljs-attr">template</span>: <span class="hljs-string">&#x27;#tp1&#x27;</span>,<br>                        <span class="hljs-function"><span class="hljs-title">data</span>(<span class="hljs-params"></span>)</span> &#123;<br>                            <span class="hljs-keyword">return</span> &#123;&#125;<br>                        &#125;,<br>                        <span class="hljs-attr">methods</span>: &#123;<br><br>                        &#125;<br>                    &#125;)<br>                &#125;<br>            &#125;);<br></code></pre></td></tr></table></figure>
+
+<h3 id="组件间数据的传输：（类似事件抛发和监听）"><a href="#组件间数据的传输：（类似事件抛发和监听）" class="headerlink" title="组件间数据的传输：（类似事件抛发和监听）"></a>组件间数据的传输：（类似事件抛发和监听）</h3><p>父组件传给子组件：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;ie=edge&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Document<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./vue.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;box&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">fat</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">fat</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-comment">&lt;!-- 子组件 --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;son&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>&#123;&#123;callson&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br>        <span class="hljs-comment">&lt;!-- 父组件，父组件中包含子组件 --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;fat&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><br>                <span class="hljs-comment">&lt;!-- 当父组件数据改变时，通过将数据保存在自身属性的方法传输 --&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>&#123;&#123;fbool&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&#x27;change&#x27;</span>&gt;</span>Change<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>                <span class="hljs-comment">&lt;!-- 将callson作为属性，附带数据传输给子元素 --&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">son</span> <span class="hljs-attr">:callson</span>=<span class="hljs-string">&#x27;fbool&#x27;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">son</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"></span><br><span class="javascript">            Vue.component(<span class="hljs-string">&#x27;son&#x27;</span>, &#123;</span><br><span class="javascript">                <span class="hljs-attr">template</span>: <span class="hljs-string">&#x27;#son&#x27;</span>,</span><br><span class="javascript">                <span class="hljs-attr">data</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="javascript">                    <span class="hljs-keyword">return</span> &#123;</span><br><span class="javascript"></span><br><span class="javascript">                    &#125;</span><br><span class="javascript">                &#125;,</span><br><span class="javascript">                <span class="hljs-attr">props</span>: [<span class="hljs-string">&#x27;callson&#x27;</span>] <span class="hljs-comment">//子组件在该处接收数据</span></span><br><span class="javascript">            &#125;);</span><br><span class="javascript">            Vue.component(<span class="hljs-string">&#x27;fat&#x27;</span>, &#123;</span><br><span class="javascript">                <span class="hljs-attr">template</span>: <span class="hljs-string">&#x27;#fat&#x27;</span>,</span><br><span class="javascript">                <span class="hljs-attr">data</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="javascript">                    <span class="hljs-keyword">return</span> &#123;</span><br><span class="javascript">                        <span class="hljs-attr">fbool</span>: <span class="hljs-literal">false</span></span><br><span class="javascript">                    &#125;</span><br><span class="javascript">                &#125;,</span><br><span class="javascript">                <span class="hljs-attr">methods</span>: &#123; <span class="hljs-comment">//点击父组件的按钮时，父组件内数据改变</span></span><br><span class="javascript">                    <span class="hljs-function"><span class="hljs-title">change</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">                        <span class="hljs-built_in">this</span>.fbool = !<span class="hljs-built_in">this</span>.fbool;</span><br><span class="javascript">                    &#125;</span><br><span class="javascript">                &#125;</span><br><span class="javascript">            &#125;);</span><br><span class="javascript">            <span class="hljs-keyword">var</span> box = <span class="hljs-keyword">new</span> Vue(&#123;</span><br><span class="javascript">                <span class="hljs-attr">el</span>: <span class="hljs-string">&#x27;#box&#x27;</span></span><br><span class="javascript">            &#125;);</span><br><span class="javascript">        </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>子组件传给父组件：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;ie=edge&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Document<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./vue.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;box&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">fat</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">fat</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;son&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&#x27;change&#x27;</span>&gt;</span>Change<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>                <span class="hljs-comment">&lt;!-- &lt;div&gt;&#123;&#123;sbool&#125;&#125;&lt;/div&gt; --&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;fat&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>&#123;&#123;fbool&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>                <span class="hljs-comment">&lt;!-- 新建自定义事件，绑定父元素中的函数，传参数写在后面用逗号隔开 --&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">son</span> @<span class="hljs-attr">callfat</span>=<span class="hljs-string">&#x27;changeF&#x27;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">son</span>&gt;</span><br>                <span class="hljs-comment">&lt;!-- 当子元素被点击时触发父元素的方法 --&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"></span><br><span class="javascript">            Vue.component(<span class="hljs-string">&#x27;son&#x27;</span>, &#123;<span class="hljs-comment">//点击子组件的按钮时，子组件内数据改变</span></span><br><span class="javascript">                <span class="hljs-attr">template</span>: <span class="hljs-string">&#x27;#son&#x27;</span>,</span><br><span class="javascript">                <span class="hljs-attr">data</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="javascript">                    <span class="hljs-keyword">return</span> &#123;</span><br><span class="javascript">                        <span class="hljs-attr">sbool</span>: <span class="hljs-literal">false</span></span><br><span class="javascript">                    &#125;</span><br><span class="javascript">                &#125;,</span><br><span class="javascript">                <span class="hljs-attr">methods</span>: &#123;</span><br><span class="javascript">                    <span class="hljs-function"><span class="hljs-title">change</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">                        <span class="hljs-built_in">this</span>.$emit(<span class="hljs-string">&#x27;callfat&#x27;</span>);</span><br><span class="javascript">                        <span class="hljs-built_in">this</span>.sbool = !<span class="hljs-built_in">this</span>.sbool;</span><br><span class="javascript">                    &#125;</span><br><span class="javascript">                &#125;</span><br><span class="javascript">            &#125;);</span><br><span class="javascript">            Vue.component(<span class="hljs-string">&#x27;fat&#x27;</span>, &#123; </span><br><span class="javascript">                <span class="hljs-attr">template</span>: <span class="hljs-string">&#x27;#fat&#x27;</span>,</span><br><span class="javascript">                <span class="hljs-attr">data</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="javascript">                    <span class="hljs-keyword">return</span> &#123;</span><br><span class="javascript">                        <span class="hljs-attr">fbool</span>: <span class="hljs-literal">false</span></span><br><span class="javascript">                    &#125;</span><br><span class="javascript">                &#125;,</span><br><span class="javascript">                <span class="hljs-attr">methods</span>: &#123;</span><br><span class="javascript">                    <span class="hljs-function"><span class="hljs-title">changeF</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">                        <span class="hljs-built_in">this</span>.fbool = !<span class="hljs-built_in">this</span>.fbool;</span><br><span class="javascript">                    &#125;</span><br><span class="javascript">                &#125;</span><br><span class="javascript">            &#125;);</span><br><span class="javascript">            <span class="hljs-keyword">var</span> box = <span class="hljs-keyword">new</span> Vue(&#123;</span><br><span class="javascript">                <span class="hljs-attr">el</span>: <span class="hljs-string">&#x27;#box&#x27;</span></span><br><span class="javascript">            &#125;);</span><br><span class="javascript">        </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>兄弟组件：（结合子传父，父再传子）：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;ie=edge&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Document<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./vue.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;box&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">fat</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">fat</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;sonf&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&#x27;change&#x27;</span>&gt;</span>Change<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>First <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>&#123;&#123;sfbool&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;sons&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>Second <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>&#123;&#123;callson&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;fat&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">sonf</span> @<span class="hljs-attr">callfat</span>=<span class="hljs-string">&#x27;changeF&#x27;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">sonf</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">sons</span> <span class="hljs-attr">:callson</span>=<span class="hljs-string">&#x27;fbool&#x27;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">sons</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"></span><br><span class="javascript">            Vue.component(<span class="hljs-string">&#x27;sonf&#x27;</span>, &#123;</span><br><span class="javascript">                <span class="hljs-attr">template</span>: <span class="hljs-string">&#x27;#sonf&#x27;</span>,</span><br><span class="javascript">                <span class="hljs-attr">data</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="javascript">                    <span class="hljs-keyword">return</span> &#123;</span><br><span class="javascript">                        <span class="hljs-attr">sfbool</span>: <span class="hljs-literal">false</span></span><br><span class="javascript">                    &#125;</span><br><span class="javascript">                &#125;,</span><br><span class="javascript">                <span class="hljs-attr">methods</span>: &#123;</span><br><span class="javascript">                    <span class="hljs-function"><span class="hljs-title">change</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">                        <span class="hljs-built_in">this</span>.$emit(<span class="hljs-string">&#x27;callfat&#x27;</span>);</span><br><span class="javascript">                        <span class="hljs-built_in">this</span>.sfbool = !<span class="hljs-built_in">this</span>.sfbool;</span><br><span class="javascript">                    &#125;</span><br><span class="javascript">                &#125;</span><br><span class="javascript">            &#125;);</span><br><span class="javascript"></span><br><span class="javascript">            Vue.component(<span class="hljs-string">&#x27;sons&#x27;</span>, &#123;</span><br><span class="javascript">                <span class="hljs-attr">template</span>: <span class="hljs-string">&#x27;#sons&#x27;</span>,</span><br><span class="javascript">                <span class="hljs-attr">data</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="javascript">                    <span class="hljs-keyword">return</span> &#123;</span><br><span class="javascript"></span><br><span class="javascript">                    &#125;</span><br><span class="javascript">                &#125;,</span><br><span class="javascript">                <span class="hljs-attr">props</span>: [<span class="hljs-string">&#x27;callson&#x27;</span>]</span><br><span class="javascript">            &#125;);</span><br><span class="javascript"></span><br><span class="javascript">            Vue.component(<span class="hljs-string">&#x27;fat&#x27;</span>, &#123;</span><br><span class="javascript">                <span class="hljs-attr">template</span>: <span class="hljs-string">&#x27;#fat&#x27;</span>,</span><br><span class="javascript">                <span class="hljs-attr">data</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="javascript">                    <span class="hljs-keyword">return</span> &#123;</span><br><span class="javascript">                        <span class="hljs-attr">fbool</span>: <span class="hljs-literal">false</span></span><br><span class="javascript">                    &#125;</span><br><span class="javascript">                &#125;,</span><br><span class="javascript">                <span class="hljs-attr">methods</span>: &#123;</span><br><span class="javascript">                    <span class="hljs-function"><span class="hljs-title">changeF</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">                        <span class="hljs-built_in">this</span>.fbool = !<span class="hljs-built_in">this</span>.fbool;</span><br><span class="javascript">                    &#125;</span><br><span class="javascript">                &#125;</span><br><span class="javascript">            &#125;);</span><br><span class="javascript">            <span class="hljs-keyword">var</span> box = <span class="hljs-keyword">new</span> Vue(&#123;</span><br><span class="javascript">                <span class="hljs-attr">el</span>: <span class="hljs-string">&#x27;#box&#x27;</span></span><br><span class="javascript">            &#125;);</span><br><span class="javascript">        </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>不相邻兄弟组件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> angel=<span class="hljs-keyword">new</span> Vue();<span class="hljs-comment">//引入一个Vue实例</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript">angel.$emit(<span class="hljs-string">&#x27;test&#x27;</span>,<span class="hljs-string">&#x27;Hello&#x27;</span>)<span class="hljs-comment">//传送方在函数中抛出事件及数据</span><br>angel.$on(<span class="hljs-string">&#x27;test&#x27;</span>,<span class="hljs-built_in">this</span>.change)<span class="hljs-comment">//接收方接收事件及数据</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="动画："><a href="#动画：" class="headerlink" title="动画："></a>动画：</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">transition</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&#x27;aaa&#x27;</span>&gt;</span>css中用name值进行动画<br>若中间有1个以上元素，需要在外面嵌套一个元素，再给该元素加<br>  	<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">&#x27;show&#x27;</span>&gt;</span><br>  		<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Hello<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>  	    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>World<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>  	<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">transition</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs css">      <span class="hljs-selector-class">.aaa-enter</span>&#123;进入前<br>	<span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;<br>&#125;<br><span class="hljs-selector-class">.aaa-enter-to</span>&#123;进入后<br>	<span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;<br>&#125;<br><span class="hljs-selector-class">.aaa-enter-active</span>&#123;过渡时间<br>	<span class="hljs-attribute">transition</span>: all <span class="hljs-number">3s</span>;<br>&#125;<br><br><span class="hljs-selector-class">.aaa-leave</span>&#123;离开前<br>	<span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;<br>&#125;<br><span class="hljs-selector-class">.aaa-leave-to</span>&#123;离开后<br>	<span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;<br>&#125;<br><span class="hljs-selector-class">.aaa-leave-active</span>&#123;过渡时间<br>	<span class="hljs-attribute">transition</span>: all <span class="hljs-number">3s</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2018/12/24/Vue%EF%BC%88%E4%BA%8C%EF%BC%89%E8%BF%9B%E9%98%B6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Vue（二）进阶</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2018/12/11/Vue%EF%BC%88%E4%B8%89%EF%BC%89%E4%B8%A4%E4%B8%AA%E6%A1%88%E4%BE%8B%EF%BC%88todolist%EF%BC%8CtableBar%EF%BC%89/">
+                        <span class="hidden-mobile">Vue（三）两个案例（todolist，tableBar）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

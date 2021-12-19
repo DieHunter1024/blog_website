@@ -1,0 +1,489 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/null">
+  <link rel="icon" href="/null">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="本人擅长Ai、Fw、Fl、Br、Ae、Pr、Id、Ps等软件的安装与卸载，精通CSS、JavaScript、PHP、ASP、C、C＋＋、C#、Java、Ruby、Perl、Lisp、python、Objective-C、ActionScript、Pascal、spss、sas等单词的拼写，熟悉Windows、Linux、Mac、Android、IOS、WP等系统的开关机">
+  <meta name="author" content="Hunter">
+  <meta name="keywords" content="">
+  <meta name="description" content="前言：这段时间项目迭代时遇到了一个新需求，基于react实现一个Pc版电子签名功能，并生成图片上传。于是我想到了signature_pad，并且在项目使用了这个插件不得不说，用别人造的轮子是真的香，出于好奇，想用原生实现一下电子签名的功能 以下是实现过程 HTML和css可以参照源码，这里不过多介绍 首先引入eventBus，方便代码解耦然后实现Base基类存放公共方法和属性，后续有啥共用属性或方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS案例：支持PC端和Mobile端的Canvas电子签名功能">
+<meta property="og:url" content="http://example.com/2021/05/13/JS%E6%A1%88%E4%BE%8B%20%E6%94%AF%E6%8C%81PC%E7%AB%AF%E5%92%8CMobile%E7%AB%AF%E7%9A%84Canvas%E7%94%B5%E5%AD%90%E7%AD%BE%E5%90%8D%E5%8A%9F%E8%83%BD/index.html">
+<meta property="og:site_name" content="DieHunter">
+<meta property="og:description" content="前言：这段时间项目迭代时遇到了一个新需求，基于react实现一个Pc版电子签名功能，并生成图片上传。于是我想到了signature_pad，并且在项目使用了这个插件不得不说，用别人造的轮子是真的香，出于好奇，想用原生实现一下电子签名的功能 以下是实现过程 HTML和css可以参照源码，这里不过多介绍 首先引入eventBus，方便代码解耦然后实现Base基类存放公共方法和属性，后续有啥共用属性或方">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210513181545194.gif">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210513182906294.gif">
+<meta property="article:published_time" content="2021-05-13T10:33:03.000Z">
+<meta property="article:modified_time" content="2021-12-19T03:52:16.118Z">
+<meta property="article:author" content="Hunter">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210513181545194.gif">
+  
+  <title>JS案例：支持PC端和Mobile端的Canvas电子签名功能 - DieHunter</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>DieHunter</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="JS案例：支持PC端和Mobile端的Canvas电子签名功能">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-13 18:33" pubdate>
+        2021年5月13日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.2k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      16 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JS案例：支持PC端和Mobile端的Canvas电子签名功能</h1>
+            
+            <div class="markdown-body">
+              <p><strong>前言：<br>这段时间项目迭代时遇到了一个新需求，基于react实现一个Pc版电子签名功能，并生成图片上传。于是我想到了<a target="_blank" rel="noopener" href="https://github.com/szimek/signature_pad/">signature_pad</a>，并且在项目使用了这个插件<br>不得不说，用别人造的轮子是真的香，出于好奇，想用原生实现一下电子签名的功能</strong></p>
+<p><strong>以下是实现过程</strong></p>
+<p><strong>HTML和css可以参照<a target="_blank" rel="noopener" href="https://gitee.com/DieHunter/myCode/tree/master/PrintPen">源码</a>，这里不过多介绍</strong></p>
+<p><strong>首先引入<a target="_blank" rel="noopener" href="https://gitee.com/DieHunter/myCode/blob/master/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F&%E5%8F%91%E5%B8%83%E8%80%85%E8%AE%A2%E9%98%85%E8%80%85%E6%A8%A1%E5%BC%8F/PubSubPattern/js/eventBus.js">eventBus</a>，方便代码解耦<br>然后实现Base基类存放公共方法和属性，后续有啥共用属性或方法可以往这加</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//基类：公共方法和属性</span><br><span class="hljs-keyword">import</span> event <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./eventBus.js&#x27;</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">canvasEle, dom = <span class="hljs-built_in">document</span></span>)</span> &#123;<br>        <span class="hljs-built_in">this</span>.event = event <span class="hljs-comment">//注册发布订阅</span><br>        <span class="hljs-built_in">this</span>.canvasEle = canvasEle <span class="hljs-comment">//待操作的画布标签</span><br>        <span class="hljs-built_in">this</span>.dom = dom <span class="hljs-comment">//dom</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>完成之后，我们先实现Pc版的电子签名功能，新建一个PcPrint继承自Base，参照之前写的<a target="_blank" rel="noopener" href="https://blog.csdn.net/time_____/article/details/104444502">鼠标拖拽案例</a>，实现在canvas上拖拽功能，并将事件结果的坐标发布出去。<br>其中clearDefaultEvent函数和getClient函数在Base类中实现</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// PC端，鼠标事件</span><br><span class="hljs-keyword">import</span> Base <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./base.js&#x27;</span><br><span class="hljs-keyword">let</span> that = <span class="hljs-literal">null</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PcPrint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Base</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">ele, dom</span>)</span> &#123;<br>        <span class="hljs-built_in">super</span>(ele, dom)<br>        that = <span class="hljs-built_in">this</span> <span class="hljs-comment">//注册全局this</span><br>        <span class="hljs-built_in">this</span>.init()<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-title">init</span>(<span class="hljs-params"></span>)</span> &#123;<br>        that.canvasEle.addEventListener(<span class="hljs-string">&#x27;mousedown&#x27;</span>, that.onMouseDown)<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-title">onMouseDown</span>(<span class="hljs-params">e = event</span>)</span> &#123;<br>        that.clearDefaultEvent(e)<br>        that.dom.addEventListener(<span class="hljs-string">&#x27;mouseup&#x27;</span>, that.onMouseUp) <span class="hljs-comment">//给dom添加mouseup避免产生鼠标点下时，移出画布造成其他的问题</span><br>        that.canvasEle.addEventListener(<span class="hljs-string">&#x27;mousemove&#x27;</span>, that.onMouseMove)<br>        that.event.emitEvent(<span class="hljs-string">&#x27;pointStart&#x27;</span>, that.getClient(e)) <span class="hljs-comment">//触发开始签字事件</span><br>    &#125;<br>    <span class="hljs-function"><span class="hljs-title">onMouseUp</span>(<span class="hljs-params">e = event</span>)</span> &#123;<br>        that.clearDefaultEvent(e)<br>        that.event.emitEvent(<span class="hljs-string">&#x27;pointEnd&#x27;</span>) <span class="hljs-comment">//触发结束签字事件</span><br>        that.canvasEle.removeEventListener(<span class="hljs-string">&#x27;mousemove&#x27;</span>, that.onMouseMove) <span class="hljs-comment">//移除移动事件</span><br>    &#125;<br>    <span class="hljs-function"><span class="hljs-title">onMouseMove</span>(<span class="hljs-params">e = event</span>)</span> &#123;<br>        that.clearDefaultEvent(e)<br>        that.event.emitEvent(<span class="hljs-string">&#x27;pointMove&#x27;</span>, that.getClient(e)) <span class="hljs-comment">//触发签字事件</span><br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>Base类添加以下代码：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 取消默认事件和事件冒泡</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param </span>e 事件对象</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-title">clearDefaultEvent</span>(<span class="hljs-params">e</span>)</span> &#123;<br>    e.preventDefault()<br>    e.stopPropagation()<br>&#125;<br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 获取事件元素离body可视区域的坐标</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param </span>target 事件目标</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-title">getClient</span>(<span class="hljs-params">target</span>)</span> &#123;<br>    <span class="hljs-keyword">return</span> &#123;<br>        <span class="hljs-attr">x</span>: target.clientX,<br>        <span class="hljs-attr">y</span>: target.clientY<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>接着，我们对事件抛出的三个发布进行订阅，新建Print类，对获取的坐标通过canvas进行绘制</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> Base <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./Base.js&quot;</span><br><span class="hljs-keyword">import</span> PcPrint <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./pc.js&#x27;</span>;<br><span class="hljs-comment">// import MobilePrint from &#x27;./mobile.js&#x27;;</span><br><span class="hljs-keyword">let</span> that = <span class="hljs-literal">null</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Print</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Base</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">canvasEle, options, dom</span>)</span> &#123;<br>        <span class="hljs-built_in">super</span>(canvasEle, dom)<br>        that = <span class="hljs-built_in">this</span><br>        <span class="hljs-built_in">this</span>.options = options <span class="hljs-comment">//配置画笔颜色，粗细，是否开启移动端或PC端，</span><br>        <span class="hljs-built_in">this</span>.init() <span class="hljs-comment">//初始化属性,配置,注册发布订阅等</span><br>        <span class="hljs-built_in">this</span>.initCanvas() <span class="hljs-comment">//初始化画布</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span><br>    &#125;<br>    <span class="hljs-function"><span class="hljs-title">init</span>(<span class="hljs-params"></span>)</span> &#123;<br>        <span class="hljs-comment">//Pc和Mobile启用开关</span><br>        <span class="hljs-built_in">this</span>.Pc = <span class="hljs-built_in">this</span>.options.Pc ? (<span class="hljs-keyword">new</span> PcPrint(<span class="hljs-built_in">this</span>.canvasEle)) : <span class="hljs-literal">null</span><br>        <span class="hljs-comment">// this.Mobile = this.options.Mobile ? (new MobilePrint(this.canvasEle)) : null</span><br>        <span class="hljs-built_in">this</span>.point = <span class="hljs-literal">null</span> <span class="hljs-comment">//存储上一次坐标</span><br>        <span class="hljs-built_in">this</span>.event.onEvent(<span class="hljs-string">&#x27;pointMove&#x27;</span>, that.pointMove) <span class="hljs-comment">//订阅签字事件</span><br>        <span class="hljs-built_in">this</span>.event.onEvent(<span class="hljs-string">&#x27;pointStart&#x27;</span>, that.pointStart) <span class="hljs-comment">//订阅签字开始事件</span><br>        <span class="hljs-built_in">this</span>.event.onEvent(<span class="hljs-string">&#x27;pointEnd&#x27;</span>, that.pointEnd) <span class="hljs-comment">//订阅签字结束事件</span><br>    &#125;<br>    <span class="hljs-function"><span class="hljs-title">initCanvas</span>(<span class="hljs-params"></span>)</span> &#123;<br>        <span class="hljs-built_in">this</span>.clientRect = <span class="hljs-built_in">this</span>.canvasEle.getBoundingClientRect() <span class="hljs-comment">// 获取标签相对可视区域的偏移量</span><br>        <span class="hljs-built_in">this</span>.canvasEle.width = <span class="hljs-built_in">this</span>.canvasEle.parentNode.offsetWidth <span class="hljs-comment">//设置为父元素的宽</span><br>        <span class="hljs-built_in">this</span>.canvasEle.height = <span class="hljs-built_in">this</span>.canvasEle.parentNode.offsetHeight <span class="hljs-comment">//设置为父元素的高</span><br>        <span class="hljs-built_in">this</span>.context = <span class="hljs-built_in">this</span>.canvasEle.getContext(<span class="hljs-string">&#x27;2d&#x27;</span>)<br>        <span class="hljs-built_in">this</span>.context.strokeStyle = <span class="hljs-built_in">this</span>.options.color; <span class="hljs-comment">// 线条颜色</span><br>        <span class="hljs-built_in">this</span>.context.lineWidth = <span class="hljs-built_in">this</span>.options.weight; <span class="hljs-comment">// 线条宽度</span><br>    &#125;<br>    <span class="hljs-function"><span class="hljs-title">pointStart</span>(<span class="hljs-params">point</span>)</span> &#123;<br>        that.point = that.shiftingPosition(point, that.clientRect) <span class="hljs-comment">//初始化起始位置</span><br>    &#125;<br>    <span class="hljs-function"><span class="hljs-title">pointEnd</span>(<span class="hljs-params"></span>)</span> &#123;<br>        that.point = <span class="hljs-literal">null</span> <span class="hljs-comment">//清空起始位置</span><br>    &#125;<br>    <span class="hljs-function"><span class="hljs-title">pointMove</span>(<span class="hljs-params">point</span>)</span> &#123;<br>        that.canvasDraw(that.shiftingPosition(point, that.clientRect)) <span class="hljs-comment">//签字效果</span><br>    &#125;<br>    <span class="hljs-function"><span class="hljs-title">canvasDraw</span>(<span class="hljs-params">point</span>)</span> &#123; <span class="hljs-comment">//画布操作</span><br>        <span class="hljs-built_in">this</span>.context.beginPath() <span class="hljs-comment">//新建(重置)路径</span><br>        <span class="hljs-built_in">this</span>.context.moveTo(<span class="hljs-built_in">this</span>.point.x, <span class="hljs-built_in">this</span>.point.y) <span class="hljs-comment">//画布绘画起始点移动到前一个坐标</span><br>        <span class="hljs-built_in">this</span>.context.lineTo(point.x, point.y) <span class="hljs-comment">//画布从前一个坐标到当前坐标</span><br>        <span class="hljs-built_in">this</span>.context.stroke() <span class="hljs-comment">//从moveTo到lineTo进行绘制</span><br>        <span class="hljs-built_in">this</span>.context.closePath() <span class="hljs-comment">//创建从当前坐标回到前一个坐标的路径</span><br>        that.point = point <span class="hljs-comment">//将此次坐标赋值给下一次移动时的前一个坐标</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>考虑到canvas的偏移问题，在Base中添加shiftingPosition函数，解决画布绘制时坐标偏移问题</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">/**</span><br><span class="hljs-comment">  * 抵消画布偏移</span><br><span class="hljs-comment">  * <span class="hljs-doctag">@param </span>point 当前坐标</span><br><span class="hljs-comment">  * <span class="hljs-doctag">@param </span>shift 偏移量</span><br><span class="hljs-comment">  */</span><br> <span class="hljs-function"><span class="hljs-title">shiftingPosition</span>(<span class="hljs-params">point, shift</span>)</span> &#123;<br>     <span class="hljs-keyword">return</span> &#123;<br>         <span class="hljs-attr">x</span>: point.x - shift.left,<br>         <span class="hljs-attr">y</span>: point.y - shift.top<br>     &#125;<br> &#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>最后，在index中实例化电子签名</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;module&quot;</span>&gt;</span><span class="javascript"></span><br><span class="javascript">    <span class="hljs-keyword">import</span> Print <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./js/print.js&quot;</span></span><br><span class="javascript">    <span class="hljs-keyword">new</span> Print(printBox,&#123;</span><br><span class="javascript">        <span class="hljs-attr">Pc</span>:<span class="hljs-literal">true</span>,</span><br><span class="javascript">        <span class="hljs-attr">Mobile</span>:<span class="hljs-literal">true</span>,</span><br><span class="javascript">        <span class="hljs-attr">color</span>:<span class="hljs-string">&#x27;lightcoral&#x27;</span>,</span><br><span class="javascript">        <span class="hljs-attr">weight</span>:<span class="hljs-number">5</span></span><br><span class="javascript">    &#125;)</span><br><span class="javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>效果如下：</strong><br><img src="https://img-blog.csdnimg.cn/20210513181545194.gif" srcset="/img/loading.gif" lazyload></p>
+<p><strong>Pc端实现完成之后是Mobile端，代码大同小异，除了事件类型不用之外，还一点就是移动端的多指触碰支持，touchevent支持双指事件，此时我们要判断是否单指输入</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// Mobile端，触摸事件</span><br><span class="hljs-keyword">import</span> Base <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./base.js&#x27;</span><br><span class="hljs-keyword">let</span> that = <span class="hljs-literal">null</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MobilePrint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Base</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">ele, dom</span>)</span> &#123;<br>        <span class="hljs-built_in">super</span>(ele, dom)<br>        that = <span class="hljs-built_in">this</span> <span class="hljs-comment">//注册全局this</span><br>        <span class="hljs-built_in">this</span>.init()<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-title">init</span>(<span class="hljs-params"></span>)</span> &#123;<br>        that.canvasEle.addEventListener(<span class="hljs-string">&#x27;touchstart&#x27;</span>, that.onTouchStart)<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-title">onTouchStart</span>(<span class="hljs-params">e = event</span>)</span> &#123;<br>        that.clearDefaultEvent(e)<br>        that.canvasEle.addEventListener(<span class="hljs-string">&#x27;touchend&#x27;</span>, that.onTouchEnd) <span class="hljs-comment">//没有像pc一样给dom添加touchend,因为touchmove是基于touchstart和touchend之间触发的，只要touchend触发，touchmove便失效</span><br>        that.canvasEle.addEventListener(<span class="hljs-string">&#x27;touchmove&#x27;</span>, that.onTouchMove)<br>        that.event.emitEvent(<span class="hljs-string">&#x27;pointStart&#x27;</span>, that.getClient(e.touches[<span class="hljs-number">0</span>])) <span class="hljs-comment">//这里可以做一个判断e.touches是否只有一个（e.touches表示有几个手指触碰）</span><br>    &#125;<br>    <span class="hljs-function"><span class="hljs-title">onTouchEnd</span>(<span class="hljs-params">e = event</span>)</span> &#123;<br>        that.clearDefaultEvent(e)<br>        that.event.emitEvent(<span class="hljs-string">&#x27;pointEnd&#x27;</span>)<br>        that.canvasEle.removeEventListener(<span class="hljs-string">&#x27;touchmove&#x27;</span>, that.onTouchMove)<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-title">onTouchMove</span>(<span class="hljs-params">e = event</span>)</span> &#123;<br>        that.clearDefaultEvent(e)<br>        that.event.emitEvent(<span class="hljs-string">&#x27;pointMove&#x27;</span>, that.getClient(e.touches[<span class="hljs-number">0</span>]))<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>在移动端实现的效果：</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20210513182906294.gif" srcset="/img/loading.gif" lazyload></p>
+<p><strong>最后：<br>附上源码地址：<a target="_blank" rel="noopener" href="https://gitee.com/DieHunter/myCode/tree/master/PrintPen">Gitee</a></strong></p>
+<p><strong>感谢你的阅读，如果这篇文章对你有帮助，希望三连支持一下，你的支持是我创作的动力，同时也欢迎大佬建议指正</strong></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/08/%E6%B5%85%E6%9E%90MVVM%E5%8E%9F%E7%90%86%EF%BC%8C%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAmini-vue/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">浅析MVVM原理，实现一个mini-vue</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/04/28/JS%E6%A1%88%E4%BE%8B%20%E5%B0%86%E5%89%8D%E7%AB%AF%E9%A1%B5%E9%9D%A2%E5%AF%BC%E5%87%BA%E4%B8%BAPDF/">
+                        <span class="hidden-mobile">JS案例：将前端页面导出为PDF</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

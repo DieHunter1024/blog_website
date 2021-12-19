@@ -1,0 +1,499 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/null">
+  <link rel="icon" href="/null">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="本人擅长Ai、Fw、Fl、Br、Ae、Pr、Id、Ps等软件的安装与卸载，精通CSS、JavaScript、PHP、ASP、C、C＋＋、C#、Java、Ruby、Perl、Lisp、python、Objective-C、ActionScript、Pascal、spss、sas等单词的拼写，熟悉Windows、Linux、Mac、Android、IOS、WP等系统的开关机">
+  <meta name="author" content="Hunter">
+  <meta name="keywords" content="">
+  <meta name="description" content="从零开始，搭建一个简单的购物平台（三）：https:&#x2F;&#x2F;blog.csdn.net&#x2F;time_____&#x2F;article&#x2F;details&#x2F;105411636项目源码（持续更新）：https:&#x2F;&#x2F;gitee.com&#x2F;DieHunter&#x2F;myCode&#x2F;tree&#x2F;master&#x2F;shopping 本篇文章延续上篇的登录界面搭建完成后，进行用户管理后端的编写，主要功能包括： 添加用户，上传头像 目录结构如下：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零开始，搭建一个简单的购物平台（四）">
+<meta property="og:url" content="http://example.com/2020/04/11/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%EF%BC%8C%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%B4%AD%E7%89%A9%E5%B9%B3%E5%8F%B0%EF%BC%88%E5%9B%9B%EF%BC%89/index.html">
+<meta property="og:site_name" content="DieHunter">
+<meta property="og:description" content="从零开始，搭建一个简单的购物平台（三）：https:&#x2F;&#x2F;blog.csdn.net&#x2F;time_____&#x2F;article&#x2F;details&#x2F;105411636项目源码（持续更新）：https:&#x2F;&#x2F;gitee.com&#x2F;DieHunter&#x2F;myCode&#x2F;tree&#x2F;master&#x2F;shopping 本篇文章延续上篇的登录界面搭建完成后，进行用户管理后端的编写，主要功能包括： 添加用户，上传头像 目录结构如下：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200409170131809.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200409204528165.gif">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200409213356560.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200409213437192.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-04-11T01:21:56.000Z">
+<meta property="article:modified_time" content="2021-12-19T03:52:16.119Z">
+<meta property="article:author" content="Hunter">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200409170131809.png">
+  
+  <title>从零开始，搭建一个简单的购物平台（四） - DieHunter</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>DieHunter</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="从零开始，搭建一个简单的购物平台（四）">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-04-11 09:21" pubdate>
+        2020年4月11日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      9 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">从零开始，搭建一个简单的购物平台（四）</h1>
+            
+            <div class="markdown-body">
+              <p><strong>从零开始，搭建一个简单的购物平台（三）：</strong><strong><a target="_blank" rel="noopener" href="https://blog.csdn.net/time_____/article/details/105411636">https://blog.csdn.net/time_____/article/details/105411636</a></strong><br><strong>项目源码（持续更新）：</strong><a target="_blank" rel="noopener" href="https://gitee.com/DieHunter/myCode/tree/master/shopping"><strong>https://gitee.com/DieHunter/myCode/tree/master/shopping</strong></a></p>
+<p><strong>本篇文章延续上篇的登录界面搭建完成后，进行用户管理后端的编写，主要功能包括：</strong></p>
+<p><strong>添加用户，上传头像</strong></p>
+<p><strong>目录结构如下：</strong><br><img src="https://img-blog.csdnimg.cn/20200409170131809.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>首先实现上传头像功能</strong></p>
+<p>上传文件流程：用户选择文件上传，服务端读取文件并生成唯一命名的缓存文件（二进制文件），将文件信息回传到前端，前端提交表单时将文件信息和用户信息一同上传至服务端，服务端读取对应文件，保存至public的img文件夹（此时生成的是图片文件），最后将图片路径存至数据库中</p>
+<p><strong>具体实现</strong></p>
+<ul>
+<li><p>在controller文件夹下新建upload文件夹，在文件夹中新增upload.js用于上传头像，引入multer模块并进行文件暂存</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> router = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;express&quot;</span>).Router();<br><span class="hljs-keyword">const</span> Util = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;../../../utils/utils&quot;</span>);<br><span class="hljs-keyword">var</span> multer = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;multer&quot;</span>);<br><span class="hljs-keyword">var</span> upload = multer(&#123;<br>  <span class="hljs-attr">dest</span>: <span class="hljs-string">&quot;./public/temp&quot;</span>,<span class="hljs-comment">//缓存目录</span><br>&#125;);<br>router.post(<br>  <span class="hljs-string">&quot;/headPic&quot;</span>,<br>  upload.single(<span class="hljs-string">&quot;headPic&quot;</span>),<span class="hljs-comment">//单张图片，图片标识名</span><br>  Util.checkToken,<span class="hljs-comment">//验证token</span><br>  <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> &#123;<br>    res.send(&#123;<br>      <span class="hljs-attr">result</span>: <span class="hljs-number">1</span>,<br>      <span class="hljs-attr">msg</span>: <span class="hljs-string">&quot;上传成功&quot;</span>,<br>      <span class="hljs-attr">headPath</span>: req.file,<br>    &#125;);<br>  &#125;<br>);<br><br><span class="hljs-built_in">module</span>.exports = router;<br></code></pre></td></tr></table></figure></li>
+<li><p>在router中添加upload.js的路由地址 app.use(“/upload”,upload);<br>运行项目，做个测试，在postman中输入相对应地址和参数后点上传，服务端返回缓存文件信息并保存到缓存目录<br><img src="https://img-blog.csdnimg.cn/20200409204528165.gif" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>添加上传功能后，只是保证文件上传，还要把它转换成图片格式，<strong>所以在utils.js文件中新增几个方法（要引入fs模块）</strong>，分别是：  </p>
+</li>
+<li><p><em>读取文件</em>*</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">readPicFile</span>(<span class="hljs-params">_file</span>)</span> &#123;<br>   <span class="hljs-keyword">let</span> &#123; path, mimetype &#125; = _file;<span class="hljs-comment">//获取文件路径和文件类型</span><br>   <span class="hljs-keyword">let</span> file = fs.readFileSync(path);<span class="hljs-comment">//将文件转换成二进制</span><br>   <span class="hljs-keyword">let</span> fileName =<span class="hljs-comment">//用时间戳加随机数命名文件</span><br>     <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().getTime() +<br>     <span class="hljs-built_in">parseInt</span>(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">1000000</span>) +<br>     <span class="hljs-string">&quot;.&quot;</span> +<br>     mimetype.split(<span class="hljs-string">&quot;/&quot;</span>)[<span class="hljs-number">1</span>];<br>   <span class="hljs-built_in">this</span>.delPicFile(path);<span class="hljs-comment">//删除之前的缓存文件</span><br>   <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.writePicFile(file, fileName);<span class="hljs-comment">//写文件</span><br> &#125;<br></code></pre></td></tr></table></figure></li>
+<li><p><em>保存（写入）文件</em>*</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">writePicFile</span>(<span class="hljs-params">_file, _fileName</span>)</span> &#123;<br>  <span class="hljs-keyword">let</span> fileName = <span class="hljs-string">&quot;./public/assets/img/&quot;</span> + _fileName;<span class="hljs-comment">//文件路径</span><br>  fs.writeFileSync(fileName, _file);<br>  <span class="hljs-keyword">return</span> fileName.split(<span class="hljs-string">&quot;./&quot;</span>)[<span class="hljs-number">1</span>];<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p><em>删除文件</em>*</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">delPicFile</span>(<span class="hljs-params">_path</span>)</span> &#123;<br>    fs.unlink(_path, <span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> &#123;<br>      <span class="hljs-keyword">if</span> (err) &#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;删除失败&quot;</span>);<br>      &#125;<br>    &#125;);<br>  &#125;<br></code></pre></td></tr></table></figure></li>
+<li><p><strong>全部完成后，上传文件也已完成</strong></p>
+</li>
+</ul>
+<p><strong>添加用户功能</strong></p>
+<ul>
+<li><p>在users.js界面中调取之前写的command（数据库增，删，改，查操作）</p>
+</li>
+<li><p>由于增加操作可能是移动端用户注册，所以暂时不加token验证，由于邮箱和用户名是唯一值，所以需要先进行查找用户</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> findRes = <span class="hljs-keyword">await</span> findData(Mod, &#123;<br>    <span class="hljs-attr">$or</span>: [<br>      &#123;<br>        <span class="hljs-attr">mailaddress</span>: res._data.mailaddress,<br>        <span class="hljs-attr">mailurl</span>: res._data.mailurl,<br>      &#125;,<br>      &#123;<br>        <span class="hljs-attr">username</span>: res._data.username,<br>      &#125;,<br>      &#123;<br>        <span class="hljs-attr">mailaddress</span>: res._data.username,<br>      &#125;,<br>      &#123;<br>        <span class="hljs-attr">username</span>: res._data.mailaddress + res._data.mailurl,<br>      &#125;,<br>    ],<br>  &#125;);<br>  <span class="hljs-keyword">if</span> (findRes &amp;&amp; findRes.length &gt; <span class="hljs-number">0</span>) &#123;<br>    res.send(&#123;<br>      <span class="hljs-attr">result</span>: <span class="hljs-number">0</span>,<br>      <span class="hljs-attr">msg</span>: <span class="hljs-string">&quot;添加失败,用户已存在&quot;</span>,<br>    &#125;);<br>    Util.delPicFile(res._data.headPic);<br>    <span class="hljs-keyword">return</span>;<br>  &#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>判断到无此用户时，将其添加到数据库中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">if</span> (res._data.headPic) &#123;<br>  res._data.headPic = Util.readPicFile(res._data.headPic || <span class="hljs-string">&quot;&quot;</span>) || <span class="hljs-string">&quot;&quot;</span>;<span class="hljs-comment">//保存头像</span><br>&#125;<br>res._data.time = Util.joinDate();<span class="hljs-comment">//添加时间</span><br>res._data.password = Util.createBcrypt(res._data.password);<span class="hljs-comment">//盐加密</span><br>res._data.isactive = <span class="hljs-literal">true</span>;<br><span class="hljs-keyword">let</span> addRes = <span class="hljs-keyword">await</span> addData(Mod, res._data);<br><span class="hljs-keyword">if</span> (addRes) &#123;<br>  res.send(&#123;<br>    <span class="hljs-attr">result</span>: <span class="hljs-number">1</span>,<br>    <span class="hljs-attr">msg</span>: <span class="hljs-string">&quot;添加成功&quot;</span>,<br>  &#125;);<br>  <span class="hljs-keyword">return</span>;<br>&#125;<br>Util.delPicFile(res._data.headPic);<br>res.send(&#123;<br>  <span class="hljs-attr">result</span>: <span class="hljs-number">0</span>,<br>  <span class="hljs-attr">msg</span>: <span class="hljs-string">&quot;添加失败&quot;</span>,<br>&#125;);<br></code></pre></td></tr></table></figure></li>
+<li><p>完成之后用postman测试一下，后端提示添加成功，数据库也成功添加该用户<br><img src="https://img-blog.csdnimg.cn/20200409213356560.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload><img src="https://img-blog.csdnimg.cn/20200409213437192.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ul>
+<p><strong>文章到此，头像上传，用户添加就已经全部实现</strong></p>
+<p><strong>总结</strong></p>
+<p>前后端项目请求应进行节流处理（即限制用户多次快速单击提交按钮），前后端双重保险，即可提升用户体验，又减少服务端压力，由于此项目主要以功能为主，在细节方面没有十分注重，真实线上项目必须添加节流</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/04/11/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%EF%BC%8C%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%B4%AD%E7%89%A9%E5%B9%B3%E5%8F%B0%EF%BC%88%E4%BA%94%EF%BC%89/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">从零开始，搭建一个简单的购物平台（五）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/04/10/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%EF%BC%8C%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%B4%AD%E7%89%A9%E5%B9%B3%E5%8F%B0%EF%BC%88%E4%B8%89%EF%BC%89/">
+                        <span class="hidden-mobile">从零开始，搭建一个简单的购物平台（三）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

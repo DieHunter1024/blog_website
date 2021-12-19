@@ -1,0 +1,485 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/null">
+  <link rel="icon" href="/null">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="本人擅长Ai、Fw、Fl、Br、Ae、Pr、Id、Ps等软件的安装与卸载，精通CSS、JavaScript、PHP、ASP、C、C＋＋、C#、Java、Ruby、Perl、Lisp、python、Objective-C、ActionScript、Pascal、spss、sas等单词的拼写，熟悉Windows、Linux、Mac、Android、IOS、WP等系统的开关机">
+  <meta name="author" content="Hunter">
+  <meta name="keywords" content="">
+  <meta name="description" content="从零开始，搭建一个简单的购物平台（十五）前端商城部分：https:&#x2F;&#x2F;blog.csdn.net&#x2F;time_____&#x2F;article&#x2F;details&#x2F;108680599项目源码（持续更新）：https:&#x2F;&#x2F;gitee.com&#x2F;DieHunter&#x2F;myCode&#x2F;tree&#x2F;master&#x2F;shopping 在前几篇文章中，我们对首页，分类列表，公共组件，工具类进行了实现，这篇文章将实现商品详情页进行介绍">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零开始，搭建一个简单的购物平台（十六）前端商城部分">
+<meta property="og:url" content="http://example.com/2020/10/08/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%EF%BC%8C%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%B4%AD%E7%89%A9%E5%B9%B3%E5%8F%B0%EF%BC%88%E5%8D%81%E5%85%AD%EF%BC%89%E5%89%8D%E7%AB%AF%E5%95%86%E5%9F%8E%E9%83%A8%E5%88%86/index.html">
+<meta property="og:site_name" content="DieHunter">
+<meta property="og:description" content="从零开始，搭建一个简单的购物平台（十五）前端商城部分：https:&#x2F;&#x2F;blog.csdn.net&#x2F;time_____&#x2F;article&#x2F;details&#x2F;108680599项目源码（持续更新）：https:&#x2F;&#x2F;gitee.com&#x2F;DieHunter&#x2F;myCode&#x2F;tree&#x2F;master&#x2F;shopping 在前几篇文章中，我们对首页，分类列表，公共组件，工具类进行了实现，这篇文章将实现商品详情页进行介绍">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200924110347986.gif">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200925202414436.gif">
+<meta property="article:published_time" content="2020-10-08T03:37:55.000Z">
+<meta property="article:modified_time" content="2021-12-19T03:52:16.118Z">
+<meta property="article:author" content="Hunter">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200924110347986.gif">
+  
+  <title>从零开始，搭建一个简单的购物平台（十六）前端商城部分 - DieHunter</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>DieHunter</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="从零开始，搭建一个简单的购物平台（十六）前端商城部分">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-10-08 11:37" pubdate>
+        2020年10月8日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7.6k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      24 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">从零开始，搭建一个简单的购物平台（十六）前端商城部分</h1>
+            
+            <div class="markdown-body">
+              <p><strong>从零开始，搭建一个简单的购物平台（十五）前端商城部分：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/time_____/article/details/108680599">https://blog.csdn.net/time_____/article/details/108680599</a><br>项目源码（持续更新）：<a target="_blank" rel="noopener" href="https://gitee.com/DieHunter/myCode/tree/master/shopping">https://gitee.com/DieHunter/myCode/tree/master/shopping</a></strong></p>
+<p><strong>在前几篇文章中，我们对首页，分类列表，公共组件，工具类进行了实现，这篇文章将实现商品详情页进行介绍，这里我们将商品详情页细化成多个组件，利用组件通信方式进行监听传递方式从而实现数据传递和效果逻辑<br>先来看看效果</strong><br><img src="https://img-blog.csdnimg.cn/20200924110347986.gif" srcset="/img/loading.gif" lazyload></p>
+<p><strong>这个界面我们可以把页面分解成几个组件，分别是顶部的Top，商品信息展示，商品选项框及加入购物车按钮，最后是下方的一个tab切换效果</strong></p>
+<h3 id="商品选项框："><a href="#商品选项框：" class="headerlink" title="商品选项框："></a><strong>商品选项框：</strong></h3><p><strong>首先对mint-ui官方的Picker，Navbar进行简单的二次封装，然后在商品选项框及加入购物车按钮组件中触发picker组件，加入购物车中有一个添加的动画需要用到animate动画，并将全局购物车列表更新</strong></p>
+<ul>
+<li><p><strong>shopPicker.vue,封装官方组件，通过商品最大数量显示列表</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;shopPicker&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">mt-popup</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;popupVisible&quot;</span> <span class="hljs-attr">position</span>=<span class="hljs-string">&quot;bottom&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">mt-picker</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;pickerItem&quot;</span> <span class="hljs-attr">:slots</span>=<span class="hljs-string">&quot;count&quot;</span> <span class="hljs-attr">:showToolbar</span>=<span class="hljs-string">&quot;true&quot;</span> @<span class="hljs-attr">change</span>=<span class="hljs-string">&quot;onValuesChange&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>&#123;&#123;pickerTitle&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">mt-picker</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">mt-popup</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"></span><br><span class="javascript"><span class="hljs-keyword">import</span> &#123; Picker, Popup &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;mint-ui&quot;</span>;</span><br><span class="javascript"><span class="hljs-keyword">import</span> Config <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;../../config/config&quot;</span>;</span><br><span class="javascript"><span class="hljs-keyword">const</span> &#123; EventName &#125; = Config;</span><br><span class="javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="javascript">  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;shopPicker&quot;</span>,</span><br><span class="javascript">  <span class="hljs-attr">props</span>: [<span class="hljs-string">&quot;ShopMaxCount&quot;</span>,<span class="hljs-string">&quot;pickerTitle&quot;</span>],<span class="hljs-comment">//最大购买数，picker的标题</span></span><br><span class="javascript">  <span class="hljs-function"><span class="hljs-title">data</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">    <span class="hljs-keyword">return</span> &#123;</span><br><span class="javascript">      <span class="hljs-attr">popupVisible</span>: <span class="hljs-literal">false</span>,<span class="hljs-comment">//是否显示组件</span></span><br><span class="javascript">      <span class="hljs-attr">count</span>: [&#123; <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">values</span>: [] &#125;]<span class="hljs-comment">//组件默认模板</span></span><br><span class="javascript">    &#125;;</span><br><span class="javascript">  &#125;,</span><br><span class="javascript">  <span class="hljs-function"><span class="hljs-title">mounted</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">    <span class="hljs-built_in">this</span>.createShopCount();<span class="hljs-comment">//初始化组件</span></span><br><span class="javascript">    <span class="hljs-built_in">this</span>.$events.onEvent(EventName.ShowPicker, <span class="hljs-built_in">this</span>.showPicker);<span class="hljs-comment">//监听显示picker事件</span></span><br><span class="javascript">  &#125;,</span><br><span class="javascript">  <span class="hljs-function"><span class="hljs-title">destroyed</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">    <span class="hljs-built_in">this</span>.$events.offEvent(EventName.ShowPicker);<span class="hljs-comment">//注销显示picker事件</span></span><br><span class="javascript">  &#125;,</span><br><span class="javascript">  <span class="hljs-attr">methods</span>: &#123;</span><br><span class="javascript">    <span class="hljs-function"><span class="hljs-title">onValuesChange</span>(<span class="hljs-params">comp, count</span>)</span> &#123;<span class="hljs-comment">//数据变化时触发counter中的显示商品数量</span></span><br><span class="javascript">      <span class="hljs-built_in">this</span>.$events.emitEvent(EventName.ChangeCount, count[<span class="hljs-number">0</span>]);</span><br><span class="javascript">    &#125;,</span><br><span class="javascript">    <span class="hljs-function"><span class="hljs-title">showPicker</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">      <span class="hljs-built_in">this</span>.popupVisible = <span class="hljs-literal">true</span>;</span><br><span class="javascript">    &#125;,</span><br><span class="javascript">    <span class="hljs-function"><span class="hljs-title">createShopCount</span>(<span class="hljs-params"></span>)</span> &#123;<span class="hljs-comment">//根据传进来的最大数量显示商品数量列表</span></span><br><span class="javascript">      <span class="hljs-built_in">this</span>.count[<span class="hljs-number">0</span>].values = <span class="hljs-built_in">this</span>.ShopMaxCount;</span><br><span class="javascript">      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">this</span>.ShopMaxCount; i++) &#123;</span><br><span class="javascript">        <span class="hljs-built_in">this</span>.count[<span class="hljs-number">0</span>].values.push(i + <span class="hljs-number">1</span>);</span><br><span class="javascript">      &#125;</span><br><span class="javascript">    &#125;</span><br><span class="javascript">  &#125;</span><br><span class="javascript">&#125;;</span><br><span class="javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;less&quot;</span> <span class="hljs-attr">scoped</span>&gt;</span><span class="css"></span><br><span class="css"><span class="hljs-keyword">@import</span> <span class="hljs-string">&quot;../../style/init.less&quot;</span>;</span><br><span class="css"></span><br><span class="css"></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<li><p><strong>修改navbar样式并应用至自己组件中</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;info&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">mt-navbar</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;selected&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">mt-tab-item</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;(item,index) in navTitle&quot;</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">&quot;index&quot;</span> <span class="hljs-attr">:id</span>=<span class="hljs-string">&quot;item.val&quot;</span>&gt;</span>&#123;&#123;item.name&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">mt-tab-item</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">mt-navbar</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">mt-tab-container</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;selected&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">mt-tab-container-item</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;doc&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;0&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>名称：&#123;&#123;shopName&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>类型：&#123;&#123;Type[shopType].name&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>数量：&#123;&#123;shopNum&#125;&#125;个<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>￥&#123;&#123;shopPrice&#125;&#125;元<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">mt-tab-container-item</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">mt-tab-container-item</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;doc&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;1&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>净含量/克(g)：&#123;&#123;shopScale&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>口味：&#123;&#123;taste&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>产地：&#123;&#123;address&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>保质期：&#123;&#123;expiryDate&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>上架时间：&#123;&#123;time&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">mt-tab-container-item</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">mt-tab-container-item</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;2&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>7天包退<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>15天包换<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>一年保修<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">mt-tab-container-item</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">mt-tab-container</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"></span><br><span class="javascript"><span class="hljs-keyword">import</span> &#123; Navbar, TabItem &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;mint-ui&quot;</span>;</span><br><span class="javascript"><span class="hljs-keyword">import</span> NavConfig <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;../../config/navConfig&quot;</span>;</span><br><span class="javascript"><span class="hljs-keyword">import</span> ShopType <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;../../config/shopType&quot;</span>;</span><br><span class="javascript"></span><br><span class="javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="javascript">  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;infoNav&quot;</span>,</span><br><span class="javascript">  <span class="hljs-function"><span class="hljs-title">data</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">    <span class="hljs-keyword">return</span> &#123;</span><br><span class="javascript">      <span class="hljs-attr">selected</span>: <span class="hljs-string">&quot;0&quot;</span>,<span class="hljs-comment">//默认选中第一项</span></span><br><span class="javascript">      <span class="hljs-attr">navTitle</span>: NavConfig.NavTitle,</span><br><span class="javascript">      <span class="hljs-attr">Type</span>: ShopType.shopType,</span><br><span class="javascript">      ...this.$route.query<span class="hljs-comment">//路由传参，将商品信息传递到data中</span></span><br><span class="javascript">    &#125;;</span><br><span class="javascript">  &#125;</span><br><span class="javascript">&#125;;</span><br><span class="javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;less&quot;</span> <span class="hljs-attr">scoped</span>&gt;</span><br>@import &quot;../../style/init.less&quot;;<br>@fontcolor: #bababa;<br>.info &#123;<br>  .mg(20px auto);<br>  .navBar();<br>  h3 &#123;<br>    text-align: center;<br>    color: @mainColor;<br>  &#125;<br>  .doc div &#123;<br>    text-align: center;<br>    padding: 0.625rem 0;<br>  &#125;<br>&#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<li><p><strong>这里的一个难点是加入购物车的动画，想了很多种方法，<br>最后采用一个标签隐藏，另一个标签执行动画的方式让动画效果更好，<br>通过showAnimate变量进行控制执行动画的标签v-show</strong><br><img src="https://img-blog.csdnimg.cn/20200925202414436.gif" srcset="/img/loading.gif" lazyload></p>
+<p><strong>在动画标签里使用animate.css中的zoomOutUp 效果</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">transition</span> <span class="hljs-attr">enter-active-class</span>=<span class="hljs-string">&quot;animated zoomOutUp slow&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">v-show</span>=<span class="hljs-string">&quot;showAnimate&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;icon-jiarugouwuche iconfont addIcon&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">transition</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>当点击加入购物车时触发事件</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-title">addShopCar</span>(<span class="hljs-params"></span>)</span> &#123;<br>      <span class="hljs-built_in">this</span>.showAnimate = <span class="hljs-literal">true</span>;<span class="hljs-comment">//显示元素</span><br>      <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<span class="hljs-comment">//延时的目的是等待动画完成</span><br>        <span class="hljs-built_in">this</span>.shopCar.countShopItem(&#123;<span class="hljs-comment">//缓存添加购物车数据</span><br>          ...this.$route.query,<br>          <span class="hljs-attr">shopCount</span>: <span class="hljs-built_in">this</span>.shopCount<br>        &#125;);<br>        <span class="hljs-built_in">this</span>.showAnimate = <span class="hljs-literal">false</span>;<span class="hljs-comment">//隐藏元素</span><br>      &#125;, <span class="hljs-number">1000</span>);<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>完整的counter组件</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;counter&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">li</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;showPicker&quot;</span>&gt;</span><br>      数量<br>      <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>&#123;&#123;shopCount&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">li</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;addShopCar&quot;</span>&gt;</span><br>      加入购物车<br>      <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;icon-jiarugouwuche iconfont&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">transition</span> <span class="hljs-attr">enter-active-class</span>=<span class="hljs-string">&quot;animated zoomOutUp slow&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">v-show</span>=<span class="hljs-string">&quot;showAnimate&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;icon-jiarugouwuche iconfont addIcon&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">transition</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"></span><br><span class="javascript"><span class="hljs-keyword">import</span> Config <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;../../config/config&quot;</span>;</span><br><span class="javascript"><span class="hljs-keyword">const</span> &#123; EventName &#125; = Config;</span><br><span class="javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="javascript">  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Counter&quot;</span>,</span><br><span class="javascript">  <span class="hljs-function"><span class="hljs-title">data</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">    <span class="hljs-keyword">return</span> &#123;</span><br><span class="javascript">      <span class="hljs-attr">shopCount</span>: <span class="hljs-number">1</span>,<span class="hljs-comment">//默认购买商品数量</span></span><br><span class="javascript">      <span class="hljs-attr">showAnimate</span>: <span class="hljs-literal">false</span><span class="hljs-comment">//动画标签隐藏</span></span><br><span class="javascript">    &#125;;</span><br><span class="javascript">  &#125;,</span><br><span class="javascript">  <span class="hljs-function"><span class="hljs-title">created</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">    <span class="hljs-built_in">this</span>.$events.onEvent(EventName.ChangeCount, <span class="hljs-function"><span class="hljs-params">_count</span> =&gt;</span> &#123;<span class="hljs-comment">//添加事件监听，监听商品数量变化</span></span><br><span class="javascript">      <span class="hljs-built_in">this</span>.shopCount = _count;</span><br><span class="javascript">    &#125;);</span><br><span class="javascript">    <span class="hljs-built_in">this</span>.shopCar = <span class="hljs-keyword">new</span> <span class="hljs-built_in">this</span>.$store.ShopCar();</span><br><span class="javascript">  &#125;,</span><br><span class="javascript">  <span class="hljs-function"><span class="hljs-title">destroyed</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">    <span class="hljs-built_in">this</span>.$events.offEvent(EventName.ChangeCount);</span><br><span class="javascript">  &#125;,</span><br><span class="javascript">  <span class="hljs-attr">methods</span>: &#123;</span><br><span class="javascript">    <span class="hljs-function"><span class="hljs-title">showPicker</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">      <span class="hljs-built_in">this</span>.$events.emitEvent(EventName.ShowPicker);</span><br><span class="javascript">    &#125;,</span><br><span class="javascript">    <span class="hljs-function"><span class="hljs-title">addShopCar</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">      <span class="hljs-built_in">this</span>.showAnimate = <span class="hljs-literal">true</span>;<span class="hljs-comment">//显示元素</span></span><br><span class="javascript">      <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<span class="hljs-comment">//延时的目的是等待动画完成</span></span><br><span class="javascript">        <span class="hljs-built_in">this</span>.shopCar.countShopItem(&#123;<span class="hljs-comment">//缓存添加购物车数据</span></span><br><span class="javascript">          ...this.$route.query,</span><br><span class="javascript">          <span class="hljs-attr">shopCount</span>: <span class="hljs-built_in">this</span>.shopCount</span><br><span class="javascript">        &#125;);</span><br><span class="javascript">        <span class="hljs-built_in">this</span>.showAnimate = <span class="hljs-literal">false</span>;<span class="hljs-comment">//隐藏元素</span></span><br><span class="javascript">      &#125;, <span class="hljs-number">1000</span>);</span><br><span class="javascript">    &#125;</span><br><span class="javascript">  &#125;</span><br><span class="javascript">&#125;;</span><br><span class="javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;less&quot;</span> <span class="hljs-attr">scoped</span>&gt;</span><span class="css"></span><br><span class="css"><span class="hljs-keyword">@import</span> <span class="hljs-string">&quot;../../style/init.less&quot;</span>;</span><br><span class="css"><span class="hljs-selector-class">.counter</span> &#123;</span><br><span class="css">  <span class="hljs-selector-class">.h</span>(<span class="hljs-number">120</span>);</span><br><span class="css">  <span class="hljs-selector-class">.w</span>(<span class="hljs-number">850</span>);</span><br><span class="css">  <span class="hljs-attribute">background</span>: @mainColor;</span><br><span class="css">  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">4rem</span>;</span><br><span class="css">  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;</span><br><span class="css">  <span class="hljs-selector-class">.l_h</span>(<span class="hljs-number">120</span>);</span><br><span class="css">  <span class="hljs-selector-tag">li</span> &#123;</span><br><span class="css">    <span class="hljs-attribute">width</span>: <span class="hljs-number">49%</span>;</span><br><span class="css">    <span class="hljs-attribute">display</span>: inline-block;</span><br><span class="css">    <span class="hljs-selector-class">.h</span>(<span class="hljs-number">46</span>);</span><br><span class="css">    <span class="hljs-selector-class">.l_h</span>(<span class="hljs-number">46</span>);</span><br><span class="css">    <span class="hljs-selector-class">.titleFont</span>();</span><br><span class="css">    <span class="hljs-selector-class">.f_s</span>(<span class="hljs-number">32</span>);</span><br><span class="css">    <span class="hljs-attribute">text-align</span>: center;</span><br><span class="css">  &#125;</span><br><span class="css">  <span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:nth-child</span>(<span class="hljs-number">2</span>) &#123;</span><br><span class="css">    <span class="hljs-attribute">margin-left</span>: -<span class="hljs-number">2px</span>;</span><br><span class="css">    <span class="hljs-attribute">border-left</span>: <span class="hljs-number">1px</span> dashed <span class="hljs-number">#dacda3</span>;</span><br><span class="css">    <span class="hljs-selector-class">.addIcon</span> &#123;</span><br><span class="css">      <span class="hljs-attribute">position</span>: fixed;</span><br><span class="css">      <span class="hljs-selector-class">.f_s</span>(<span class="hljs-number">75</span>);</span><br><span class="css">      <span class="hljs-attribute">z-index</span>: -<span class="hljs-number">1</span>;</span><br><span class="css">      <span class="hljs-attribute">color</span>: black;</span><br><span class="css">    &#125;</span><br><span class="css">  &#125;</span><br><span class="css">&#125;</span><br><span class="css"></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>最后在全局<a target="_blank" rel="noopener" href="https://blog.csdn.net/time_____/article/details/108514710">store</a>中添加购物车变量处理方法</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-title">countShopItem</span>(<span class="hljs-params">_data</span>)</span> &#123;<br>   <span class="hljs-keyword">if</span> (!_data._id) &#123;<span class="hljs-comment">//阻塞商品id为空现象</span><br>     <span class="hljs-keyword">return</span><br>   &#125;<br>   <span class="hljs-keyword">let</span> _shopCar = <span class="hljs-built_in">this</span>.state<span class="hljs-comment">//获取原购物车列表</span><br>   <span class="hljs-keyword">let</span> list = _shopCar.filter(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">item</span>) </span>&#123;<br>     <span class="hljs-keyword">return</span> item._id === _data._id;<span class="hljs-comment">//通过id查找购物车中传递项</span><br>   &#125;);<br>   <span class="hljs-keyword">if</span> (list.length == <span class="hljs-number">0</span>) &#123;<span class="hljs-comment">//未找到时新建购物车商品</span><br>     _data.sum = _data.shopCount * _data.shopPrice;<span class="hljs-comment">//商品总价</span><br>     _data.isSelect = <span class="hljs-literal">false</span><span class="hljs-comment">//是否选中商品，购物车界面默认值</span><br>     _shopCar.push(_data);<br>   &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ((_data.shopNum &gt; list[<span class="hljs-number">0</span>].shopCount + _data.shopCount) &amp;&amp; (list[<span class="hljs-number">0</span>].shopCount + _data.shopCount &lt;= <span class="hljs-number">9</span>) &amp;&amp; list[<span class="hljs-number">0</span>].shopCount + _data.shopCount &gt; <span class="hljs-number">0</span>) &#123;<span class="hljs-comment">//找到时更新商品</span><br>     list[<span class="hljs-number">0</span>].shopCount += _data.shopCount;<br>     list[<span class="hljs-number">0</span>].sum = list[<span class="hljs-number">0</span>].shopCount * list[<span class="hljs-number">0</span>].shopPrice;<br>   &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (list[<span class="hljs-number">0</span>].shopCount + _data.shopCount &lt;= <span class="hljs-number">0</span>) &#123;<span class="hljs-comment">//购物车允许最小值</span><br>     <span class="hljs-built_in">this</span>.$events.emitEvent(EventName.CountShop, <span class="hljs-string">&#x27;min&#x27;</span>);<br>     <span class="hljs-keyword">return</span>;<br>   &#125; <span class="hljs-keyword">else</span> &#123;<span class="hljs-comment">//购物车允许最大值</span><br>     <span class="hljs-built_in">this</span>.$events.emitEvent(EventName.CountShop, <span class="hljs-string">&#x27;max&#x27;</span>);<br>     <span class="hljs-keyword">return</span>;<br>   &#125;<br>   <span class="hljs-built_in">this</span>.state = _shopCar<br>   <span class="hljs-built_in">this</span>.$events.emitEvent(EventName.CountShop);<br> &#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>这样，一个简单的商品详情页面就完成了</strong></p>
+</li>
+</ul>
+<h3 id="下一篇文章，将介绍购物车的其他功能实现，包括删除商品，全选，添加订单接口等"><a href="#下一篇文章，将介绍购物车的其他功能实现，包括删除商品，全选，添加订单接口等" class="headerlink" title="下一篇文章，将介绍购物车的其他功能实现，包括删除商品，全选，添加订单接口等"></a><strong>下一篇文章，将介绍购物车的其他功能实现，包括删除商品，全选，添加订单接口等</strong></h3>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/10/08/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%EF%BC%8C%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%B4%AD%E7%89%A9%E5%B9%B3%E5%8F%B0%EF%BC%88%E5%8D%81%E4%B8%83%EF%BC%89%E5%89%8D%E7%AB%AF%E5%95%86%E5%9F%8E%E9%83%A8%E5%88%86/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">从零开始，搭建一个简单的购物平台（十七）前端商城部分</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/10/08/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%EF%BC%8C%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%B4%AD%E7%89%A9%E5%B9%B3%E5%8F%B0%EF%BC%88%E5%8D%81%E4%BA%94%EF%BC%89%E5%89%8D%E7%AB%AF%E5%95%86%E5%9F%8E%E9%83%A8%E5%88%86/">
+                        <span class="hidden-mobile">从零开始，搭建一个简单的购物平台（十五）前端商城部分</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
