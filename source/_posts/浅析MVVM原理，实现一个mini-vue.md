@@ -82,7 +82,7 @@ category:  [Vue,JavaScript]
 
 **下面是双向绑定的流程  
 ![](https://img-blog.csdnimg.cn/2021080611515858.png?x-oss-processimage/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RpbWVfX19fXw,size_16,color_FFFFFF,t_70)**  
-**通过上图我们可以得知：new MVVM后会进行两步操作，一是compile指令解析，将v-if,@click,`{{ }}`解析出来，获取data中的数据，并且都与watcher绑定，第一次初始化和watcher监听到数据变化时会执行updater，重新渲染页面，二是observer数据劫持，将data中的数据通过defineProperty添加读写监听，并将数据变化与watcher绑定在一起，那么此时watcher就是连接数据变化和视图更新的枢纽。**
+**通过上图我们可以得知：new MVVM后会进行两步操作，一是compile指令解析，将v-if,@click,{{ }}解析出来，获取data中的数据，并且都与watcher绑定，第一次初始化和watcher监听到数据变化时会执行updater，重新渲染页面，二是observer数据劫持，将data中的数据通过defineProperty添加读写监听，并将数据变化与watcher绑定在一起，那么此时watcher就是连接数据变化和视图更新的枢纽。**
 
 **下面我们一步一步实现上述代码**
 
