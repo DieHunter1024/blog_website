@@ -556,7 +556,7 @@ class Watcher {
     }
 ```
 
-**至此，流程图中的所有功能均已实现，让我们在vue.js中实例化observer试试效果**
+**至此，流程图中的所有功能均已实现，让我们在vue.js中实例化observer试试效果**​​​​​​​
 
 ```javascript
 class VueDemo {

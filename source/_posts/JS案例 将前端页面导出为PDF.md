@@ -111,7 +111,7 @@ category:  [JavaScript]
 
 **我们试试长截屏**  
 ![](https://img-blog.csdnimg.cn/20210428110835544.gif)  
-**最后附上完整代码，界面和样式可以直接在[仓库](https://gitee.com/DieHunter/myCode/tree/master/HTML_To_PDF_Demo)中找到**
+**最后附上完整代码**
 
 ```javascript
         const {
@@ -161,5 +161,7 @@ category:  [JavaScript]
             return canvas
         }
 ```
+
+**完整代码以及界面和样式可以直接在这里找到：**[myCode: 一些小案例 - Gitee.com](https://gitee.com/DieHunter/myCode/tree/master/HTML_To_PDF_Demo)
 
 **希望这篇文章对你有帮助，欢迎提出建议与优化，谢谢！**
