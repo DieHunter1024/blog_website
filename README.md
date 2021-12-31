@@ -1,7 +1,17 @@
+<!--
+ * @Author: Hunter
+ * @Date: 2021-12-31 15:29:21
+ * @LastEditTime: 2021-12-31 15:37:43
+ * @LastEditors: Hunter
+ * @Description: 
+ * @FilePath: \Blog\README.md
+ * 可以输入预定的版权声明、个性签名、空行等
+-->
 
 ### 基于 node 编写的导出博客的爬虫脚本+hexo部署，可以搭配Jenkins一键将CSDN博客部署到自己服务器的博客中
 ### Jenkins流水线语句参考：https://gitee.com/DieHunter/blog_website/blob/master/pipeline
-
+### 示例：http://website.diehunter1024.work/blog_website/
+### 博客：https://blog.csdn.net/time_____/article/details/121995028
 #### 脚本运行方式：
 #### npm i
 #### npm start
