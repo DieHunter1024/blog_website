@@ -1,0 +1,118 @@
+ 
+pipeline {
+   agent any
+    stages {
+      stage('pull') {//拉取代码
+         steps {
+            echo 'pull code start'
+            git branch: 'master',
+                credentialsId: '7196dxxxxxxxxxxxxxxxxxxxxxxxxxxxxdd4', 
+                url: 'https://gitee.com/DieHunter/blog_website'
+         }
+      }
+      stage('install') {//安装依赖
+         steps {
+            echo 'install start......'
+            bat "npm i"
+            echo 'install finish...'
+         }
+      }
+      stage('export') {//导出博客
+         steps {
+            echo 'export blog start...'
+            bat "npm run export_blog"
+            echo 'export blog finish...'
+         }
+      }
+      stage('build') {//构建
+         steps {
+            echo "node version"
+            bat "node -v"
+            echo 'npm version'
+            bat 'npm -v'
+            echo 'build start......'
+            bat 'npm run clean'
+            bat 'npm run build'
+            echo 'build finish......'
+         }
+      }
+      stage('deploy') {//部署
+         steps {
+            dir('d:/Soft/Nginx/project') {
+                bat "rd /s/q blog_website"
+                bat "md blog_website"
+            }
+            bat('xcopy "D:/Soft/Jenkins/jenkins/workspace/blog_website/public" "D:/Soft/Nginx/project/blog_website" /O /X /E /H /K')
+            // bat('tasklist | find /i "nginx.exe" >nul 2>nul && exit || start nginx')
+            echo 'deploy success'
+         }
+         
+      }
+     stage('delete') {//删除Jenkins工作空间缓存
+         steps {
+            cleanWs()
+            echo 'delete success'
+         }
+         
+      }
+  }
+      post {
+        always {
+            bat ""
+            echo '构建结束，正在发送邮件...'
+        }
+        success {
+            echo '恭喜您，构建成功！！！'
+            mail subject: "'${env.JOB_NAME} [${env.BUILD_NUMBER}]' 执行成功",
+            body: """                
+            <div id="content">
+                <h1>CI报告</h1>
+                <div id="sum2">
+                    <h2>Jenkins 运行结果</h2>
+                    <ul>
+                    <li>jenkins的执行结果 : <a>jenkins 执行成功</a></li>
+                    <li>jenkins的Job名称 : <a id="url_1">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></li>
+                    <li>jenkins的URL : <a href=\'${env.BUILD_URL}\'>${env.BUILD_URL}</a></li>
+                    <li>jenkins项目名称 : <a>${env.JOB_NAME}</a></li>
+                    <li>Job URL : <a href=\'${env.BUILD_URL}\'>${env.BUILD_URL}</a></li>
+                    <li>构建日志：<a href="${BUILD_URL}console">${BUILD_URL}console</a></li>
+                    </ul>
+                </div>
+                </div>""",
+            charset: 'utf-8',
+            from: 'from@email.com',
+            mimeType: 'text/html',
+            to: "to@email.com"
+         }
+        failure {
+            echo '抱歉，构建失败！！！'
+            mail subject: "'${env.JOB_NAME} [${env.BUILD_NUMBER}]' 执行失败",
+            body: """
+            <div id="content">
+            <h1>CI报告</h1>
+            <div id="sum2">
+                <h2>Jenkins 运行结果</h2>
+                <ul>
+                <li>jenkins的执行结果 : <a>jenkins 执行失败</a></li>
+                <li>jenkins的Job名称 : <a id="url_1">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></li>
+                <li>jenkins的URL : <a href='${env.BUILD_URL}'>${env.BUILD_URL}</a></li>
+                <li>jenkins项目名称 : <a>${env.JOB_NAME}</a></li>
+                <li>Job URL : <a href='${env.BUILD_URL}'>${env.BUILD_URL}</a></li>
+                <li>构建日志：<a href="${BUILD_URL}console">${BUILD_URL}console</a></li>
+                </ul>
+            </div>
+            </div>
+            """,
+            charset: 'utf-8',
+            from: 'from@email.com',
+            mimeType: 'text/html',
+            to: "to@email.com"
+        }
+        unstable {
+            echo '该任务已经被标记为不稳定任务....'
+        }
+        changed {
+            echo ''
+        }
+    }
+}

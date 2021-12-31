@@ -10,7 +10,7 @@
     "export_blog": "node server -type:csdn -id:time_____"
   },
   "hexo": {
-    "version": "5.4.0"
+    "version": "^5.4.0"
   },
   "devDependencies": {
     "axios": "^0.24.0"
