@@ -57,21 +57,21 @@ code:
       # 在链接中挑选 style 填入
       # Select a style in the link
       # See: https://highlightjs.org/static/demo/
-      style: "Github Gist"
+      style: "Atom One Dark"
 
       # 是否根据 style 改变代码背景色（如果 style 是深色背景别忘了开启此项）
       # If true, the code background will change color based on the style (If style has a dark background, don't forget to true)
-      bg_color: false
+      bg_color: true
 
     prismjs:
       # 在下方链接页面右侧的圆形按钮挑选 style 填入，也可以直接填入 css 链接
       # Select the style button on the right side of the link page, you can also set the CSS link
       # See: https://prismjs.com/
-      style: "default"
+      style: "Atom One Dark"
 
       # 设为 true 高亮将本地静态生成（并只支持部分 prismjs 插件），设为 false 高亮将在浏览器通过 js 生成
       # If true, it will be generated locally (but some prismjs plugins are not supported). If false, it will be generated via JS in the browser
-      preprocess: true
+      preprocess: false
 
 # 一些好玩的功能
 # Some fun features
@@ -111,7 +111,7 @@ fun_features:
     height_px: 3
     color: "#29d"
     # See: https://github.com/rstacruz/nprogress
-    options: { showSpinner: false, trickleSpeed: 100 }
+    options: { showSpinner: true, trickleSpeed: 100 }
 
 # 主题暗色模式，开启后菜单中会出现切换按钮，用户浏览器会存储切换选项，并且会遵循 prefers-color-scheme 自动切换
 # Theme dark mode. If enable, a switch button will appear on the menu, each of the visitor's browser will store his switch option
@@ -312,7 +312,7 @@ navbar:
     - { key: "category", link: "/categories/", icon: "iconfont icon-category-fill" }
     - { key: "tag", link: "/tags/", icon: "iconfont icon-tags-fill" }
     - { key: "about", link: "/about/", icon: "iconfont icon-user-fill" }
-    #- { key: "links", link: "/links/", icon: "iconfont icon-link-fill" }
+    - { key: "links", link: "/links/", icon: "iconfont icon-link-fill" }
 
 # 搜索功能，基于 hexo-generator-search 插件，若已安装其他搜索插件请关闭此功能，以避免生成多余的索引文件
 # Search feature, based on hexo-generator-search. If you have installed other search plugins, please disable this feature to avoid generating redundant index files
@@ -426,7 +426,7 @@ footer:
 index:
   # 首页 Banner 头图，可以是相对路径或绝对路径，以下相同
   # Path of Banner image, can be a relative path or an absolute path, the same on other pages
-  banner_img: /img/2.jpg
+  banner_img: https://api.kdcc.cn/img/rand.php
 
   # 头图高度，屏幕百分比
   # Height ratio of banner image
@@ -498,13 +498,13 @@ index:
 # Post Page
 #---------------------------
 post:
-  banner_img: /img/default.png
+  banner_img: 
   banner_img_height: 70
   banner_mask_alpha: 0.3
 
   # 文章在首页的默认封面图，当没有指定 index_img 时会使用该图片，若两者都为空则不显示任何图片
   # Path of the default post cover when `index_img` is not set. If both are empty, no image will be displayed
-  default_index_img:
+  default_index_img: 
 
   # 文章标题下方的元信息
   # Meta information below title
@@ -512,7 +512,7 @@ post:
     # 作者，优先根据 front-matter 里 author 字段，其次是 hexo 配置中 author 值
     # Author, based on `author` field in front-matter, if not set, based on `author` value in hexo config
     author:
-      enable: false
+      enable: true
 
     # 文章日期，优先根据 front-matter 里 date 字段，其次是 md 文件日期
     # Post date, based on `date` field in front-matter, if not set, based on create date of .md file
@@ -546,7 +546,7 @@ post:
     # 浏览量计数
     # Number of visits
     views:
-      enable: false
+      enable: true
       # 统计数据来源
       # Data Source
       # Options: busuanzi | leancloud
@@ -556,7 +556,7 @@ post:
   # 在文章开头显示文章更新时间，该时间默认是 md 文件更新时间，可通过 front-matter 中 `updated` 手动指定（和 date 一样格式）
   # Update date is displayed at the beginning of the post. The default date is the update date of the md file, which can be manually specified by `updated` in front-matter (same format as date)
   updated:
-    enable: false
+    enable: true
 
     # 描述文字
     # Descriptive text before date
@@ -564,7 +564,7 @@ post:
 
     # 是否使用相对时间表示，比如："3 天前"
     # If true, it will be a relative time, such as: "3 days ago"
-    relative: false
+    relative: true
 
   # 文章右侧目录
   # Table of contents (TOC)
@@ -641,11 +641,11 @@ post:
   # 评论插件
   # Comment plugin
   comments:
-    enable: false
+    enable: true
     # 指定的插件，需要同时设置对应插件的必要参数
     # The specified plugin needs to set the necessary parameters at the same time
     # Options: utterances | disqus | gitalk | valine | waline | changyan | livere | remark42 | twikoo | cusdis
-    type: disqus
+    type: valine
 
 
 #---------------------------
@@ -706,22 +706,23 @@ gitalk:
 # 基于 LeanCloud
 # Based on LeanCloud
 # See: https://valine.js.org/
+# 在LeanCloud中申请appId，appKey
 valine:
-  appId:
-  appKey:
+  appId: 
+  appKey: 
   path: window.location.pathname
-  placeholder:
+  placeholder: '有什么话想对作者说？请留言'
   avatar: 'retro'
   meta: ['nick', 'mail', 'link']
   requiredFields: []
   pageSize: 10
   lang: 'zh-CN'
-  highlight: false
-  recordIP: false
+  highlight: true
+  recordIP: true
   serverURLs: ''
   emojiCDN:
   emojiMaps:
-  enableQQ: false
+  enableQQ: true
 
 # Waline
 # 从 Valine 衍生而来，额外增加了服务端和多种功能
@@ -792,7 +793,7 @@ cusdis:
 # Archive Page
 #---------------------------
 archive:
-  banner_img: /img/default.png
+  banner_img: /img/1.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.3
   subtitle:
@@ -804,7 +805,7 @@ archive:
 #---------------------------
 category:
   enable: true
-  banner_img: /img/default.png
+  banner_img: /img/2.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.3
   subtitle:
@@ -834,7 +835,7 @@ category:
 #---------------------------
 tag:
   enable: true
-  banner_img: /img/default.png
+  banner_img: /img/3.jpg
   banner_img_height: 80
   banner_mask_alpha: 0.3
   subtitle:
@@ -852,7 +853,7 @@ tag:
 #---------------------------
 about:
   enable: true
-  banner_img: /img/default.png
+  banner_img: /img/4.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.3
   subtitle:
@@ -875,7 +876,7 @@ about:
 # Custom Page through `hexo new page`
 #---------------------------
 page:
-  banner_img: /img/default.png
+  banner_img: /img/5.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.3
 
@@ -886,7 +887,7 @@ page:
 #---------------------------
 page404:
   enable: true
-  banner_img: /img/default.png
+  banner_img: /img/6.jpg
   banner_img_height: 85
   banner_mask_alpha: 0.3
   subtitle: "Page not found"
@@ -898,7 +899,7 @@ page404:
 #---------------------------
 links:
   enable: true
-  banner_img: /img/default.png
+  banner_img: /img/7.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.3
   subtitle:
@@ -906,22 +907,40 @@ links:
   # Member item of page
   items:
     - {
-      title: "Fluid Blog",
-      intro: "主题博客",
-      link: "https://hexo.fluid-dev.com/",
-      avatar: "/img/favicon.png"
+      title: "DieHunter1024的代码仓库",
+      intro: "Gitee代码仓库",
+      link: "https://gitee.com/DieHunter",
+      avatar: "https://gitee.com/assets/favicon.ico"
     }
     - {
-      title: "Fluid Docs",
-      intro: "主题使用指南",
-      link: "https://hexo.fluid-dev.com/docs/",
-      avatar: "/img/favicon.png"
+      title: "DieHunter1024的CSDN",
+      intro: "DieHunter1024的博客_CSDN博客",
+      link: "https://blog.csdn.net/time_____",
+      avatar: "https://g.csdnimg.cn/static/logo/favicon32.ico"
     }
     - {
-      title: "Fluid Repo",
-      intro: "主题 GitHub 仓库",
-      link: "https://github.com/fluid-dev/hexo-theme-fluid",
-      avatar: "/img/favicon.png"
+      title: "DieHunter1024的掘金",
+      intro: "DieHunter1024 的个人主页 - 动态 - 掘金",
+      link: "https://juejin.cn/user/2225067265365966",
+      avatar: "https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web//static/favicons/apple-touch-icon.png"
+    }    
+    - {
+      title: "DieHunter1024的博客园",
+      intro: "DieHunter1024 - 博客园",
+      link: "https://www.cnblogs.com/HelloWorld-Yu/",
+      avatar: "https://common.cnblogs.com/favicon.svg"
+    }
+    - {
+      title: "StarryFrp",
+      intro: "星空内网穿透",
+      link: "https://starryah.com/",
+      avatar: "https://starryah.com/favicon.ico"
+    }
+    - {
+      title: "雨倩博客",
+      intro: "雨倩的博客",
+      link: "https://blog.starryah.com/",
+      avatar: "https://blog.starryah.com/wp-content/uploads/2021/11/logo-index.jpg"
     }
 
   # 当成员头像加载失败时，替换为指定图片
@@ -931,17 +950,17 @@ links:
   # 友链下方自定义区域，支持 HTML，可插入例如申请友链的文字
   # Custom content at the bottom of the links
   custom:
-    enable: false
-    content: '<hr><p>在下方留言申请加入我的友链，按如下格式提供信息：</p><ul><li>博客名：Fluid</li><li>简介：Fluid 主题官方博客</li><li>链接：https://hexo.fluid-dev.com</li><li>图片：https://hexo.fluid-dev.com/img/favicon.png</li></ul>'
+    enable: true
+    content: '<hr><p>在下方留言申请加入我的友链，按如下格式提供信息：</p><ul><li>标题：DieHunter</li><li>简介：DieHunter的博客</li><li>链接：http://website.diehunter1024.work/blog_website/</li><li>图标：https://avatar.csdnimg.cn/9/C/0/1_time______1612622096.jpg</li></ul>'
 
   # 评论插件
   # Comment plugin
   comments:
-    enable: false
+    enable: true
     # 指定的插件，需要同时设置对应插件的必要参数
     # The specified plugin needs to set the necessary parameters at the same time
     # Options: utterances | disqus | gitalk | valine | waline | changyan | livere | remark42 | twikoo | cusdis
-    type: disqus
+    type: valine
 
 
 #---------------------------
