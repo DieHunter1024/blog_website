@@ -82,7 +82,9 @@ const asyncFunction = {
         blogConfig[global.type].blogList
       );
     }
-    await asyncFunction["getBlogList"]();
+    setTimeout(async ()=>{
+      await asyncFunction["getBlogList"]();
+    },1000)
   },
   //批量获取博客详情
   getBlogInfo: async (blogList, count = 0, total) => {
@@ -150,7 +152,7 @@ function getTotalPage(total, size) {
 // 是否是最后一页
 function isInTotalPage() {
   return (
-    blogConfig[global.type].pageConfig.page++ >=
+    blogConfig[global.type].pageConfig.page++ >
     blogConfig[global.type].totalPage
   );
 }
