@@ -1,10 +1,10 @@
 <!--
  * @Author: Hunter
  * @Date: 2021-12-31 15:29:21
- * @LastEditTime: 2021-12-31 15:37:43
+ * @LastEditTime: 2022-12-14 16:27:52
  * @LastEditors: Hunter
  * @Description: 
- * @FilePath: \Blog\README.md
+ * @FilePath: \blog_website\README.md
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 
@@ -19,6 +19,8 @@
 #### -type 表示博客类型
 #### -id 表示用户名，如：在'https://blog.csdn.net/time_____'中，'time_____'是用户名
 #### 默认导出目录：source/_posts
+#### npm update_blog
+#### 只导出新增的博客
 #### 导出效果是 markdown
 
 #### hexo运行方式：
