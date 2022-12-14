@@ -4,19 +4,21 @@ const html2md = require("html-to-md");
 const singleLineLog = require("single-line-log").stdout;
 const path = require("path");
 const fs = require("fs");
-const { MessageCenter } = require("./lib/MessageCenter");
+const { messageCenter } = require("event-message-center");
+const { defer, stringToJson } = require("utils-lib-js");
 // 配置默认值
 const defaultVal = {
   type: "csdn",
   id: "time_____",
+  update: false,
 };
 // 各类博客的配置项
-let blogConfig = {
+const blogConfig = {
   csdn: {
     // 博客分页：page:第几页,size:分页大小,businessType:排序方式，blog表示博客
     pageConfig: {
       page: 1,
-      size: 20,
+      size: 10,
       businessType: "blog",
     },
     totalPage: 1, //总页数
@@ -41,7 +43,7 @@ let blogConfig = {
       getContent: ($) => $("#content_views").html(),
       getTagsCategory: ($) => {
         const target = $(".tag-link");
-        let tagsCategory = {
+        const tagsCategory = {
           tags: [],
           category: [],
         };
@@ -58,53 +60,56 @@ let blogConfig = {
   },
 };
 // 全局变量
-let global = {};
+const global = {};
 // 异步函数
 const asyncFunction = {
   // 分页获取博客列表
   getBlogList: async () => {
-    const { data } = await blogConfig[global.type].getBlogList();
-    blogConfig[global.type].totalPage = getTotalPage(
+    const { data } = await getBlogConfig().getBlogList();
+    getBlogConfig().totalPage = getTotalPage(
       data.total,
-      blogConfig[global.type].pageConfig.size
+      getBlogConfig().pageConfig.size
     );
-    blogConfig[global.type].blogList = concatList(
-      data.list,
-      blogConfig[global.type].blogList
-    );
+    getBlogConfig().blogList = concatList(data.list, getBlogConfig().blogList);
     data.list.forEach((_) => console.log(_.title));
     if (isInTotalPage()) {
-      console.log(
-        `获取列表成功,共${blogConfig[global.type].blogList.length}篇文章`
-      );
-      return MessageCenter.emit(
-        "getBlogInfo",
-        blogConfig[global.type].blogList
-      );
+      return asyncFunction["startLoadBlogItem"]();
     }
-    setTimeout(async ()=>{
+    setTimeout(async () => {
       await asyncFunction["getBlogList"]();
-    },1000)
+    }, 1000);
+  },
+  startLoadBlogItem: async () => {
+    const newData = getBlogConfig().blogList;
+    let temp = newData;
+    console.log(`获取列表成功,共${newData.length}篇文章`);
+    if (global.update) {
+      const oldData = (await readFile(global.type, "./temp/")).toString(
+        "utf-8"
+      );
+      // temp表示待导出的博客列表
+      temp = getArrayAddItems(stringToJson(oldData) ?? [], newData);
+      console.log(`本次更新${temp.length}篇文章`);
+    }
+    writeFile(global.type, JSON.stringify(newData), "./temp/");
+    return messageCenter.emit("getBlogInfo", temp);
   },
   //批量获取博客详情
-  getBlogInfo: async (blogList, count = 0, total) => {
-    !total && (total = blogList.length);
+  getBlogInfo: async (blogList, count = 0, total = blogList.length ?? 0) => {
     const blogItem = blogList[count];
     if (count++ >= total) {
       console.log("获取文章内容成功");
-      return MessageCenter.emit("loadBlog", blogList);
+      return messageCenter.emit("loadBlog", blogList);
     }
     // 进度条
     progressBar("获取文章内容中", count / total);
-    blogItem.htmlContent = await blogConfig[global.type].getBlogItem(
-      blogItem.url
-    );
+    blogItem.htmlContent = await getBlogConfig().getBlogItem(blogItem.url);
     asyncFunction["getBlogInfo"](blogList, count, total);
   },
   // 生成博客文件
   loadBlog: async (blogList) => {
-    const getTagsCategory = blogConfig[global.type].getBlogInfo.getTagsCategory;
-    const content = blogConfig[global.type].getBlogInfo.getContent;
+    const getTagsCategory = getBlogConfig().getBlogInfo.getTagsCategory;
+    const content = getBlogConfig().getBlogInfo.getContent;
     await Promise.all(
       blogList.map((_) => {
         const $ = cheerio.load(_.htmlContent);
@@ -112,7 +117,7 @@ const asyncFunction = {
         return createMdFile(_.title, content($), _.postTime, tags, category);
       })
     );
-    MessageCenter.emit("loadFinish");
+    messageCenter.emit("loadFinish");
   },
   loadFinish() {
     console.log("导出成功");
@@ -120,24 +125,25 @@ const asyncFunction = {
 };
 // 初始化script参数
 (function (argv) {
-  global.type = getValue(filterArgs(argv, "type")[0], ":") || defaultVal.type;
-  global.id = getValue(filterArgs(argv, "id")[0], ":") || defaultVal.id;
+  global.type = getValue(filterArgs(argv, "type")[0], ":") ?? defaultVal.type;
+  global.id = getValue(filterArgs(argv, "id")[0], ":") ?? defaultVal.id;
+  global.update = !!(filterArgs(argv, "-update")[0] ?? defaultVal.update);
   initAxios();
   init();
-  MessageCenter.emit("getBlogList");
+  messageCenter.emit("getBlogList");
 })(process.argv);
 function init() {
-  MessageCenter.on("getBlogList", asyncFunction["getBlogList"]);
-  MessageCenter.on("getBlogInfo", asyncFunction["getBlogInfo"]);
-  MessageCenter.on("loadBlog", asyncFunction["loadBlog"]);
-  MessageCenter.on("loadFinish", asyncFunction["loadFinish"]);
+  messageCenter.on("getBlogList", asyncFunction["getBlogList"]);
+  messageCenter.on("getBlogInfo", asyncFunction["getBlogInfo"]);
+  messageCenter.on("loadBlog", asyncFunction["loadBlog"]);
+  messageCenter.on("loadFinish", asyncFunction["loadFinish"]);
 }
 // 生成进度条
 function progressBar(label, percentage, totalBar = 50) {
   const empty = "░";
   const step = "█";
   const target = (percentage * totalBar).toFixed();
-  let bar = [];
+  const bar = [];
   for (let i = 0; i < totalBar; i++) {
     (target >= i && (bar[i] = step)) || (bar[i] = empty);
   }
@@ -151,10 +157,7 @@ function getTotalPage(total, size) {
 }
 // 是否是最后一页
 function isInTotalPage() {
-  return (
-    blogConfig[global.type].pageConfig.page++ >
-    blogConfig[global.type].totalPage
-  );
+  return getBlogConfig().pageConfig.page++ > getBlogConfig().totalPage;
 }
 // npm script参数判断
 function filterArgs(args, key) {
@@ -189,13 +192,23 @@ function createMdTemplete(title, date, tags, category) {
 }
 // 写入文件
 function writeFile(filename, data, dir) {
-  return new Promise((resolve, reject) => {
-    fs.writeFile(
-      path.join(__dirname, dir + filename),
-      data,
-      (err) => (err && reject(err)) || resolve(err)
-    );
-  });
+  const { reject, resolve, promise } = defer();
+  fs.writeFile(
+    path.join(__dirname, dir + filename),
+    data,
+    (err) => (err && reject(err)) || resolve(err)
+  );
+  return promise;
+}
+
+// 读取文件
+function readFile(filename, dir) {
+  const { reject, resolve, promise } = defer();
+  fs.readFile(
+    path.join(__dirname, dir + filename),
+    (err, data) => (err && reject(err)) || resolve(data)
+  );
+  return promise;
 }
 //响应拦截器
 function initAxios() {
@@ -212,4 +225,14 @@ function initAxios() {
       return Promise.reject(error);
     }
   );
+}
+
+// 获取数组更新项
+function getArrayAddItems(oldList = [], newList = [], key = "title") {
+  return newList.filter((it) => !!!oldList.find((i) => i[key] === it[key]));
+}
+
+// 通过博客类型获取博客数据
+function getBlogConfig() {
+  return blogConfig[global.type];
 }

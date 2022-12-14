@@ -17,10 +17,11 @@ pipeline {
             echo 'install finish...'
          }
       }
-      stage('export') {//导出博客
+      stage('export') {//更新博客
          steps {
             echo 'export blog start...'
-            bat "npm run export_blog"
+            // bat "npm run export_blog"
+            bat "npm run update_blog"
             echo 'export blog finish...'
          }
       }
